@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static com.kamontat.gui.MainPage.idList;
+import static com.kamontat.main.Main.*;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;
@@ -16,7 +16,6 @@ public class ShowPage extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 		pack();
-
 
 		assignList();
 

@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import static com.kamontat.gui.MainPage.*;
+import static com.kamontat.main.Main.*;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
