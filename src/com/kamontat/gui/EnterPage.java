@@ -11,7 +11,7 @@ import java.util.*;
 
 import static com.kamontat.gui.MainPage.*;
 
-public class EnterNumberPage extends JDialog {
+public class EnterPage extends JDialog {
 	private JPanel contentPane;
 	private JButton okBtn;
 	private JButton cancelBtn;
@@ -19,7 +19,7 @@ public class EnterNumberPage extends JDialog {
 	private JLabel totalNumberLabel;
 	private JLabel messageLabel;
 
-	public EnterNumberPage() {
+	public EnterPage() {
 		setContentPane(contentPane);
 		setModal(true);
 		pack();

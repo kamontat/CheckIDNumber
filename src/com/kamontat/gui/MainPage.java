@@ -39,7 +39,12 @@ public class MainPage extends JFrame {
 		assignIDList();
 
 		enterBtn.addActionListener(e -> {
-			EnterNumberPage page = new EnterNumberPage();
+			EnterPage page = new EnterPage();
+			page.run(Main.getCenterLocation(page.getSize()));
+		});
+
+		showBtn.addActionListener(e -> {
+			ShowPage page = new ShowPage();
 			page.run(Main.getCenterLocation(page.getSize()));
 		});
 	}
