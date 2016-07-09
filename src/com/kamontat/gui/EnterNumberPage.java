@@ -5,10 +5,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.util.*;
+
+import static com.kamontat.gui.MainPage.*;
 
 public class EnterNumberPage extends JDialog {
 	private JPanel contentPane;
@@ -16,6 +17,7 @@ public class EnterNumberPage extends JDialog {
 	private JButton cancelBtn;
 	private JTextField textField;
 	private JLabel totalNumberLabel;
+	private JLabel messageLabel;
 
 	public EnterNumberPage() {
 		setContentPane(contentPane);
@@ -48,22 +50,26 @@ public class EnterNumberPage extends JDialog {
 	}
 
 	private void onOK() {
-		// get dir
-		File dir = Paths.get("").toAbsolutePath().toFile();
-		if (dir.isDirectory()) {
-			File textFile = new File(dir.getPath() + "/output.txt");
-			try {
+		try {
+			if (isDuplicate(textField.getText(), idList)) {
+				messageLabel.setText("Error (Duplicate ID)");
+				messageLabel.setForeground(new Color(255, 0, 0));
+			} else {
 				FileWriter writer = new FileWriter(textFile, true);
-
-				textFile.createNewFile();
 				writer.write(textField.getText() + "\n");
-
 				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+
+				messageLabel.setText("Correct");
+				messageLabel.setForeground(new Color(0, 255, 0));
+
+				// rewrite new list in program whe program update
+				assignIDList();
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		System.out.println("Done");
+
+		pack();
 	}
 
 	private void onCancel() {
@@ -81,9 +87,10 @@ public class EnterNumberPage extends JDialog {
 		}
 	}
 
-	private Boolean isAllNumberIn(String input) {
+	private boolean isAllNumberIn(String input) {
 		// update label
 		totalNumberLabel.setText("Enter ID Number (" + input.length() + ")");
+
 		// check every char in input String
 		for (int i = 0; i < input.length(); i++) {
 			char aChar = input.charAt(i);
@@ -91,6 +98,13 @@ public class EnterNumberPage extends JDialog {
 			if (!Character.isDigit(aChar)) return false;
 		}
 		return input.length() == 13;
+	}
+
+	private boolean isDuplicate(String text, ArrayList<String> list) {
+		for (String aString : list) {
+			if (aString.equals(text)) return true;
+		}
+		return false;
 	}
 
 	public void run(Point point) {
