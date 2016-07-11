@@ -53,7 +53,7 @@ public class EnterPage extends JDialog {
 
 	private void onOK() {
 		try {
-			if (!isDuplicate(textField.getText(), idList)) {
+			if (!isDuplicate(textField.getText(), idList) && okBtn.isEnabled()) {
 				FileWriter writer = new FileWriter(textFile, true);
 				writer.write(textField.getText() + "\n");
 				writer.close();
