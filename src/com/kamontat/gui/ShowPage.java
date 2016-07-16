@@ -5,6 +5,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.*;
 
 import static com.kamontat.main.Main.idList;
 
@@ -16,12 +19,15 @@ public class ShowPage extends JDialog {
 	private JTextField searchingField;
 	private JLabel countLabel;
 
+	private JMenuItem[] itemList = new JMenuItem[3];
+
 	public ShowPage() {
 		setContentPane(contentPane);
 		setModal(true);
 		pack();
 
 		assignList();
+		assignItemList();
 
 		buttonOK.addActionListener(e -> onOK());
 
@@ -47,9 +53,38 @@ public class ShowPage extends JDialog {
 
 		list.setModel(model);
 
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if (e.getClickCount() == 2) {
+					JPopupMenu menu = new JPopupMenu();
+					Arrays.stream(itemList).forEach(menu::add);
+					Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
+					menu.show(ShowPage.this, selectedPoint.x, selectedPoint.y);
+				}
+			}
+		});
+
+
 		countLabel.setText(String.format("(%d)", model.size()));
 
 		assignSearching((DefaultListModel<String>) list.getModel());
+	}
+
+	private void assignItemList() {
+		itemList[0] = new JMenuItem("Add");
+		itemList[0].addActionListener(e1 -> {
+			dispose();
+			EnterPage page = new EnterPage();
+			page.run(this.getLocation());
+		});
+
+		itemList[1] = new JMenuItem("Change");
+		itemList[1].addActionListener(e1 -> System.out.println(e1.getActionCommand()));
+
+		itemList[2] = new JMenuItem("Remove");
+		itemList[2].addActionListener(e1 -> System.out.println(e1.getActionCommand()));
 	}
 
 	private void assignSearching(DefaultListModel<String> model) {
