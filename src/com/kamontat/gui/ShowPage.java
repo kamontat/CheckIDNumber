@@ -60,8 +60,8 @@ public class ShowPage extends JDialog {
 				if (e.getClickCount() == 2) {
 					JPopupMenu menu = new JPopupMenu();
 					Arrays.stream(itemList).forEach(menu::add);
-					Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
-					menu.show(ShowPage.this, selectedPoint.x, selectedPoint.y);
+					Point selectedPoint = list.indexToLocation(list.getSelectedIndex() % list.getVisibleRowCount());
+					menu.show(ShowPage.this, selectedPoint.x, (int) selectedPoint.y);
 				}
 			}
 		});
