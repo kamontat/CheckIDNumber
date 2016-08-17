@@ -70,7 +70,7 @@
                   <dragEnabled value="false"/>
                   <inheritsPopupMenu value="true"/>
                   <selectionMode value="0"/>
-                  <visibleRowCount value="10"/>
+                  <visibleRowCount value="7"/>
                 </properties>
               </component>
             </children>

@@ -55,13 +55,15 @@ public class ShowPage extends JDialog {
 
 		list.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				if (e.getClickCount() == 2) {
+			public void mousePressed(MouseEvent e) {
+				super.mousePressed(e);
+				// right button be click
+				if (e.getButton() == 3) {
 					JPopupMenu menu = new JPopupMenu();
 					Arrays.stream(itemList).forEach(menu::add);
-					Point selectedPoint = list.indexToLocation(list.getSelectedIndex() % list.getVisibleRowCount());
-					menu.show(ShowPage.this, selectedPoint.x, (int) selectedPoint.y);
+					Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
+
+					menu.show(list, (int) selectedPoint.getX(), (int) selectedPoint.getY());
 				}
 			}
 		});
