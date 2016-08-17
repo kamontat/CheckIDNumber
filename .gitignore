@@ -8,4 +8,6 @@
 out
 gen
 *.txt
+
 src/com/kamontat/assignID.java
+src/META-INF
