@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.main.Main;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -8,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.util.*;
 
 import static com.kamontat.gui.MainPage.exitMenu;
-import static com.kamontat.gui.MainPage.exportMenu;
 import static com.kamontat.main.Main.idList;
 import static com.kamontat.main.Main.updateTextFile;
 
@@ -24,6 +25,8 @@ public class EnterPage extends JDialog {
 		setContentPane(contentPane);
 		setModal(true);
 		createMenuBar();
+
+		pack();
 
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
@@ -147,14 +150,24 @@ public class EnterPage extends JDialog {
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
-		JMenu units = new JMenu("Action");
+		JMenu actions = new JMenu("Action");
 
-		units.add(exportMenu());
-		units.addSeparator();
-		units.add(exitMenu());
+		actions.add(showMenu());
+		actions.addSeparator();
+		actions.add(exitMenu());
 
-		menu.add(units);
+		menu.add(actions);
 		setJMenuBar(menu);
+	}
+
+	private JMenuItem showMenu() {
+		JMenuItem add = new JMenuItem("Show all ID");
+		add.addActionListener(e -> {
+			dispose();
+			ShowPage page = new ShowPage();
+			page.run(Main.getCenterLocation(page.getSize()));
+		});
+		return add;
 	}
 
 	public void run(Point point) {

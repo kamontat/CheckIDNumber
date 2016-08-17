@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.main.Main;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -11,9 +13,7 @@ import java.util.*;
 
 import static com.kamontat.gui.MainPage.exitMenu;
 import static com.kamontat.gui.MainPage.exportMenu;
-import static com.kamontat.main.Main.idList;
-import static com.kamontat.main.Main.searchingIDList;
-import static com.kamontat.main.Main.updateTextFile;
+import static com.kamontat.main.Main.*;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;
@@ -32,6 +32,8 @@ public class ShowPage extends JDialog {
 		assignList();
 		createMenuBar();
 
+		pack();
+
 		buttonOK.addActionListener(e -> onOK());
 
 		buttonCancel.addActionListener(e -> onCancel());
@@ -41,12 +43,10 @@ public class ShowPage extends JDialog {
 	}
 
 	private void onOK() {
-		// add your code here
 		dispose();
 	}
 
 	private void onCancel() {
-		// add your code here if necessary
 		dispose();
 	}
 
@@ -65,18 +65,20 @@ public class ShowPage extends JDialog {
 				if (e.getButton() == 3) {
 					JPopupMenu menu = new JPopupMenu();
 					Arrays.stream(itemList).forEach(menu::add);
-					Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
+					if (list.getSelectedIndex() != -1) {
+						Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
 
-					menu.show(list, (int) selectedPoint.getX(), (int) selectedPoint.getY());
+						menu.show(list, (int) selectedPoint.getX(), (int) selectedPoint.getY());
+					}
 				}
 			}
 		});
 
 		assignPopupList((DefaultListModel<String>) list.getModel());
 
-		countLabel.setText(String.format("(%03d)", model.size()));
-
 		assignSearching((DefaultListModel<String>) list.getModel());
+
+		countLabel.setText(String.format("(%03d)", model.size()));
 	}
 
 	private void assignPopupList(DefaultListModel<String> model) {
@@ -140,14 +142,41 @@ public class ShowPage extends JDialog {
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
-		JMenu units = new JMenu("Action");
+		JMenu actions = new JMenu("Action");
 
-		units.add(exportMenu());
-		units.addSeparator();
-		units.add(exitMenu());
+		actions.add(addMenu());
+		actions.add(clearMenu());
+		actions.addSeparator();
+		actions.add(exportMenu());
+		actions.addSeparator();
+		actions.add(exitMenu());
 
-		menu.add(units);
+		menu.add(actions);
 		setJMenuBar(menu);
+	}
+
+	private JMenuItem addMenu() {
+		JMenuItem add = new JMenuItem("Add ID");
+		add.addActionListener(e -> {
+			dispose();
+			EnterPage page = new EnterPage();
+			page.run(Main.getCenterLocation(page.getSize()));
+		});
+		return add;
+	}
+
+	private JMenuItem clearMenu() {
+		JMenuItem clear = new JMenuItem("Clear History");
+		clear.addActionListener(e -> {
+			idList.removeAll(idList);
+
+			DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
+			model.removeAllElements();
+			updateTextFile();
+
+			countLabel.setText(String.format("(%03d)", model.size()));
+		}); /* clear action */
+		return clear;
 	}
 
 	public void run(Point point) {

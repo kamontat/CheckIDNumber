@@ -25,6 +25,8 @@ public class MainPage extends JFrame {
 
 		createMenuBar();
 
+		pack();
+
 		enterBtn.addActionListener(e -> {
 			EnterPage page = new EnterPage();
 			page.run(Main.getCenterLocation(page.getSize()));
@@ -44,13 +46,13 @@ public class MainPage extends JFrame {
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
-		JMenu units = new JMenu("Action");
+		JMenu actions = new JMenu("Action");
 
-		units.add(exportMenu());
-		units.addSeparator();
-		units.add(exitMenu());
+		actions.add(exportMenu());
+		actions.addSeparator();
+		actions.add(exitMenu());
 
-		menu.add(units);
+		menu.add(actions);
 		setJMenuBar(menu);
 	}
 
