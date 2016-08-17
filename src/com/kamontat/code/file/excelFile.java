@@ -23,17 +23,13 @@ public class ExcelFile {
 	public static void createExcelFile() {
 		//Blank workbook
 		XSSFWorkbook workbook = new XSSFWorkbook();
-
 		//Create a blank sheet
 		XSSFSheet sheet = workbook.createSheet("ID Data");
 		int rowNum = 0;
-
 		for (String id : Main.idList) {
 			sheet.createRow(rowNum++).createCell(0).setCellValue(id);
 		}
-
 		try {
-
 			int i = 1;
 			while (!excelFile.createNewFile()) {
 				excelFile = new File(path + name + "(" + (i++) + ")" + ".xls");
@@ -45,7 +41,7 @@ public class ExcelFile {
 
 			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + ".xls\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Cannot export.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
