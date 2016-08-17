@@ -4,10 +4,12 @@ import com.kamontat.main.Main;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
 import static com.kamontat.main.Main.dir;
+import static com.kamontat.main.Main.idList;
 
 /**
  * @author kamontat
@@ -25,7 +27,6 @@ public class excelFile {
 		//Create a blank sheet
 		XSSFSheet sheet = workbook.createSheet("ID Data");
 		int rowNum = 0;
-		System.out.println(Main.idList.size());
 
 		for (String id : Main.idList) {
 			sheet.createRow(rowNum++).createCell(0).setCellValue(id);
@@ -33,17 +34,16 @@ public class excelFile {
 
 		try {
 
-			int i = 0;
+			int i = 1;
 			while (!excelFile.createNewFile()) {
-				name = name + "(" + (i++) + ")";
-				excelFile = new File(path + name + ".xls");
+				excelFile = new File(path + name + "(" + (i++) + ")" + ".xls");
 			}
 
 			FileOutputStream out = new FileOutputStream(excelFile);
 			workbook.write(out);
 			out.close();
 
-			System.out.println("file written successfully on disk.");
+			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + ".xls\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -61,7 +61,7 @@ public class Main {
 
 		textFile = new File(dir.getPath() + "/folderList");
 		textFile.mkdir();
-		textFile = new File(dir.getPath() + "/folderList/output.txt");
+		textFile = new File(dir.getPath() + "/folderList/textfile.txt");
 
 		try {
 			textFile.createNewFile();
