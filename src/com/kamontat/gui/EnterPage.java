@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
+import static com.kamontat.gui.MainPage.exitMenu;
+import static com.kamontat.gui.MainPage.exportMenu;
 import static com.kamontat.main.Main.idList;
 import static com.kamontat.main.Main.updateTextFile;
 
@@ -21,7 +23,7 @@ public class EnterPage extends JDialog {
 	public EnterPage() {
 		setContentPane(contentPane);
 		setModal(true);
-		pack();
+		createMenuBar();
 
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
@@ -138,6 +140,21 @@ public class EnterPage extends JDialog {
 	private void setMessage(String message, Color color) {
 		messageLabel.setText(message);
 		messageLabel.setForeground(color);
+	}
+
+	/**
+	 * create new menu bar with unit item inside it.
+	 */
+	private void createMenuBar() {
+		JMenuBar menu = new JMenuBar();
+		JMenu units = new JMenu("Action");
+
+		units.add(exportMenu());
+		units.addSeparator();
+		units.add(exitMenu());
+
+		menu.add(units);
+		setJMenuBar(menu);
 	}
 
 	public void run(Point point) {

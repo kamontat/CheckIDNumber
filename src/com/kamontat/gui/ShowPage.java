@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
+import static com.kamontat.gui.MainPage.exitMenu;
+import static com.kamontat.gui.MainPage.exportMenu;
 import static com.kamontat.main.Main.idList;
 import static com.kamontat.main.Main.searchingIDList;
 import static com.kamontat.main.Main.updateTextFile;
@@ -26,9 +28,9 @@ public class ShowPage extends JDialog {
 	public ShowPage() {
 		setContentPane(contentPane);
 		setModal(true);
-		pack();
 
 		assignList();
+		createMenuBar();
 
 		buttonOK.addActionListener(e -> onOK());
 
@@ -131,6 +133,21 @@ public class ShowPage extends JDialog {
 				countLabel.setText(String.format("(%03d)", model.size()));
 			}
 		});
+	}
+
+	/**
+	 * create new menu bar with unit item inside it.
+	 */
+	private void createMenuBar() {
+		JMenuBar menu = new JMenuBar();
+		JMenu units = new JMenu("Action");
+
+		units.add(exportMenu());
+		units.addSeparator();
+		units.add(exitMenu());
+
+		menu.add(units);
+		setJMenuBar(menu);
 	}
 
 	public void run(Point point) {

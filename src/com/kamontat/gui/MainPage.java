@@ -20,7 +20,6 @@ public class MainPage extends JFrame {
 
 	public MainPage() {
 		setContentPane(contentPane);
-		pack();
 
 		assignIDList();
 
@@ -40,7 +39,6 @@ public class MainPage extends JFrame {
 		contentPane.registerKeyboardAction(e -> System.exit(0), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 	}
 
-
 	/**
 	 * create new menu bar with unit item inside it.
 	 */
@@ -48,19 +46,24 @@ public class MainPage extends JFrame {
 		JMenuBar menu = new JMenuBar();
 		JMenu units = new JMenu("Action");
 
-		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
-		exportExcel.addActionListener(e -> createExcelFile()); /* export action */
-
-		JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(e -> System.exit(0)); /* exit action */
-
-		units.add(exportExcel);
+		units.add(exportMenu());
 		units.addSeparator();
-		units.add(exit);
-
+		units.add(exitMenu());
 
 		menu.add(units);
 		setJMenuBar(menu);
+	}
+
+	public static JMenuItem exitMenu() {
+		JMenuItem exit = new JMenuItem("Exit");
+		exit.addActionListener(e -> System.exit(0)); /* exit action */
+		return exit;
+	}
+
+	public static JMenuItem exportMenu() {
+		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
+		exportExcel.addActionListener(e -> createExcelFile()); /* export action */
+		return exportExcel;
 	}
 
 	public void run(Point point) {
