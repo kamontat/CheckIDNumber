@@ -92,6 +92,7 @@ public class EnterPage extends JDialog {
 			okBtn.setEnabled(false);
 			setMessage("Error (Have Alphabet)", new Color(255, 0, 0));
 		}
+
 		pack();
 	}
 

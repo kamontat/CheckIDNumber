@@ -56,6 +56,15 @@ public class Main {
 		}
 	}
 
+	public static int searchingIDList(String id) {
+		for (int i = 0; i < idList.size(); i++) {
+			if (idList.get(i).equals(id)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	public static File createTextFile() {
 		File textFile = null;
 		// if it isn't dir, create new one
