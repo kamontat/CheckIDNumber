@@ -50,7 +50,8 @@
             </constraints>
             <properties>
               <font name="Big Caslon" size="15"/>
-              <text value="Enter ID Number"/>
+              <text value="Enter"/>
+              <toolTipText value="Enter new ID number"/>
             </properties>
           </component>
           <component id="ede44" class="javax.swing.JButton" binding="showBtn">
@@ -59,7 +60,8 @@
             </constraints>
             <properties>
               <font name="Big Caslon" size="15"/>
-              <text value="Show all list"/>
+              <text value="Show"/>
+              <toolTipText value="Show all list in program"/>
             </properties>
           </component>
         </children>

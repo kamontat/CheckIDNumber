@@ -115,6 +115,10 @@ public class EnterPage extends JDialog {
 		messageLabel.setForeground(color);
 	}
 
+	public void setTextField(String text) {
+		textField.setText(text);
+	}
+
 	public void run(Point point) {
 		setMinimumSize(new Dimension(0, 0));
 		setLocation(point);

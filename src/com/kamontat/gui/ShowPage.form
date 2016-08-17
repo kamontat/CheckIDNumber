@@ -70,6 +70,7 @@
                   <dragEnabled value="false"/>
                   <inheritsPopupMenu value="true"/>
                   <selectionMode value="0"/>
+                  <toolTipText value="Right Click for more option"/>
                   <visibleRowCount value="7"/>
                 </properties>
               </component>
@@ -99,7 +100,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Enter only number"/>
+        </properties>
       </component>
     </children>
   </grid>

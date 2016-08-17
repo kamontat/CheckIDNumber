@@ -20,7 +20,7 @@ public class ShowPage extends JDialog {
 	private JTextField searchingField;
 	private JLabel countLabel;
 
-	private JMenuItem[] itemList = new JMenuItem[3];
+	private JMenuItem[] itemList = new JMenuItem[2];
 
 	public ShowPage() {
 		setContentPane(contentPane);
@@ -84,13 +84,8 @@ public class ShowPage extends JDialog {
 			page.run(this.getLocation());
 		});
 
-		itemList[1] = new JMenuItem("Change");
+		itemList[1] = new JMenuItem("Remove");
 		itemList[1].addActionListener(e1 -> {
-
-		});
-
-		itemList[2] = new JMenuItem("Remove");
-		itemList[2].addActionListener(e1 -> {
 			int index = list.getSelectedIndex();
 			idList.remove(index);
 			model.remove(index);
