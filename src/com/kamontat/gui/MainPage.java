@@ -4,6 +4,7 @@ import com.kamontat.main.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 import static com.kamontat.main.Main.assignIDList;
 
@@ -31,6 +32,9 @@ public class MainPage extends JFrame {
 			ShowPage page = new ShowPage();
 			page.run(Main.getCenterLocation(page.getSize()));
 		});
+
+		// call onCancel() on ESCAPE
+		contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 	}
 
 	public void run(Point point) {

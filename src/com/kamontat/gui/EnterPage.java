@@ -93,7 +93,7 @@ public class EnterPage extends JDialog {
 
 	private boolean isAllNumberIn(String input) {
 		// update label
-		totalNumberLabel.setText("Enter ID Number (" + input.length() + ")");
+		totalNumberLabel.setText(String.format("(%02d)", input.length()));
 		// check every char in input String
 		for (int i = 0; i < input.length(); i++) {
 			char aChar = input.charAt(i);
@@ -120,7 +120,7 @@ public class EnterPage extends JDialog {
 	}
 
 	public void run(Point point) {
-		setMinimumSize(new Dimension(0, 0));
+		pack();
 		setLocation(point);
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

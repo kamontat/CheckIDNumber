@@ -125,22 +125,15 @@ public class ShowPage extends JDialog {
 						}
 					}
 				}
-				countLabel.setText(String.format("(%d)", model.size()));
+				countLabel.setText(String.format("(%03d)", model.size()));
 			}
 		});
 	}
 
 	public void run(Point point) {
-		setMinimumSize(new Dimension(0, 0));
+		pack();
 		setLocation(point);
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-	}
-
-	public static void main(String[] args) {
-		ShowPage dialog = new ShowPage();
-		dialog.pack();
-		dialog.setVisible(true);
-		System.exit(0);
 	}
 }
