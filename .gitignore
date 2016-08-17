@@ -1,13 +1,14 @@
 # Created by .ignore support plugin (hsz.mobi)
-### Example user template template
-### Example user template
 
 # IntelliJ project files
 .idea
-*.iml
 out
+lib
 gen
 *.txt
+*.xls
+*.xlsx
+*.iml
 
 src/com/kamontat/assignID.java
 src/META-INF

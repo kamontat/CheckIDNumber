@@ -19,7 +19,7 @@ public class Main {
 	/**
 	 * get current dir
 	 */
-	private static File dir = Paths.get("").toAbsolutePath().toFile();
+	public static File dir = Paths.get("").toAbsolutePath().toFile();
 
 	/**
 	 * get text file
@@ -30,15 +30,6 @@ public class Main {
 	 * list all id in text file, update by method assignIDList
 	 */
 	public static ArrayList<String> idList = new ArrayList<>();
-
-	public static void main(String[] args) {
-		MainPage page = new MainPage();
-		try {
-			page.run(getCenterLocation(page.getSize()));
-		} catch (Exception e) {
-			page.run(new Point(0, 0));
-		}
-	}
 
 	public static Point getCenterLocation(Dimension pageSize) {
 		return new Point((int) ((display.getWidth() / 2) - (pageSize.getWidth() / 2)), (int) ((display.getHeight() / 2) - (pageSize.getHeight() / 2)));
@@ -67,14 +58,10 @@ public class Main {
 
 	public static File createTextFile() {
 		File textFile = null;
-		// if it isn't dir, create new one
-		if (!dir.isDirectory()) {
-			textFile = new File(dir.getPath() + "/folderList");
-			textFile.mkdir();
-			textFile = new File(dir.getPath() + "/folderList/output.txt");
-		} else {
-			textFile = new File(dir.getPath() + "/output.txt");
-		}
+
+		textFile = new File(dir.getPath() + "/folderList");
+		textFile.mkdir();
+		textFile = new File(dir.getPath() + "/folderList/output.txt");
 
 		try {
 			textFile.createNewFile();
@@ -93,6 +80,15 @@ public class Main {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		MainPage page = new MainPage();
+		try {
+			page.run(getCenterLocation(page.getSize()));
+		} catch (Exception e) {
+			page.run(new Point(0, 0));
 		}
 	}
 }
