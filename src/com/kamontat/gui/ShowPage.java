@@ -28,7 +28,6 @@ public class ShowPage extends JDialog {
 		pack();
 
 		assignList();
-		assignItemList();
 
 		buttonOK.addActionListener(e -> onOK());
 
@@ -49,6 +48,7 @@ public class ShowPage extends JDialog {
 	}
 
 	private void assignList() {
+
 		DefaultListModel<String> model = new DefaultListModel<>();
 		idList.forEach(model::addElement);
 
@@ -69,13 +69,14 @@ public class ShowPage extends JDialog {
 			}
 		});
 
+		assignPopupList((DefaultListModel<String>) list.getModel());
 
 		countLabel.setText(String.format("(%d)", model.size()));
 
 		assignSearching((DefaultListModel<String>) list.getModel());
 	}
 
-	private void assignItemList() {
+	private void assignPopupList(DefaultListModel<String> model) {
 		itemList[0] = new JMenuItem("Add");
 		itemList[0].addActionListener(e1 -> {
 			dispose();
@@ -84,14 +85,18 @@ public class ShowPage extends JDialog {
 		});
 
 		itemList[1] = new JMenuItem("Change");
-		itemList[1].addActionListener(e1 -> System.out.println(e1.getActionCommand()));
+		itemList[1].addActionListener(e1 -> {
+
+		});
 
 		itemList[2] = new JMenuItem("Remove");
 		itemList[2].addActionListener(e1 -> {
 			int index = list.getSelectedIndex();
 			idList.remove(index);
+			model.remove(index);
 			updateTextFile();
-			list.updateUI();
+
+			countLabel.setText(String.format("(%d)", model.size()));
 		});
 	}
 
