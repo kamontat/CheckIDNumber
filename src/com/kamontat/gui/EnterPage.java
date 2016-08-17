@@ -57,6 +57,7 @@ public class EnterPage extends JDialog {
 			idList.add(textField.getText());
 			updateTextFile();
 			setMessage("Correct ID (Saved)", new Color(0, 122, 255));
+			textField.selectAll();
 		}
 		pack();
 	}
