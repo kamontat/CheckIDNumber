@@ -71,7 +71,7 @@ public class ShowPage extends JDialog {
 
 		assignPopupList((DefaultListModel<String>) list.getModel());
 
-		countLabel.setText(String.format("(%d)", model.size()));
+		countLabel.setText(String.format("(%03d)", model.size()));
 
 		assignSearching((DefaultListModel<String>) list.getModel());
 	}
@@ -86,12 +86,16 @@ public class ShowPage extends JDialog {
 
 		itemList[1] = new JMenuItem("Remove");
 		itemList[1].addActionListener(e1 -> {
+
 			int index = list.getSelectedIndex();
+
 			idList.remove(index);
 			model.remove(index);
 			updateTextFile();
 
-			countLabel.setText(String.format("(%d)", model.size()));
+			System.out.println(idList);
+
+			countLabel.setText(String.format("(%03d)", model.size()));
 		});
 	}
 
