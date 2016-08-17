@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 
 import static com.kamontat.main.Main.idList;
+import static com.kamontat.main.Main.updateTextFile;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;
@@ -86,7 +87,12 @@ public class ShowPage extends JDialog {
 		itemList[1].addActionListener(e1 -> System.out.println(e1.getActionCommand()));
 
 		itemList[2] = new JMenuItem("Remove");
-		itemList[2].addActionListener(e1 -> System.out.println(e1.getActionCommand()));
+		itemList[2].addActionListener(e1 -> {
+			int index = list.getSelectedIndex();
+			idList.remove(index);
+			updateTextFile();
+			list.updateUI();
+		});
 	}
 
 	private void assignSearching(DefaultListModel<String> model) {

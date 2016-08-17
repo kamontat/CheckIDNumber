@@ -5,11 +5,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
-import static com.kamontat.main.Main.*;
+import static com.kamontat.main.Main.idList;
+import static com.kamontat.main.Main.updateTextFile;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
@@ -52,17 +51,12 @@ public class EnterPage extends JDialog {
 	}
 
 	private void onOK() {
-		try {
-			if (!isDuplicate(textField.getText(), idList) && okBtn.isEnabled()) {
-				FileWriter writer = new FileWriter(textFile, true);
-				writer.write(textField.getText() + "\n");
-				writer.close();
-				setMessage("Correct ID (Saved)", new Color(0, 255, 0));
-				// rewrite new list in program whe program update
-				assignIDList();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		warn();
+
+		if (!isDuplicate(textField.getText(), idList) && okBtn.isEnabled()) {
+			idList.add(textField.getText());
+			updateTextFile();
+			setMessage("Correct ID (Saved)", new Color(0, 255, 0));
 		}
 		pack();
 	}
@@ -94,6 +88,7 @@ public class EnterPage extends JDialog {
 			okBtn.setEnabled(false);
 			setMessage("Error (Have Alphabet)", new Color(255, 0, 0));
 		}
+		pack();
 	}
 
 	private boolean isAllNumberIn(String input) {

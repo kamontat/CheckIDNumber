@@ -5,6 +5,7 @@ import com.kamontat.gui.MainPage;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
@@ -23,7 +24,7 @@ public class Main {
 	/**
 	 * get text file
 	 */
-	public static File textFile = assignTextFile();
+	public static File textFile = createTextFile();
 
 	/**
 	 * list all id in text file, update by method assignIDList
@@ -55,7 +56,7 @@ public class Main {
 		}
 	}
 
-	public static File assignTextFile() {
+	public static File createTextFile() {
 		File textFile = null;
 		// if it isn't dir, create new one
 		if (!dir.isDirectory()) {
@@ -71,7 +72,18 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return textFile;
+	}
+
+	public static void updateTextFile() {
+		try {
+			FileWriter writer = new FileWriter(textFile);
+			for (String id : idList) {
+				writer.write(id + "\n");
+			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
