@@ -1,4 +1,4 @@
-package com.kamontat.code;
+package com.kamontat.code.file;
 
 import com.kamontat.main.Main;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -8,14 +8,14 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import static com.kamontat.main.Main.dir;
+import static com.kamontat.code.window.Display.dir;
 import static com.kamontat.main.Main.idList;
 
 /**
  * @author kamontat
  * @since 17/8/59 - 21:49
  */
-public class excelFile {
+public class ExcelFile {
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
 	private static File excelFile = new File(path + name + ".xls");

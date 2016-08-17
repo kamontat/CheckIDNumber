@@ -3,37 +3,17 @@ package com.kamontat.main;
 import com.kamontat.gui.MainPage;
 
 import java.awt.*;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.*;
 
+import static com.kamontat.code.file.TextFile.textFile;
+import static com.kamontat.code.window.Display.getCenterLocation;
+
 public class Main {
-	/**
-	 * this variable is display size, <br>using by said <code>"display.getWidth"</code> and <code>"display.getHeight"</code>
-	 */
-	private static DisplayMode display = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
-
-	/**
-	 * get current dir
-	 */
-	public static File dir = Paths.get("").toAbsolutePath().toFile();
-
-	/**
-	 * get text file
-	 */
-	public static File textFile = createTextFile();
-
 	/**
 	 * list all id in text file, update by method assignIDList
 	 */
 	public static ArrayList<String> idList = new ArrayList<>();
-
-	public static Point getCenterLocation(Dimension pageSize) {
-		return new Point((int) ((display.getWidth() / 2) - (pageSize.getWidth() / 2)), (int) ((display.getHeight() / 2) - (pageSize.getHeight() / 2)));
-	}
 
 	public static void assignIDList() {
 		idList.removeAll(idList);
@@ -54,33 +34,6 @@ public class Main {
 			}
 		}
 		return -1;
-	}
-
-	public static File createTextFile() {
-		File textFile = null;
-
-		textFile = new File(dir.getPath() + "/folderList");
-		textFile.mkdir();
-		textFile = new File(dir.getPath() + "/folderList/textfile.txt");
-
-		try {
-			textFile.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return textFile;
-	}
-
-	public static void updateTextFile() {
-		try {
-			FileWriter writer = new FileWriter(textFile);
-			for (String id : idList) {
-				writer.write(id + "\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static void main(String[] args) {

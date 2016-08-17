@@ -1,7 +1,5 @@
 package com.kamontat.gui;
 
-import com.kamontat.main.Main;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -11,9 +9,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
+import static com.kamontat.code.file.TextFile.updateTextFile;
+import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.exitMenu;
 import static com.kamontat.gui.MainPage.exportMenu;
-import static com.kamontat.main.Main.*;
+import static com.kamontat.main.Main.idList;
+import static com.kamontat.main.Main.searchingIDList;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;
@@ -160,7 +161,7 @@ public class ShowPage extends JDialog {
 		add.addActionListener(e -> {
 			dispose();
 			EnterPage page = new EnterPage();
-			page.run(Main.getCenterLocation(page.getSize()));
+			page.run(getCenterLocation(page.getSize()));
 		});
 		return add;
 	}

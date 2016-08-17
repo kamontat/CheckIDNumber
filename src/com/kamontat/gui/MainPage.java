@@ -1,12 +1,11 @@
 package com.kamontat.gui;
 
-import com.kamontat.main.Main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.excelFile.createExcelFile;
+import static com.kamontat.code.file.ExcelFile.createExcelFile;
+import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.main.Main.assignIDList;
 
 /**
@@ -29,12 +28,12 @@ public class MainPage extends JFrame {
 
 		enterBtn.addActionListener(e -> {
 			EnterPage page = new EnterPage();
-			page.run(Main.getCenterLocation(page.getSize()));
+			page.run(getCenterLocation(page.getSize()));
 		});
 
 		showBtn.addActionListener(e -> {
 			ShowPage page = new ShowPage();
-			page.run(Main.getCenterLocation(page.getSize()));
+			page.run(getCenterLocation(page.getSize()));
 		});
 
 		// call onCancel() on ESCAPE
