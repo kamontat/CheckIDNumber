@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.font.FontBook;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -23,6 +25,7 @@ public class ShowPage extends JDialog {
 	private JList<String> list;
 	private JTextField searchingField;
 	private JLabel countLabel;
+	private JLabel label1;
 
 	private JMenuItem[] itemList = new JMenuItem[2];
 
@@ -32,6 +35,7 @@ public class ShowPage extends JDialog {
 
 		assignList();
 		createMenuBar();
+		addFont();
 
 		pack();
 
@@ -136,6 +140,19 @@ public class ShowPage extends JDialog {
 				countLabel.setText(String.format("(%03d)", model.size()));
 			}
 		});
+	}
+
+	private void addFont() {
+		label1.setFont(FontBook.getFontLabel());
+
+		countLabel.setFont(FontBook.getDigitalFont());
+
+		searchingField.setFont(FontBook.getFontTextField());
+
+		list.setFont(FontBook.getFontList());
+
+		buttonOK.setFont(FontBook.getFontButton());
+		buttonCancel.setFont(FontBook.getFontButton());
 	}
 
 	/**

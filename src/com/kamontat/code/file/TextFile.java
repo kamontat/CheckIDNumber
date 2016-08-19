@@ -1,5 +1,7 @@
 package com.kamontat.code.file;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -42,6 +44,15 @@ public class TextFile {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void openFolder() {
+		try {
+			Desktop desktop = Desktop.getDesktop();
+			desktop.open(new File(dir.getPath() + "/folderList"));
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Can't automatic open, please open by yourself At " + textFile.getPath(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

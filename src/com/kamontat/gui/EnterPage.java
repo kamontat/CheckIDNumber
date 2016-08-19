@@ -1,5 +1,7 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.font.FontBook;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -19,11 +21,13 @@ public class EnterPage extends JDialog {
 	private JTextField textField;
 	private JLabel totalNumberLabel;
 	private JLabel messageLabel;
+	private JLabel label1;
 
 	public EnterPage() {
 		setContentPane(contentPane);
 		setModal(true);
 		createMenuBar();
+		addFont();
 
 		pack();
 
@@ -119,29 +123,21 @@ public class EnterPage extends JDialog {
 		return false;
 	}
 
-	private boolean checkIDCorrection(String id) {
-		int total = 0;
-		for (int i = 1; i <= 12; i++) {
-			int digit = Integer.parseInt(id.substring(i - 1, i));
-			total += (14 - i) * digit;
-		}
-		total = (total % 11);
-		int lastDigit = Integer.parseInt(id.substring(id.length() - 1, id.length()));
-		if (total <= 1) {
-			if (lastDigit == 1 - total) {
-				return true;
-			}
-		} else if (total > 1) {
-			if (lastDigit == 11 - total) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	private void setMessage(String message, Color color) {
 		messageLabel.setText(message);
 		messageLabel.setForeground(color);
+	}
+
+	private void addFont() {
+		label1.setFont(FontBook.getFontLabel());
+		messageLabel.setFont(FontBook.getFontLabel());
+
+		totalNumberLabel.setFont(FontBook.getDigitalFont());
+
+		textField.setFont(FontBook.getFontTextField());
+
+		okBtn.setFont(FontBook.getFontButton());
+		cancelBtn.setFont(FontBook.getFontButton());
 	}
 
 	/**
@@ -167,6 +163,26 @@ public class EnterPage extends JDialog {
 			page.run(getCenterLocation(page.getSize()));
 		});
 		return add;
+	}
+
+	public boolean checkIDCorrection(String id) {
+		int total = 0;
+		for (int i = 1; i <= 12; i++) {
+			int digit = Integer.parseInt(id.substring(i - 1, i));
+			total += (14 - i) * digit;
+		}
+		total = (total % 11);
+		int lastDigit = Integer.parseInt(id.substring(id.length() - 1, id.length()));
+		if (total <= 1) {
+			if (lastDigit == 1 - total) {
+				return true;
+			}
+		} else if (total > 1) {
+			if (lastDigit == 11 - total) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void run(Point point) {
