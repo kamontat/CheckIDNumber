@@ -1,9 +1,10 @@
 package com.kamontat.code.font;
 
-import java.awt.*;
-import java.io.File;
+import com.kamontat.main.Main;
 
-import static com.kamontat.code.window.Display.dir;
+import javax.swing.*;
+import java.awt.*;
+import java.io.InputStream;
 
 /**
  * @author kamontat
@@ -12,8 +13,11 @@ import static com.kamontat.code.window.Display.dir;
 public class FontBook {
 	public static Font getFontMain() {
 		try {
-			return Font.createFont(Font.TRUETYPE_FONT, new File(dir.getPath() + "/fontbook/PTMono.ttc")).deriveFont(Font.BOLD, 42f);
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/PTMono.ttc");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(Font.BOLD, 42f);
 		} catch (Exception e) {
+			String a = e.getMessage();
+			JOptionPane.showMessageDialog(null, "cannot load font " + a, "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
@@ -21,8 +25,10 @@ public class FontBook {
 
 	public static Font getFontButton() {
 		try {
-			return Font.createFont(Font.TRUETYPE_FONT, new File(dir.getPath() + "/fontbook/Caudex-Regular.ttf")).deriveFont(24f);
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/Caudex-Regular.ttf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(24f);
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
@@ -30,8 +36,10 @@ public class FontBook {
 
 	public static Font getFontLabel() {
 		try {
-			return Font.createFont(Font.TRUETYPE_FONT, new File(dir.getPath() + "/fontbook/BigshotOne.ttf")).deriveFont(22f);
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/BigshotOne.ttf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(22f);
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
@@ -39,8 +47,10 @@ public class FontBook {
 
 	public static Font getFontTextField() {
 		try {
-			return Font.createFont(Font.TRUETYPE_FONT, new File(dir.getPath() + "/fontbook/AlmendraSC-Regular.ttf")).deriveFont(22f);
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/AlmendraSC-Regular.ttf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(22f);
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
@@ -48,8 +58,10 @@ public class FontBook {
 
 	public static Font getFontList() {
 		try {
-			return Font.createFont(Font.TRUETYPE_FONT, new File(dir.getPath() + "/fontbook/CharlemagneStd-Bold.otf")).deriveFont(26f);
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/CharlemagneStd-Bold.otf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(26f);
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
@@ -57,8 +69,10 @@ public class FontBook {
 
 	public static Font getDigitalFont() {
 		try {
-			return Font.createFont(Font.TRUETYPE_FONT, new File(dir.getPath() + "/fontbook/DigitalNumbers-Regular.ttf")).deriveFont(25f);
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/DigitalNumbers-Regular.ttf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(25f);
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
