@@ -15,6 +15,9 @@ import static com.kamontat.code.window.Display.dir;
 public class Provinces {
 	private static String[][] allData;
 
+	/**
+	 * run this first to assign allData array
+	 */
 	public static void read() {
 		ArrayList<String[]> allData = new ArrayList<>();
 
@@ -36,8 +39,9 @@ public class Provinces {
 	}
 
 	/**
+	 * get Province and District
 	 * @param id
-	 * 		only number digit `2-5`
+	 * 		idNumber
 	 * @return At element 0 is The Province <br>
 	 * At element 1 is The District
 	 */
