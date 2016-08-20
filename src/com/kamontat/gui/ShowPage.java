@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.font.FontBook;
+import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -22,7 +23,7 @@ public class ShowPage extends JDialog {
 	private JPanel contentPane;
 	private JButton buttonOK;
 	private JButton buttonCancel;
-	private JList<String> list;
+	private JList<IDNumber> list;
 	private JTextField searchingField;
 	private JLabel countLabel;
 	private JLabel label1;
@@ -57,7 +58,7 @@ public class ShowPage extends JDialog {
 
 	private void assignList() {
 
-		DefaultListModel<String> model = new DefaultListModel<>();
+		DefaultListModel<IDNumber> model = new DefaultListModel<>();
 		idList.forEach(model::addElement);
 
 		list.setModel(model);
@@ -79,14 +80,14 @@ public class ShowPage extends JDialog {
 			}
 		});
 
-		assignPopupList((DefaultListModel<String>) list.getModel());
+		assignPopupList((DefaultListModel<IDNumber>) list.getModel());
 
-		assignSearching((DefaultListModel<String>) list.getModel());
+		assignSearching((DefaultListModel<IDNumber>) list.getModel());
 
 		countLabel.setText(String.format("(%03d)", model.size()));
 	}
 
-	private void assignPopupList(DefaultListModel<String> model) {
+	private void assignPopupList(DefaultListModel<IDNumber> model) {
 		itemList[0] = new JMenuItem("Add");
 		itemList[0].addActionListener(e1 -> {
 			dispose();
@@ -107,7 +108,7 @@ public class ShowPage extends JDialog {
 		});
 	}
 
-	private void assignSearching(DefaultListModel<String> model) {
+	private void assignSearching(DefaultListModel<IDNumber> model) {
 		searchingField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -126,8 +127,8 @@ public class ShowPage extends JDialog {
 
 			private void filter() {
 				String filter = searchingField.getText();
-				for (String s : idList) {
-					if (!s.startsWith(filter)) {
+				for (IDNumber s : idList) {
+					if (!s.getId().startsWith(filter)) {
 						if (model.contains(s)) {
 							model.removeElement(s);
 						}
@@ -188,7 +189,7 @@ public class ShowPage extends JDialog {
 		clear.addActionListener(e -> {
 			idList.removeAll(idList);
 
-			DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
+			DefaultListModel<IDNumber> model = (DefaultListModel<IDNumber>) list.getModel();
 			model.removeAllElements();
 			updateTextFile();
 

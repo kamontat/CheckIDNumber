@@ -1,5 +1,7 @@
 package com.kamontat.code.file;
 
+import com.kamontat.code.object.IDNumber;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -38,7 +40,7 @@ public class TextFile {
 	public static void updateTextFile() {
 		try {
 			FileWriter writer = new FileWriter(textFile);
-			for (String id : idList) {
+			for (IDNumber id : idList) {
 				writer.write(id + "\n");
 			}
 			writer.close();

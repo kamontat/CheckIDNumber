@@ -1,5 +1,6 @@
 package com.kamontat.main;
 
+import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.MainPage;
 
 import java.awt.*;
@@ -13,23 +14,23 @@ public class Main {
 	/**
 	 * list all id in text file, update by method assignIDList
 	 */
-	public static ArrayList<String> idList = new ArrayList<>();
+	public static ArrayList<IDNumber> idList = new ArrayList<>();
 
 	public static void assignIDList() {
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
 			while (input.hasNextLine()) {
-				idList.add(input.nextLine());
+				idList.add(new IDNumber(input.nextLine()));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static int searchingIDList(String id) {
+	public static int searchingIDList(IDNumber id) {
 		for (int i = 0; i < idList.size(); i++) {
-			if (idList.get(i).equals(id)) {
+			if (idList.get(i).isSame(id)) {
 				return i;
 			}
 		}

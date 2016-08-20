@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.font.FontBook;
+import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -61,10 +62,10 @@ public class EnterPage extends JDialog {
 	private void onOK() {
 		warn();
 
-		if (!isDuplicate(textField.getText(), idList) && okBtn.isEnabled()) {
-			idList.add(textField.getText());
+		if (!isDuplicate(new IDNumber(textField.getText()), idList) && okBtn.isEnabled()) {
+			idList.add(new IDNumber(textField.getText()));
 			updateTextFile();
-			setMessage("Correct ID (Saved)", new Color(0, 122, 255));
+			setMessage("Collect ID (Saved)", new Color(0, 122, 255));
 			textField.selectAll();
 		}
 		pack();
@@ -76,28 +77,27 @@ public class EnterPage extends JDialog {
 
 	private void warn() {
 		if (isAllNumberIn(textField.getText())) {
-			if (textField.getText().length() == 13) {
-				if (!isDuplicate(textField.getText(), idList)) {
-					if (checkIDCorrection(textField.getText())) {
-						okBtn.setEnabled(true);
-						setMessage("OK (Good ID)", new Color(0, 200, 0));
-					} else {
-						// 13th digit is not match with id theorem
-						okBtn.setEnabled(false);
-						setMessage("Error (13th Digit Wrong)", new Color(195, 0, 255));
-					}
-				} else {
-					// id have duplicate with the old one
-					okBtn.setEnabled(false);
-					setMessage("Error (Duplicate ID)", new Color(255, 0, 0));
-				}
-			} else {
-				// id haven't 13 character
+			IDNumber number = new IDNumber(textField.getText());
+			// id haven't 13 character
+			if (number.getStatusMessage() == IDNumber.OUT_LENGTH) {
 				okBtn.setEnabled(false);
 				setMessage("Warning (not equal 13)", new Color(255, 189, 0));
+				// 13th digit is not match with id theorem
+			} else if (number.getStatusMessage() == IDNumber.UNCORRECTED) {
+				okBtn.setEnabled(false);
+				setMessage("Error (ID Number Wrong)", new Color(195, 0, 255));
+			} else {
+				// id haven't 13 character
+				if (isDuplicate(new IDNumber(textField.getText()), idList)) {
+					okBtn.setEnabled(false);
+					setMessage("Warning (not equal 13)", new Color(255, 189, 0));
+				} else {
+					okBtn.setEnabled(true);
+					setMessage("OK (Good ID)", new Color(0, 200, 0));
+				}
 			}
-		} else {
 			// have some String too. :(
+		} else {
 			okBtn.setEnabled(false);
 			setMessage("Error (Have Alphabet)", new Color(255, 0, 0));
 		}
@@ -116,9 +116,9 @@ public class EnterPage extends JDialog {
 		return true;
 	}
 
-	private boolean isDuplicate(String text, ArrayList<String> list) {
-		for (String aString : list) {
-			if (aString.equals(text)) return true;
+	private boolean isDuplicate(IDNumber otherID, ArrayList<IDNumber> list) {
+		for (IDNumber id : list) {
+			if (id.isSame(otherID)) return true;
 		}
 		return false;
 	}
@@ -163,26 +163,6 @@ public class EnterPage extends JDialog {
 			page.run(getCenterLocation(page.getSize()));
 		});
 		return add;
-	}
-
-	public boolean checkIDCorrection(String id) {
-		int total = 0;
-		for (int i = 1; i <= 12; i++) {
-			int digit = Integer.parseInt(id.substring(i - 1, i));
-			total += (14 - i) * digit;
-		}
-		total = (total % 11);
-		int lastDigit = Integer.parseInt(id.substring(id.length() - 1, id.length()));
-		if (total <= 1) {
-			if (lastDigit == 1 - total) {
-				return true;
-			}
-		} else if (total > 1) {
-			if (lastDigit == 11 - total) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public void run(Point point) {
