@@ -1,0 +1,161 @@
+10 Bangkok Province
+1001 Phra Nakhon District
+1002 Dusit District
+1003 Nong Chok District
+1004 Bang Rak District
+1005 Bang Khen District
+1006 Bang Kapi District
+1007 Pathum Wan District
+1008 Pom Prap Sattru Phai District
+1009 Phra Khanong District
+1010 Min Buri District
+1011 Lat Krabang District
+1012 Yan Nawa District
+1013 Samphanthawong District
+1014 Phaya Thai District
+1015 Thon Buri District
+1016 Bangkok Yai District
+1017 Huai Khwang District
+1018 Khlong San District
+1019 Taling Chan District
+1020 Bangkok Noi District
+1021 Bang Khun Thian District
+1022 Phasi Charoen District
+1023 Nong Khaem District
+1024 Rat Burana District
+1025 Bang Phlat District
+1026 Din Daeng District
+1027 Bueng Kum District
+1028 Sathon District
+1029 Bang Sue District
+1030 Chatuchak District
+1031 Bang Kho Laem District
+1032 Prawet District
+1033 Khlong Toei District
+1034 Suan Luang District
+1035 Chom Thong District
+1036 Don Mueang District
+1037 Ratchathewi District
+1038 Lat Phrao District
+1039 Vadhana District
+1040 Bang Khae District
+1041 Lak Si District
+1042 Sai Mai District
+1043 Khan Na Yao District
+1044 Saphan Sung District
+1045 Wang Thonglang District
+1046 khlong Sam Wa District
+1047 Bang Na District
+1048 Thawi Watthana District
+1049 Thung Khru District
+1050 Bang Bon District
+11 Samut Prakan Province
+1101 Mueang Samut Prakan District
+1102 Bang Bo District
+1103 Bang Phli District
+1104 Phra Pradaeng District
+1105 Phra Samut Chedi District
+1106 Bang Sao Thong District
+12 nonthaburi
+1201 Mueang Nonthaburi District
+1202 Bang Kruai District
+1203 Bang Yai District
+1204 Bang Bua Thong District
+1205 Sai Noi District
+1206 Pak Kret District
+13 Pathum Thani Province
+1301 Mueang Pathum Thani District
+1302 Khlong Luang District
+1303 Thanyaburi District
+1304 Nong Suea District
+1305 Lat Lum Kaeo District
+1306 Lam Luk Ka District
+1307 Sam Khok District
+14 Phra Nakhon Si Ayutthaya Province
+1401 Phra Nakhon Si Ayutthaya District
+1402 Tha Ruea District
+1403 Nakhon Luang District
+1404 Bang Sai District
+1405 Bang Ban District
+1406 Bang Pa-in District
+1407 Bang Pahan District
+1408 Phak Hai District
+1409 Phachi District
+1410 Lat Bua Luang District
+1411 Wang Noi District
+1412 Sena District
+1413 Bang Sai District
+1414 Uthai District
+1415 Maha Rat District
+1416 Ban Phraek District
+15 Ang Thong Province
+1501 Mueang Ang Thong District
+1502 Chaiyo District
+1503 Pa Mok District
+1504 Pho Thong District
+1505 Sawaeng Ha District
+1506 Wiset Chai Chan District
+1507 Samko District
+16 Lop Buri Province
+1601 Mueang Lop Buri District
+1602 Phatthana Nikhom District
+1603 Khok Samrong District
+1604 Chai Badan District
+1605 Tha Wung District
+1606 Ban Mi District
+1607 Tha Luang District
+1608 Sa Bot District
+1609 Khok Charoen District
+1610 Lam Sonthi District
+1611 Nong Muang District
+17 Sing Buri Province
+1701 Mueang Sing Buri District
+1702 Bang Rachan District
+1703 Khai Bang Rachan District
+1704 Phrom Buri District
+1705 Tha Chang District
+1706 In Buri District
+18 Chai Nat Province
+1801 Mueang Chai Nat District
+1802 Manorom District
+1803 Wat Sing District
+1804 Sapphaya District
+1805 Sankhaburi District
+1806 Hankha District
+1807 Nong Mamong District
+1808 Noen Kham District
+19 Sara Buri Province
+1901 Mueang Saraburi District
+1902 Kaeng Khoi District
+1903 Nong Khae District
+1904 Wihan Daeng District
+1905 Nong Saeng District
+1906 Ban Mo District
+1907 Don Phut District
+1908 Nong Don District
+1909 Phra Phutthabat District
+1910 Sao Hai District
+1911 Muak Lek District
+1912 Wang Muang District
+1913 Chaloem Phra Kiat District
+20 Chon Buri Province
+2001 Mueang Chon Buri District
+2002 Ban Bueng District
+2003 Nong Yai District
+2004 Bang Lamung District
+2005 Phan Thong District
+2006 Phanat Nikhom District
+2007 Si Racha District
+2008 Ko Si  Chang District
+2009 Sattahip District
+2010 Bo Thong District
+2011 Ko Chan District
+21 Rayong Province
+2101 Mueang Rayong District
+2102 Ban Chang District
+2103 Klaeng District
+2104 Wang Chan District
+2105 Ban Khai District
+2106 Pluak Daeng District
+2107 Khao Chamao District
+2108 Nikhom Phatthana District
