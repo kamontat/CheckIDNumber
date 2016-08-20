@@ -16,7 +16,7 @@ import static com.kamontat.main.Main.idList;
  * @author kamontat
  * @since 17/8/59 - 21:49
  */
-public class excelFile {
+public class ExcelFile {
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
 	private static File excelFile = new File(path + name + ".xls");

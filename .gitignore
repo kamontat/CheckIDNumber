@@ -5,10 +5,11 @@
 out
 lib
 gen
-*.txt
 *.xls
 *.xlsx
 *.iml
 
 src/com/kamontat/assignID.java
+folderList/
 src/META-INF
+output.txt

@@ -8,11 +8,19 @@ public class IDNumber {
 	public static int OK = 0;
 	public static int OUT_LENGTH = 1;
 	public static int UNCORRECTED = 2;
+	public static int UNCREATE = -99;
+
 
 	private char[] splitID;
 	private String id;
 	private int statusMessage;
 
+	public IDNumber() {
+		this.id = null;
+		splitID = null;
+
+		statusMessage = UNCREATE;
+	}
 
 	public IDNumber(String id) {
 		this.id = id;
@@ -29,6 +37,11 @@ public class IDNumber {
 
 	public void setId(String id) {
 		this.id = id;
+		splitID = id.toCharArray();
+
+		if (checkLength() && isIDCorrect()) {
+			statusMessage = OK;
+		}
 	}
 
 	public int getStatusMessage() {
@@ -67,11 +80,18 @@ public class IDNumber {
 		}
 	}
 
-	public String getAddress() {
-		String[] allProvince = new String[77];
-
-		return null;
+	public String getIDAddress() {
+		return String.copyValueOf(splitID, 1, 4);
 	}
+
+	public String getIDBirth() {
+		return String.copyValueOf(splitID, 5, 5);
+	}
+
+	public String getIDCount() {
+		return String.copyValueOf(splitID, 10, 2);
+	}
+
 
 	public boolean checkLength() {
 		if (id.length() == 13) {
@@ -89,7 +109,7 @@ public class IDNumber {
 
 		int total = 0;
 		for (int i = 1; i <= 12; i++) {
-			int digit = Character.getNumericValue(splitID[i]);
+			int digit = Character.getNumericValue(splitID[i - 1]);
 			total += (14 - i) * digit;
 		}
 		total = (total % 11);
@@ -105,6 +125,7 @@ public class IDNumber {
 				return true;
 			}
 		}
+
 		statusMessage = UNCORRECTED;
 		return false;
 	}
