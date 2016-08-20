@@ -24,6 +24,8 @@ public class EnterPage extends JDialog {
 	private JLabel messageLabel;
 	private JLabel label1;
 
+	private IDNumber number = new IDNumber();
+
 	public EnterPage() {
 		setContentPane(contentPane);
 		setModal(true);
@@ -77,7 +79,7 @@ public class EnterPage extends JDialog {
 
 	private void warn() {
 		if (isAllNumberIn(textField.getText())) {
-			IDNumber number = new IDNumber(textField.getText());
+			number.setId(textField.getText());
 			// id haven't 13 character
 			if (number.getStatusMessage() == IDNumber.OUT_LENGTH) {
 				okBtn.setEnabled(false);
@@ -90,7 +92,7 @@ public class EnterPage extends JDialog {
 				// id haven't 13 character
 				if (isDuplicate(new IDNumber(textField.getText()), idList)) {
 					okBtn.setEnabled(false);
-					setMessage("Warning (not equal 13)", new Color(255, 189, 0));
+					setMessage("Error (Duplicate ID)", new Color(255, 0, 0));
 				} else {
 					okBtn.setEnabled(true);
 					setMessage("OK (Good ID)", new Color(0, 200, 0));
