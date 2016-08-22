@@ -159,7 +159,7 @@
 2106 Pluak Daeng District
 2107 Khao Chamao District
 2108 Nikhom Phatthana District
-22 Chanthaburi
+22 Chanthaburi Province
 2201 Mueang Chanthaburi District
 2202 Khlung District
 2203 Tha Mai District
@@ -170,7 +170,7 @@
 2208 Kaeng Hang Maeo District
 2209 Na Yai Am District
 2210 Khao Khitchakut  District
-23 Trat
+23 Trat Province
 2301 Mueang Trat District
 2302 Khlong Yai District
 2303 Khao Saming District
@@ -178,7 +178,7 @@
 2305 Laem Ngop District
 2306 Ko Kut District
 2307 Ko Chang District
-24 Chachoengsao
+24 Chachoengsao Province
 2401 Mueang Chachoengsao District
 2402 Bang Khla District
 2403 Bang Nam Priao District
@@ -190,7 +190,7 @@
 2409 Plaeng Yao District
 2410 Tha Takiap District
 2411 Khlong Khuean District
-25 Prachinburi
+25 Prachinburi Province
 2501 Mueang Prachin Buri District
 2502 Kabin Buri District
 2503 Na Di District
@@ -198,12 +198,12 @@
 2507 Prachantakham District
 2508 Si Maha Phot District
 2509 Si Mahosot District
-26 Nakhon Nayok
+26 Nakhon Nayok Province
 2601 Mueang Nakhon Nayok District
 2602 Ban Na District
 2603 Pak Phli District
 2604 Ongkharak District
-27 Sa Kaeo
+27 Sa Kaeo Province
 2701 Mueang Sa Kaeo District
 2702 Khlong Hat District
 2703 Ta Phraya District
@@ -213,7 +213,7 @@
 2707 Khao Chakan District
 2708 Khok Sung District
 2709 Wang Sombun District
-30 Nakhon Ratchasima
+30 Nakhon Ratchasima Province
 3001 Mueang Nakhon Ratchasima District
 3002 Khon Buri District
 3003 Soeng Sang District
@@ -246,7 +246,7 @@
 3030 Bua Lai District
 3031 Sida District
 3032 Chaloem Phra Kiat District
-31 Buri Ram
+31 Buri Ram Province
 3101 Mueang Buri Ram District
 3102 Khu Mueang District
 3103 Krasang District
@@ -270,7 +270,7 @@
 3121 Ban Dan District
 3122 Khaen Dong District
 3123 Chaloem Phra Kiat District
-32 Surin
+32 Surin Province
 3201 Mueang Surin District
 3202 Chumphon Buri District
 3203 Tha Tum District
@@ -288,7 +288,7 @@
 3215 Si Narong District
 3216 Khwao Sinarin District
 3217 Non Narai District
-33 SiSaKet
+33 SiSaKet Province
 3301 Mueang Si Sa Ket District
 3302 Yang Chum Noi District
 3303 Kanthararom District
