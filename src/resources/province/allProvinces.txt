@@ -56,7 +56,7 @@
 1104 Phra Pradaeng District
 1105 Phra Samut Chedi District
 1106 Bang Sao Thong District
-12 nonthaburi
+12 Nonthaburi Province
 1201 Mueang Nonthaburi District
 1202 Bang Kruai District
 1203 Bang Yai District
@@ -159,3 +159,155 @@
 2106 Pluak Daeng District
 2107 Khao Chamao District
 2108 Nikhom Phatthana District
+22 Chanthaburi
+2201 Mueang Chanthaburi District
+2202 Khlung District
+2203 Tha Mai District
+2204 Pong Nam Ron District
+2205 Makham District
+2206 Laem Sing District
+2207 Soi Dao District
+2208 Kaeng Hang Maeo District
+2209 Na Yai Am District
+2210 Khao Khitchakut  District
+23 Trat
+2301 Mueang Trat District
+2302 Khlong Yai District
+2303 Khao Saming District
+2304 Bo Rai District
+2305 Laem Ngop District
+2306 Ko Kut District
+2307 Ko Chang District
+24 Chachoengsao
+2401 Mueang Chachoengsao District
+2402 Bang Khla District
+2403 Bang Nam Priao District
+2404 Bang Pakong District
+2405 Ban Pho District
+2406 Phanom Sarakham District
+2407 Ratchasan District
+2408 Sanam Chai Khet District
+2409 Plaeng Yao District
+2410 Tha Takiap District
+2411 Khlong Khuean District
+25 Prachinburi
+2501 Mueang Prachin Buri District
+2502 Kabin Buri District
+2503 Na Di District
+2506 Ban Sang District
+2507 Prachantakham District
+2508 Si Maha Phot District
+2509 Si Mahosot District
+26 Nakhon Nayok
+2601 Mueang Nakhon Nayok District
+2602 Ban Na District
+2603 Pak Phli District
+2604 Ongkharak District
+27 Sa Kaeo
+2701 Mueang Sa Kaeo District
+2702 Khlong Hat District
+2703 Ta Phraya District
+2704 Wang Nam Yen District
+2705 Watthana Nakhon District
+2706 Aranyaprathet District
+2707 Khao Chakan District
+2708 Khok Sung District
+2709 Wang Sombun District
+30 Nakhon Ratchasima
+3001 Mueang Nakhon Ratchasima District
+3002 Khon Buri District
+3003 Soeng Sang District
+3004 Khong District
+3005 Ban Lueam District
+3006 Chakkarat District
+3007 Chok Chai District
+3008 Dan Khun Thot District
+3009 Non Thai District
+3010 Non Sung District
+3011 Kham Sakaesaeng District
+3012 Bua Yai District
+3013 Prathai District
+3014 Pak Thong Chai District
+3015 Phimai District
+3016 Huai Thalaeng District
+3017 Chum Phuang District
+3018 Sung Noen District
+3019 Kham Thale So District
+3020 Sikhio District
+3021 Pak Chong District
+3022 Nong Bun Nak District
+3023 Kaeng Sanam Nang District
+3024 Non Daeng District
+3025 Wang Nam Khiao District
+3026 Thepharak District
+3027 Mueang Yang District
+3028 Phra Thong Kham District
+3029 Lam Thamencha District
+3030 Bua Lai District
+3031 Sida District
+3032 Chaloem Phra Kiat District
+31 Buri Ram
+3101 Mueang Buri Ram District
+3102 Khu Mueang District
+3103 Krasang District
+3104 Nang Rong District
+3105 Nong Ki District
+3106 Lahan Sai District
+3107 Prakhon Chai District
+3108 Ban Kruat District
+3109 Phutthaisong District
+3110 Lam Plai Mat District
+3111 Satuek District
+3112 Pakham District
+3113 Na Pho District
+3114 Nong Hong District
+3115 Phlapphla Chai District
+3116 Huai Rat District
+3117 Non Suwan District
+3118 Chamni District
+3119 Ban Mai Chaiyaphot District
+3120 Non Din Daeng District
+3121 Ban Dan District
+3122 Khaen Dong District
+3123 Chaloem Phra Kiat District
+32 Surin
+3201 Mueang Surin District
+3202 Chumphon Buri District
+3203 Tha Tum District
+3204 Chom Phra District
+3205 Prasat District
+3206 Kap Choeng District
+3207 Rattanaburi District
+3208 Sanom District
+3209 Sikhoraphum District
+3210 Sangkha District
+3211 Lamduan District
+3212 Samrong Thap District
+3213 Buachet District
+3214 Phanom Dong Rak District
+3215 Si Narong District
+3216 Khwao Sinarin District
+3217 Non Narai District
+33 SiSaKet
+3301 Mueang Si Sa Ket District
+3302 Yang Chum Noi District
+3303 Kanthararom District
+3304 Kantharalak District
+3305 Khukhan District
+3306 Phrai Bueng District
+3307 Prang Ku District
+3308 Khun Han District
+3309 Rasi Salai District
+3310 Uthumphon Phisai District
+3311 Bueng Bun District
+3312 Huai Thap Than District
+3313 Non Khun District
+3314 Si Rattana District
+3315 Nam Kliang District
+3316 Wang Hin District
+3317 Phu Sing District
+3318 Mueang Chan District
+3319 Benchalak District
+3320 Phayu District
+3321 Pho Si Suwan District
+3322 Sila Lat District
