@@ -57,24 +57,24 @@ public class IDNumber {
 	}
 
 	public String getType() {
-		if (splitID[0] == 1) {
-			return "Thai nationality and Birth on time";
-		} else if (splitID[0] == 2) {
-			return "Thai nationality and Birth late";
-		} else if (splitID[0] == 3) {
-			return "Thai nationality or other that have name on Household Registration before 31/05/2527";
-		} else if (splitID[0] == 4) {
-			return "Thai nationality or other that move into Thailand but don't have ID number";
-		} else if (splitID[0] == 5) {
-			return "Thai nationality that allow to Add Name Later with some reason, like multiple nationality";
-		} else if (splitID[0] == 6) {
-			return "People who came to thailand Illegal or Legal Temporary";
-		} else if (splitID[0] == 7) {
-			return "type 6's son, who was born in Thailand.";
-		} else if (splitID[0] == 8) {
-			return "Other nationality that have Thai nationality legal";
-		} else if (splitID[0] == 0) {
-			return "People who don't have Thai nationality but can live in Thailand Temporary";
+		if (splitID[0] == '1') {
+			return "1 (Thai nationality and Birth on time)";
+		} else if (splitID[0] == '2') {
+			return "2 (Thai nationality and Birth late)";
+		} else if (splitID[0] == '3') {
+			return "3 (Thai nationality or other that have name on Household Registration before 31/05/2527)";
+		} else if (splitID[0] == '4') {
+			return "4 (Thai nationality or other that move into Thailand but don't have ID number)";
+		} else if (splitID[0] == '5') {
+			return "5 (Thai nationality that allow to Add Name Later with some reason, like multiple nationality)";
+		} else if (splitID[0] == '6') {
+			return "6 (People who came to thailand Illegal or Legal Temporary)";
+		} else if (splitID[0] == '7') {
+			return "7 (type 6's son, who was born in Thailand)";
+		} else if (splitID[0] == '8') {
+			return "8 (Other nationality that have Thai nationality legal)";
+		} else if (splitID[0] == '0') {
+			return "0 (People who don't have Thai nationality but can live in Thailand Temporary)";
 		} else {
 			return "No type";
 		}
@@ -84,11 +84,11 @@ public class IDNumber {
 		return String.copyValueOf(splitID, 1, 4);
 	}
 
-	public String getIDBirth() {
+	public String getIDBC() {
 		return String.copyValueOf(splitID, 5, 5);
 	}
 
-	public String getIDCount() {
+	public String getIDOrder() {
 		return String.copyValueOf(splitID, 10, 2);
 	}
 

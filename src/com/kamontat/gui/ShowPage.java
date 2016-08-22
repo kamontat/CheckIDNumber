@@ -28,7 +28,7 @@ public class ShowPage extends JDialog {
 	private JLabel countLabel;
 	private JLabel label1;
 
-	private JMenuItem[] itemList = new JMenuItem[2];
+	private JMenuItem[] itemList = new JMenuItem[3];
 
 	public ShowPage() {
 		setContentPane(contentPane);
@@ -88,15 +88,22 @@ public class ShowPage extends JDialog {
 	}
 
 	private void assignPopupList(DefaultListModel<IDNumber> model) {
-		itemList[0] = new JMenuItem("Add");
+		itemList[0] = new JMenuItem("Information");
 		itemList[0].addActionListener(e1 -> {
+			InformationPage page = new InformationPage(list.getSelectedValue());
+			page.keepPage(this);
+			page.run(this.getLocation());
+		});
+
+		itemList[1] = new JMenuItem("Add");
+		itemList[1].addActionListener(e1 -> {
 			dispose();
 			EnterPage page = new EnterPage();
 			page.run(this.getLocation());
 		});
 
-		itemList[1] = new JMenuItem("Remove");
-		itemList[1].addActionListener(e1 -> {
+		itemList[2] = new JMenuItem("Remove");
+		itemList[2].addActionListener(e1 -> {
 
 			int index = searchingIDList(list.getSelectedValue());
 

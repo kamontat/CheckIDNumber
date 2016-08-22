@@ -1,5 +1,6 @@
 package com.kamontat.main;
 
+import com.kamontat.code.file.Provinces;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.MainPage;
 
@@ -38,6 +39,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
+		Provinces.read();
 		MainPage page = new MainPage();
 		try {
 			page.run(getCenterLocation(page.getSize()));

@@ -45,7 +45,7 @@ public class Provinces {
 	 * @return At element 0 is The Province <br>
 	 * At element 1 is The District
 	 */
-	public static String[] getProvince(IDNumber id) {
+	public static String[] getProvinceAndDistrict(IDNumber id) {
 		String province = "";
 		String[] info = new String[2];
 		info[0] = "";
