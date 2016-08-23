@@ -84,6 +84,14 @@ public class IDNumber {
 		return String.copyValueOf(splitID, 1, 4);
 	}
 
+	public String getIDProvince() {
+		return String.copyValueOf(splitID, 1, 2);
+	}
+
+	public String getIDDistrict() {
+		return String.copyValueOf(splitID, 3, 2);
+	}
+
 	public String getIDBC() {
 		return String.copyValueOf(splitID, 5, 5);
 	}

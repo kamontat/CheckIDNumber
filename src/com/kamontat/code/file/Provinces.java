@@ -40,40 +40,48 @@ public class Provinces {
 
 	/**
 	 * get Province and District
+	 *
 	 * @param id
 	 * 		idNumber
 	 * @return At element 0 is The Province <br>
 	 * At element 1 is The District
 	 */
 	public static String[] getProvinceAndDistrict(IDNumber id) {
-		String province = "";
+		String tempProvince = "", province = "";
 		String[] info = new String[2];
 		info[0] = "";
 		info[1] = "";
 
 		for (String[] data : allData) {
 			for (int j = 0; j < allData[0].length; j++) {
-				// Province
+				// update new province
 				if (data[0].length() != 4) {
 					// clear new province
-					province = "";
+					tempProvince = "";
 					for (int i = 1; i < data.length; i++) {
-						province += data[i] + " ";
+						tempProvince += data[i] + " ";
 					}
 				}
 
 				// District
 				if (data[0].length() == 4) {
+					// check province
+					if (String.copyValueOf(data[0].toCharArray(), 0, 2).equals(id.getIDProvince())) {
+						province = tempProvince + " (" + id.getIDProvince() + ")";
+					}
+
 					if (id.getIDAddress().equals(data[0])) {
-						info[0] = province;
+						info[0] = tempProvince;
+						info[0] += " (" + id.getIDProvince() + ")";
 						for (int i = 1; i < data.length; i++) {
 							info[1] += data[i] + " ";
 						}
+						info[1] += " (" + id.getIDDistrict() + ")";
 						return info;
 					}
 				}
 			}
 		}
-		return new String[]{"Unknown Province", "Unknown District"};
+		return new String[]{province.equals("") ? "Unknown Province (" + id.getIDProvince() + ")": province, "Unknown District (" + id.getIDDistrict() + ")"};
 	}
 }
