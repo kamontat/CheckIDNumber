@@ -3,7 +3,6 @@ package com.kamontat.code.file;
 import com.kamontat.code.object.IDNumber;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -36,7 +35,7 @@ public class Provinces {
 
 			Provinces.allData = allData.toArray(new String[allData.size()][]);
 			return true;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Provinces.allData = null;
 		}
 		return false;
