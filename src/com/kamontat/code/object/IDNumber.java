@@ -1,25 +1,24 @@
 package com.kamontat.code.object;
 
+import com.kamontat.code.constant.Status;
+
+import static com.kamontat.code.constant.Status.*;
+
 /**
  * @author kamontat
  * @since 19/8/59 - 20:41
  */
 public class IDNumber {
-	public static int OK = 0;
-	public static int OUT_LENGTH = 1;
-	public static int UNCORRECTED = 2;
-	public static int UNCREATE = -99;
-
 
 	private char[] splitID;
 	private String id;
-	private int statusMessage;
+	private Status statusMessage;
 
 	public IDNumber() {
 		this.id = null;
 		splitID = null;
 
-		statusMessage = UNCREATE;
+		statusMessage = NOT_CREATE;
 	}
 
 	public IDNumber(String id) {
@@ -44,11 +43,11 @@ public class IDNumber {
 		}
 	}
 
-	public int getStatusMessage() {
+	public Status getStatusMessage() {
 		return statusMessage;
 	}
 
-	public void setStatusMessage(int statusMessage) {
+	public void setStatusMessage(Status statusMessage) {
 		this.statusMessage = statusMessage;
 	}
 

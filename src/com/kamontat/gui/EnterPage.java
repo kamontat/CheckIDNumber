@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.constant.Status;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -81,11 +82,11 @@ public class EnterPage extends JDialog {
 		if (isAllNumberIn(textField.getText())) {
 			number.setId(textField.getText());
 			// id haven't 13 character
-			if (number.getStatusMessage() == IDNumber.OUT_LENGTH) {
+			if (number.getStatusMessage() == Status.OUT_LENGTH) {
 				okBtn.setEnabled(false);
 				setMessage("Warning (not equal 13)", new Color(255, 189, 0));
 				// 13th digit is not match with id theorem
-			} else if (number.getStatusMessage() == IDNumber.UNCORRECTED) {
+			} else if (number.getStatusMessage() == Status.UNCORRECTED) {
 				okBtn.setEnabled(false);
 				setMessage("Error (ID Number Wrong)", new Color(195, 0, 255));
 			} else {

@@ -1,5 +1,6 @@
 package com.kamontat.code.file;
 
+import com.kamontat.code.constant.Type;
 import com.kamontat.code.object.IDNumber;
 
 import java.io.BufferedReader;
@@ -14,6 +15,8 @@ import java.util.function.Consumer;
  */
 public class Provinces {
 	private static String[][] allData;
+	private static Type type;
+
 
 	/**
 	 * run this first to assign allData array
@@ -80,15 +83,24 @@ public class Provinces {
 							info[1] += data[i] + " ";
 						}
 						info[1] += " (" + id.getIDDistrict() + ")";
+
+						type = Type.OK;
 						return info;
 					}
 				}
 			}
 		}
+
+		if (province.equals("")) type = Type.NO_EVERYTHING;
+		else type = Type.NO_DISTRICT;
 		return new String[]{province.equals("") ? "Unknown Province (" + id.getIDProvince() + ")": province, "Unknown District (" + id.getIDDistrict() + ")"};
 	}
 
 	public static boolean hasFile() {
 		return allData != null;
+	}
+
+	public static Type getType() {
+		return type;
 	}
 }

@@ -7,6 +7,7 @@ import com.kamontat.gui.MainPage;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 import static com.kamontat.code.file.TextFile.textFile;
@@ -39,7 +40,7 @@ public class Main {
 		return -1;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws URISyntaxException {
 		if (!Provinces.read()) {
 			JOptionPane.showMessageDialog(null, "Can't read data file \nplease contact to developer", "Error Loading file", JOptionPane.ERROR_MESSAGE);
 		}

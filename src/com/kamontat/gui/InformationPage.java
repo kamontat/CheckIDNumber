@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.constant.Status;
 import com.kamontat.code.file.Provinces;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
@@ -78,17 +79,21 @@ public class InformationPage extends JDialog {
 		numBCLabel.setText(id.getIDBC());
 		orderLabel.setText(id.getIDOrder());
 
-		if (id.getStatusMessage() == IDNumber.UNCREATE) {
+		if (id.getStatusMessage() == Status.NOT_CREATE) {
 			// impossible
 			setStatus("Not Create Yet!", new Color(255, 0, 0));
-		} else if (id.getStatusMessage() == IDNumber.OUT_LENGTH) {
+		} else if (id.getStatusMessage() == Status.OUT_LENGTH) {
 			// impossible
 			setStatus("NOT 13 Digit!?", new Color(255, 0, 0));
-		} else if (id.getStatusMessage() == IDNumber.UNCORRECTED) {
+		} else if (id.getStatusMessage() == Status.UNCORRECTED) {
 			// impossible
 			setStatus("NOT Real ID Number", new Color(255, 0, 0));
-		} else if (id.getStatusMessage() == IDNumber.OK) {
-			setStatus("Prefect!", new Color(0, 249, 255));
+		} else if (Provinces.getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
+			setStatus("NO district", new Color(255, 228, 0));
+		} else if (Provinces.getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
+			setStatus("NO province and district", new Color(255, 168, 0));
+		} else if (Provinces.getType() == com.kamontat.code.constant.Type.OK && id.getStatusMessage() == Status.OK) {
+			setStatus("Prefect ID!", new Color(0, 249, 255));
 		}
 	}
 
