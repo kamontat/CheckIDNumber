@@ -2,7 +2,10 @@ package com.kamontat.code.file;
 
 import com.kamontat.code.object.IDNumber;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -18,7 +21,7 @@ public class Provinces {
 	/**
 	 * run this first to assign allData array
 	 */
-	public static void read() {
+	public static boolean read() {
 		ArrayList<String[]> allData = new ArrayList<>();
 
 		Consumer<String> consumer = s -> {
@@ -28,14 +31,20 @@ public class Provinces {
 
 		try {
 			File file = new File(dir.getPath() + "/src/resources/province/allProvinces.txt");
+			if (!file.isFile()) {
+				file = new File(dir.getPath() + "/checkIDNumber/resources/province/allProvinces.txt");
+			}
 			BufferedReader br = new BufferedReader(new FileReader(file));
 
 			br.lines().forEach(consumer); // add data into arrays
 			br.close();
+
+			Provinces.allData = allData.toArray(new String[allData.size()][]);
+			return true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			Provinces.allData = null;
 		}
-		Provinces.allData = allData.toArray(new String[allData.size()][]);
+		return false;
 	}
 
 	/**
@@ -83,5 +92,9 @@ public class Provinces {
 			}
 		}
 		return new String[]{province.equals("") ? "Unknown Province (" + id.getIDProvince() + ")": province, "Unknown District (" + id.getIDDistrict() + ")"};
+	}
+
+	public static boolean hasFile() {
+		return allData != null;
 	}
 }

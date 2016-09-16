@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.file.Provinces;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -27,8 +28,6 @@ public class ShowPage extends JDialog {
 	private JTextField searchingField;
 	private JLabel countLabel;
 	private JLabel label1;
-
-	private JMenuItem[] itemList = new JMenuItem[3];
 
 	public ShowPage() {
 		setContentPane(contentPane);
@@ -63,6 +62,12 @@ public class ShowPage extends JDialog {
 
 		list.setModel(model);
 
+		JMenuItem[] items = assignPopupList((DefaultListModel<IDNumber>) list.getModel());
+
+		assignSearching((DefaultListModel<IDNumber>) list.getModel());
+
+		countLabel.setText(String.format("(%03d)", model.size()));
+
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -70,7 +75,8 @@ public class ShowPage extends JDialog {
 				// right button be click
 				if (e.getButton() == 3) {
 					JPopupMenu menu = new JPopupMenu();
-					Arrays.stream(itemList).forEach(menu::add);
+					Arrays.stream(items).forEach(menu::add);
+
 					if (list.getSelectedIndex() != -1) {
 						Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
 
@@ -79,31 +85,34 @@ public class ShowPage extends JDialog {
 				}
 			}
 		});
-
-		assignPopupList((DefaultListModel<IDNumber>) list.getModel());
-
-		assignSearching((DefaultListModel<IDNumber>) list.getModel());
-
-		countLabel.setText(String.format("(%03d)", model.size()));
 	}
 
-	private void assignPopupList(DefaultListModel<IDNumber> model) {
-		itemList[0] = new JMenuItem("Information");
-		itemList[0].addActionListener(e1 -> {
-			InformationPage page = new InformationPage(list.getSelectedValue());
-			page.keepPage(this);
-			page.run(this.getLocation());
-		});
+	private JMenuItem[] assignPopupList(DefaultListModel<IDNumber> model) {
+		int i, j = 0;
+		if (Provinces.hasFile()) i = 3;
+		else i = 2;
 
-		itemList[1] = new JMenuItem("Add");
-		itemList[1].addActionListener(e1 -> {
+		JMenuItem[] itemList = new JMenuItem[i];
+
+
+		if (Provinces.hasFile()) {
+			itemList[j] = new JMenuItem("Information");
+			itemList[j++].addActionListener(e1 -> {
+				InformationPage page = new InformationPage(list.getSelectedValue());
+				page.keepPage(this);
+				page.run(this.getLocation());
+			});
+		}
+
+		itemList[j] = new JMenuItem("Add");
+		itemList[j++].addActionListener(e1 -> {
 			dispose();
 			EnterPage page = new EnterPage();
 			page.run(this.getLocation());
 		});
 
-		itemList[2] = new JMenuItem("Remove");
-		itemList[2].addActionListener(e1 -> {
+		itemList[j] = new JMenuItem("Remove");
+		itemList[j].addActionListener(e1 -> {
 
 			int index = searchingIDList(list.getSelectedValue());
 
@@ -113,6 +122,8 @@ public class ShowPage extends JDialog {
 
 			countLabel.setText(String.format("(%03d)", model.size()));
 		});
+
+		return itemList;
 	}
 
 	private void assignSearching(DefaultListModel<IDNumber> model) {

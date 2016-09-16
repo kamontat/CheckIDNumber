@@ -4,6 +4,7 @@ import com.kamontat.code.file.Provinces;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.MainPage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -39,7 +40,10 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Provinces.read();
+		if (!Provinces.read()) {
+			JOptionPane.showMessageDialog(null, "Can't read data file \nplease contact to developer", "Error Loading file", JOptionPane.ERROR_MESSAGE);
+		}
+
 		MainPage page = new MainPage();
 		try {
 			page.run(getCenterLocation(page.getSize()));
