@@ -42,7 +42,7 @@ public class Main {
 
 	public static void main(String[] args) throws URISyntaxException {
 		if (!Provinces.read()) {
-			JOptionPane.showMessageDialog(null, "Can't read data file \nplease contact to developer", "Error Loading file", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Can't read data file \nplease contact to developer.\nif you don't information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
 		}
 
 		MainPage page = new MainPage();
