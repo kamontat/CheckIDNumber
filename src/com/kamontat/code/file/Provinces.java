@@ -3,13 +3,11 @@ package com.kamontat.code.file;
 import com.kamontat.code.object.IDNumber;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.Consumer;
-
-import static com.kamontat.code.window.Display.dir;
 
 /**
  * @author kamontat
@@ -30,11 +28,8 @@ public class Provinces {
 		};
 
 		try {
-			File file = new File(dir.getPath() + "/src/resources/province/allProvinces.txt");
-			if (!file.isFile()) {
-				file = new File(dir.getPath() + "/checkIDNumber/resources/province/allProvinces.txt");
-			}
-			BufferedReader br = new BufferedReader(new FileReader(file));
+			InputStream stream = Provinces.class.getResourceAsStream("/resources/province/allProvinces.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 
 			br.lines().forEach(consumer); // add data into arrays
 			br.close();
