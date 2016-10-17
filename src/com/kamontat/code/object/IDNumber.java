@@ -57,23 +57,23 @@ public class IDNumber {
 
 	public String getType() {
 		if (splitID[0] == '1') {
-			return "1 (Thai nationality and Birth on time)";
+			return "สัญชาติไทย และ แจ้งเกิดทันเวลา";
 		} else if (splitID[0] == '2') {
-			return "2 (Thai nationality and Birth late)";
+			return "สัญชาติไทย และ แจ้งเกิดไม่ทันเวลา";
 		} else if (splitID[0] == '3') {
-			return "3 (Thai nationality or other that have name on Household Registration before 31/05/2527)";
+			return "คนไทยหรือคนต่างด้าวถูกกฏหมาย\nที่มีชื่ออยู่ในทะเบียนบ้านก่อนวันที่ 31 พฤษภาคม พ.ศ. 2527";
 		} else if (splitID[0] == '4') {
-			return "4 (Thai nationality or other that move into Thailand but don't have ID number)";
+			return "คนไทยหรือคนต่างด้าวถูกกฏหมายที่ไม่มีเลขประจำตัวประชาชน\nหรือไม่ทันได้เลขประจำตัวก็ขอย้ายบ้านก่อน";
 		} else if (splitID[0] == '5') {
-			return "5 (Thai nationality that allow to Add Name Later with some reason, like multiple nationality)";
+			return "คนไทยที่ได้รับอนุมัติให้เพิ่มชื่อในกรณีตกสำรวจหรือคนที่ถือ 2 สัญชาติ";
 		} else if (splitID[0] == '6') {
-			return "6 (People who came to thailand Illegal or Legal Temporary)";
+			return "ผู้ที่เข้าเมืองโดยไม่ชอบด้วยกฎหมาย \nหรือ ผู้ที่เข้าเมืองโดยชอบด้วยกฎหมายแต่อยู่ในลักษณะชั่วคราว";
 		} else if (splitID[0] == '7') {
-			return "7 (type 6's son, who was born in Thailand)";
+			return "บุตรของบุคคลประเภทที่ 6 ซึ่งเกิดในประเทศไทย";
 		} else if (splitID[0] == '8') {
-			return "8 (Other nationality that have Thai nationality legal)";
+			return "คนต่างด้าวถูกกฎหมาย ที่ได้รับการให้สัญชาติไทยตั้งแต่หลังวันที่ 31 พฤษภาคม พ.ศ. 2527";
 		} else if (splitID[0] == '0') {
-			return "0 (People who don't have Thai nationality but can live in Thailand Temporary)";
+			return "บุคคลที่ไม่มีสถานะทางทะเบียนราษฎร ไม่มีสัญชาติ";
 		} else {
 			return "No type";
 		}

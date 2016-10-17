@@ -77,4 +77,15 @@ public class FontBook {
 		}
 		return null;
 	}
+
+	public static Font getThaiFont(float size) {
+		try {
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/waan-free_regular.ttf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(size);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

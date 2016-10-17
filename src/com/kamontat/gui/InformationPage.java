@@ -56,15 +56,16 @@ public class InformationPage extends JDialog {
 	}
 
 	private void addFont() {
+		statusLabel.setFont(FontBook.getFontLabel());
+
 		label1.setFont(FontBook.getFontLabel());
 		label2.setFont(FontBook.getFontLabel());
 		label3.setFont(FontBook.getFontLabel());
 		label4.setFont(FontBook.getFontLabel());
 
-		typeLabel.setFont(FontBook.getFontLabel());
-		provinceLabel.setFont(FontBook.getFontLabel());
-		districtLabel.setFont(FontBook.getFontLabel());
-		statusLabel.setFont(FontBook.getFontLabel());
+		typeLabel.setFont(FontBook.getThaiFont(43f));
+		provinceLabel.setFont(FontBook.getThaiFont(43f));
+		districtLabel.setFont(FontBook.getThaiFont(43f));
 
 		numBCLabel.setFont(FontBook.getDigitalFont());
 		orderLabel.setFont(FontBook.getDigitalFont());
