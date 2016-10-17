@@ -1,6 +1,6 @@
 package com.kamontat.main;
 
-import com.kamontat.code.file.Provinces;
+import com.kamontat.code.file.Location;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.MainPage;
 
@@ -39,13 +39,15 @@ public class Main {
 		}
 		return -1;
 	}
-
+	
+	// TODO: 10/18/2016 AD Loading page
 	public static void main(String[] args) throws URISyntaxException {
-		if (!Provinces.read()) {
-			JOptionPane.showMessageDialog(null, "Can't read data file \nplease contact to developer.\nif you don't information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
+		if (!Location.read()) {
+			JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
 		}
 
 		MainPage page = new MainPage();
+
 		try {
 			page.run(getCenterLocation(page.getSize()));
 		} catch (Exception e) {

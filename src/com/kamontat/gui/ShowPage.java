@@ -1,6 +1,6 @@
 package com.kamontat.gui;
 
-import com.kamontat.code.file.Provinces;
+import com.kamontat.code.file.Location;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -29,7 +29,7 @@ public class ShowPage extends JDialog {
 	private JLabel countLabel;
 	private JLabel label1;
 
-	public ShowPage() {
+	ShowPage() {
 		setContentPane(contentPane);
 		setModal(true);
 
@@ -89,13 +89,13 @@ public class ShowPage extends JDialog {
 
 	private JMenuItem[] assignPopupList(DefaultListModel<IDNumber> model) {
 		int i, j = 0;
-		if (Provinces.hasFile()) i = 3;
+		if (Location.readable) i = 3;
 		else i = 2;
 
 		JMenuItem[] itemList = new JMenuItem[i];
 
 
-		if (Provinces.hasFile()) {
+		if (Location.readable) {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
 				InformationPage page = new InformationPage(list.getSelectedValue());
@@ -216,7 +216,7 @@ public class ShowPage extends JDialog {
 		return clear;
 	}
 
-	public void run(Point point) {
+	void run(Point point) {
 		pack();
 		setLocation(point);
 		setVisible(true);

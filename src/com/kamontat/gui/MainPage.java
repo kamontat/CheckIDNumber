@@ -69,19 +69,19 @@ public class MainPage extends JFrame {
 		setJMenuBar(menu);
 	}
 
-	public static JMenuItem exitMenu() {
+	static JMenuItem exitMenu() {
 		JMenuItem exit = new JMenuItem("Exit");
 		exit.addActionListener(e -> System.exit(0)); /* exit action */
 		return exit;
 	}
 
-	public static JMenuItem exportMenu() {
+	static JMenuItem exportMenu() {
 		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
 		exportExcel.addActionListener(e -> createExcelFile()); /* export action */
 		return exportExcel;
 	}
 
-	public static JMenuItem toMenu() {
+	static JMenuItem toMenu() {
 		JMenuItem to = new JMenuItem("To (file keeper)");
 		to.addActionListener(e -> openFolder()); /* export action */
 		return to;
