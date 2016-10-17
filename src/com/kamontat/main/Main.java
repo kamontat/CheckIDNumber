@@ -44,6 +44,8 @@ public class Main {
 	public static void main(String[] args) throws URISyntaxException {
 		if (!Location.read()) {
 			JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showConfirmDialog(null, "Finish Loading", "Finish", JOptionPane.OK_CANCEL_OPTION);
 		}
 
 		MainPage page = new MainPage();
