@@ -3,6 +3,7 @@ package com.kamontat.code.file;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.constant.Type;
 import com.kamontat.code.object.IDNumber;
+import com.kamontat.gui.LauncherPage;
 
 import java.io.InputStream;
 import java.util.*;
@@ -23,9 +24,13 @@ public class Location {
 	 * <b>May Slow</b>, (In my test it's run 300 ms)
 	 */
 	public static boolean read() {
+		// label in launcher
+		LauncherPage.statusMessage = "Start loading Province and District";
+
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			InputStream streamProvince = Location.class.getResourceAsStream("/resources/json_location/provinces.json");
+
 			provinces = mapper.readValue(streamProvince, provinces.getClass());
 
 			InputStream streamDistrict = Location.class.getResourceAsStream("/resources/json_location/districts.json");
@@ -66,5 +71,21 @@ public class Location {
 
 	public static Type getType() {
 		return type;
+	}
+
+	public static int getSizeProvince() {
+		String val = provinces.get("size");
+		if (val != null) {
+			return Integer.parseInt(val);
+		}
+		return 0;
+	}
+
+	public static int getSizeDistrict() {
+		String val = districts.get("size");
+		if (val != null) {
+			return Integer.parseInt(val);
+		}
+		return 0;
 	}
 }

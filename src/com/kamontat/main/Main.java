@@ -1,17 +1,13 @@
 package com.kamontat.main;
 
-import com.kamontat.code.file.Location;
 import com.kamontat.code.object.IDNumber;
-import com.kamontat.gui.MainPage;
+import com.kamontat.gui.LauncherPage;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.*;
 
 import static com.kamontat.code.file.TextFile.textFile;
-import static com.kamontat.code.window.Display.getCenterLocation;
 
 public class Main {
 	/**
@@ -42,18 +38,6 @@ public class Main {
 	
 	// TODO: 10/18/2016 AD Loading page
 	public static void main(String[] args) throws URISyntaxException {
-		if (!Location.read()) {
-			JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
-		} else {
-			JOptionPane.showConfirmDialog(null, "Finish Loading", "Finish", JOptionPane.OK_CANCEL_OPTION);
-		}
-
-		MainPage page = new MainPage();
-
-		try {
-			page.run(getCenterLocation(page.getSize()));
-		} catch (Exception e) {
-			page.run(new Point(0, 0));
-		}
+		LauncherPage page = new LauncherPage();
 	}
 }

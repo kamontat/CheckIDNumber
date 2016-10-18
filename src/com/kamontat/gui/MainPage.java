@@ -6,10 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.file.TextFile.openFolder;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
+import static com.kamontat.code.file.TextFile.openFolder;
 import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.main.Main.assignIDList;
 
 /**
  * @author kamontat
@@ -24,7 +23,6 @@ public class MainPage extends JFrame {
 	public MainPage() {
 		setContentPane(contentPane);
 
-		assignIDList();
 		addFont();
 
 		createMenuBar();
