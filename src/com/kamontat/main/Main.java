@@ -12,3 +12,5 @@ public class Main {
 }
 
 // TODO: 10/19/2016 AD Reopen program button
+// TODO: 10/19/2016 AD Back button if not in main
+// TODO: 10/19/2016 AD Status of text-file if it isn't exist
