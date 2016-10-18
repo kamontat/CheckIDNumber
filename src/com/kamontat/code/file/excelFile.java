@@ -1,7 +1,6 @@
 package com.kamontat.code.file;
 
 import com.kamontat.code.object.IDNumber;
-import com.kamontat.main.Main;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -9,8 +8,8 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import static com.kamontat.code.database.Database.idList;
 import static com.kamontat.code.window.Display.dir;
-import static com.kamontat.main.Main.idList;
 
 /**
  * @author kamontat
@@ -27,7 +26,7 @@ public class ExcelFile {
 		//Create a blank sheet
 		XSSFSheet sheet = workbook.createSheet("ID Data");
 		int rowNum = 0;
-		for (IDNumber id : Main.idList) {
+		for (IDNumber id : idList) {
 			sheet.createRow(rowNum++).createCell(0).setCellValue(id.getId());
 		}
 		try {

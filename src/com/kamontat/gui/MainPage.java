@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
-import static com.kamontat.code.file.TextFile.openFolder;
+import static com.kamontat.code.database.Database.openFolder;
 import static com.kamontat.code.window.Display.getCenterLocation;
 
 /**

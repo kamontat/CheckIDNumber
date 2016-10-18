@@ -2,6 +2,9 @@ package com.kamontat.code.object;
 
 import com.kamontat.code.constant.Status;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import static com.kamontat.code.constant.Status.*;
 
 /**
@@ -9,9 +12,9 @@ import static com.kamontat.code.constant.Status.*;
  * @since 19/8/59 - 20:41
  */
 public class IDNumber {
-
 	private char[] splitID;
 	private String id;
+	private LocalDateTime time;
 	private Status statusMessage;
 
 	public IDNumber() {
@@ -19,6 +22,9 @@ public class IDNumber {
 		splitID = null;
 
 		statusMessage = NOT_CREATE;
+
+		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+
 	}
 
 	public IDNumber(String id) {
@@ -28,6 +34,19 @@ public class IDNumber {
 		if (checkLength() && isIDCorrect()) {
 			statusMessage = OK;
 		}
+
+		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+	}
+
+	public IDNumber(String id, LocalDateTime time) {
+		this.id = id;
+		splitID = id.toCharArray();
+
+		if (checkLength() && isIDCorrect()) {
+			statusMessage = OK;
+		}
+
+		this.time = time;
 	}
 
 	public String getId() {
@@ -40,6 +59,8 @@ public class IDNumber {
 
 		if (checkLength() && isIDCorrect()) {
 			statusMessage = OK;
+
+			time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 		}
 	}
 
@@ -100,7 +121,7 @@ public class IDNumber {
 	}
 
 
-	public boolean checkLength() {
+	private boolean checkLength() {
 		if (id.length() == 13) {
 			return true;
 		}
@@ -108,7 +129,7 @@ public class IDNumber {
 		return false;
 	}
 
-	public boolean isIDCorrect() {
+	private boolean isIDCorrect() {
 		if (splitID[0] == '9') {
 			statusMessage = UNCORRECTED;
 			return false;
@@ -139,6 +160,6 @@ public class IDNumber {
 
 	@Override
 	public String toString() {
-		return id;
+		return id + " " + time.toLocalDate() + " " + time.toLocalTime() + " Asia/Bangkok";
 	}
 }

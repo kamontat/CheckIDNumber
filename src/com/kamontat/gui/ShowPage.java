@@ -13,12 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
-import static com.kamontat.code.file.TextFile.updateTextFile;
+import static com.kamontat.code.database.Database.updateTextFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.exitMenu;
 import static com.kamontat.gui.MainPage.exportMenu;
-import static com.kamontat.main.Main.idList;
-import static com.kamontat.main.Main.searchingIDList;
+import static com.kamontat.code.database.Database.idList;
+import static com.kamontat.code.database.Database.searchingIDList;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;

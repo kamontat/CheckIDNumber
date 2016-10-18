@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.main.Main.assignIDList;
+import static com.kamontat.code.database.Database.assignIDList;
 
 /**
  * @author kamontat

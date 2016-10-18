@@ -11,10 +11,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-import static com.kamontat.code.file.TextFile.updateTextFile;
+import static com.kamontat.code.database.Database.updateTextFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.exitMenu;
-import static com.kamontat.main.Main.idList;
+import static com.kamontat.code.database.Database.idList;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
