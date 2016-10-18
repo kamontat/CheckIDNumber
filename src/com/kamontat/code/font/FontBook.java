@@ -8,6 +8,7 @@ import java.io.InputStream;
 
 /**
  * @author kamontat
+ * @version 1.2
  * @since 19/8/59 - 17:00
  */
 public class FontBook {

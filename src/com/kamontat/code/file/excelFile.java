@@ -12,7 +12,11 @@ import static com.kamontat.code.database.Database.idList;
 import static com.kamontat.code.window.Display.dir;
 
 /**
+ * This class use to create new excel file in <code>folderList</code> location <br>
+ * It's have only one method call <b><code>createExcelFile</code></b> to create Excel by using <code>idList</code>
+ *
  * @author kamontat
+ * @version 1.0
  * @since 17/8/59 - 21:49
  */
 public class ExcelFile {
@@ -20,6 +24,9 @@ public class ExcelFile {
 	private static String path = dir.getPath() + "/folderList/";
 	private static File excelFile = new File(path + name + ".xls");
 
+	/**
+	 * create excel file by <code>idList</code>
+	 */
 	public static void createExcelFile() {
 		//Blank workbook
 		XSSFWorkbook workbook = new XSSFWorkbook();

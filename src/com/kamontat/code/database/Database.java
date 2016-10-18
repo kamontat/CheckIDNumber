@@ -99,9 +99,8 @@ public class Database {
 			}
 			writer.close();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't Update File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
 			textFile = createTextFile();
-			updateTextFile();
 		}
 	}
 
