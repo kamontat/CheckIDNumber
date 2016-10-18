@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.file.Location;
+import com.kamontat.code.font.FontBook;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,8 @@ public class LauncherPage extends JFrame {
 	public static String statusMessage = "Start Loading";
 
 	public LauncherPage() {
+		addFont();
+		
 		Thread runThread = new Thread() {
 			@Override
 			public void run() {
@@ -125,6 +128,10 @@ public class LauncherPage extends JFrame {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void addFont() {
+		statusLabel.setFont(FontBook.getFontLabel());
 	}
 
 	public static void main(String[] args) throws InterruptedException {
