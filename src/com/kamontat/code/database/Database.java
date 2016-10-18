@@ -16,6 +16,8 @@ import java.util.*;
 import static com.kamontat.code.window.Display.dir;
 
 /**
+ * this class is about text file of id-number (server) and list in the app (local)
+ *
  * @author kamontat
  * @since 17/8/59 - 23:52
  */
@@ -31,6 +33,10 @@ public class Database {
 	 */
 	public static ArrayList<IDNumber> idList = new ArrayList<>();
 
+	/**
+	 * remove all id-number in <code>idList</code> and <br>
+	 * get all id-number from textFile and assign it into <code>idList</code>
+	 */
 	public static void assignIDList() {
 		idList.removeAll(idList);
 		try {
@@ -47,6 +53,14 @@ public class Database {
 		}
 	}
 
+	/**
+	 * search <code>IDNumber</code> id from <code>idList</code> and return index that id
+	 * O-notation = O(idList.length)
+	 *
+	 * @param id
+	 * 		id that want to search
+	 * @return position of that id if it's exist, otherwise return -1
+	 */
 	public static int searchingIDList(IDNumber id) {
 		for (int i = 0; i < idList.size(); i++) {
 			if (idList.get(i).isSame(id)) {
@@ -56,6 +70,11 @@ public class Database {
 		return -1;
 	}
 
+	/**
+	 * create new text-file to save id-number if it isn't exist
+	 *
+	 * @return that new text-file
+	 */
 	private static File createTextFile() {
 		File textFile = null;
 
@@ -71,6 +90,10 @@ public class Database {
 		return textFile;
 	}
 
+	/**
+	 * update text-file by using <code>idList</code>
+	 * O-notation = O(idList.length)
+	 */
 	public static void updateTextFile() {
 		try {
 			FileWriter writer = new FileWriter(textFile);
@@ -83,6 +106,9 @@ public class Database {
 		}
 	}
 
+	/**
+	 * open location of text-file automatic iff file exist
+	 */
 	public static void openFolder() {
 		try {
 			Desktop desktop = Desktop.getDesktop();

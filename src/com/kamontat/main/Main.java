@@ -2,11 +2,11 @@ package com.kamontat.main;
 
 import com.kamontat.gui.LauncherPage;
 
-import java.net.URISyntaxException;
-
+/**
+ * run this app
+ */
 public class Main {
-
-	public static void main(String[] args) throws URISyntaxException {
+	public static void main(String[] args) {
 		LauncherPage page = new LauncherPage();
 	}
 }
