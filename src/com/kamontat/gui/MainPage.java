@@ -1,13 +1,16 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.database.Database;
 import com.kamontat.code.font.FontBook;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.database.Database.openFolder;
+import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 
 /**
@@ -56,12 +59,25 @@ public class MainPage extends JFrame {
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
+		actions.addMenuListener(new MenuListener() {
+			@Override
+			public void menuSelected(MenuEvent e) {
+				actions.removeAll();
+				actions.add(toMenu());
+				actions.addSeparator();
+				actions.add(exportMenu());
+				actions.addSeparator();
+				actions.add(exitMenu());
+			}
 
-		actions.add(toMenu());
-		actions.addSeparator();
-		actions.add(exportMenu());
-		actions.addSeparator();
-		actions.add(exitMenu());
+			@Override
+			public void menuDeselected(MenuEvent e) {
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+			}
+		});
 
 		menu.add(actions);
 		setJMenuBar(menu);
@@ -80,7 +96,12 @@ public class MainPage extends JFrame {
 	}
 
 	static JMenuItem toMenu() {
-		JMenuItem to = new JMenuItem("To (file keeper)");
+		JMenuItem to = null;
+		if (!Database.textFile.exists()) {
+			to = new JMenuItem("Backup Data");
+		} else {
+			to = new JMenuItem("To (file keeper)");
+		}
 		to.addActionListener(e -> openFolder()); /* export action */
 		return to;
 	}

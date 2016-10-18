@@ -4,10 +4,7 @@ import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -102,7 +99,9 @@ public class Database {
 			}
 			writer.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Can't Update File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
+			textFile = createTextFile();
+			updateTextFile();
 		}
 	}
 
@@ -112,7 +111,17 @@ public class Database {
 	public static void openFolder() {
 		try {
 			Desktop desktop = Desktop.getDesktop();
-			desktop.open(new File(dir.getPath() + "/folderList"));
+			File folder = new File(dir.getPath() + "/folderList");
+
+			int numFile = folder.listFiles(pathname -> !pathname.isHidden()).length;
+
+			if (numFile == 0) {
+				JOptionPane.showMessageDialog(null, "File had been delete, \nProgram will backup current data to new file", "Error", JOptionPane.ERROR_MESSAGE);
+				textFile = createTextFile();
+				updateTextFile();
+			} else {
+				desktop.open(folder);
+			}
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Can't automatic open, please open by yourself At " + textFile.getPath(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
