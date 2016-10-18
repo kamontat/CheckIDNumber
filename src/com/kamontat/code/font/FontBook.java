@@ -11,6 +11,11 @@ import java.io.InputStream;
  * @since 19/8/59 - 17:00
  */
 public class FontBook {
+	/**
+	 * using <b>PTMono.ttc</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getFontMain() {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/PTMono.ttc");
@@ -23,6 +28,11 @@ public class FontBook {
 		return null;
 	}
 
+	/**
+	 * using <b>Caudex-Regular.ttf</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getFontButton() {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/Caudex-Regular.ttf");
@@ -34,6 +44,11 @@ public class FontBook {
 		return null;
 	}
 
+	/**
+	 * using <b>BigshotOne.ttf</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getFontLabel() {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/BigshotOne.ttf");
@@ -45,6 +60,11 @@ public class FontBook {
 		return null;
 	}
 
+	/**
+	 * using <b>AlmendraSC-Regular.ttf</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getFontTextField() {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/AlmendraSC-Regular.ttf");
@@ -56,6 +76,11 @@ public class FontBook {
 		return null;
 	}
 
+	/**
+	 * using <b>CharlemagneStd-Bold.otf</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getFontList() {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/CharlemagneStd-Bold.otf");
@@ -67,6 +92,11 @@ public class FontBook {
 		return null;
 	}
 
+	/**
+	 * using <b>DigitalNumbers-Regular.ttf</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getDigitalFont() {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/DigitalNumbers-Regular.ttf");
@@ -78,6 +108,11 @@ public class FontBook {
 		return null;
 	}
 
+	/**
+	 * using <b>waan-free_regular.ttf</b> font
+	 *
+	 * @return font
+	 */
 	public static Font getThaiFont(float size) {
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/waan-free_regular.ttf");
