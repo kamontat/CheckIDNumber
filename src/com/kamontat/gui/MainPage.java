@@ -65,7 +65,8 @@ public class MainPage extends JFrame {
 				actions.removeAll();
 				actions.add(toMenu());
 				actions.addSeparator();
-				actions.add(exportMenu());
+				actions.add(exportMenuXLS());
+				actions.add(exportMenuXLSX());
 				actions.addSeparator();
 				actions.add(exitMenu());
 			}
@@ -95,9 +96,15 @@ public class MainPage extends JFrame {
 		return exit;
 	}
 
-	static JMenuItem exportMenu() {
+	static JMenuItem exportMenuXLS() {
 		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
-		exportExcel.addActionListener(e -> createExcelFile()); /* export action */
+		exportExcel.addActionListener(e -> createExcelFile(".xls")); /* export action */
+		return exportExcel;
+	}
+
+	static JMenuItem exportMenuXLSX() {
+		JMenuItem exportExcel = new JMenuItem("Export (.xlsx)");
+		exportExcel.addActionListener(e -> createExcelFile(".xlsx")); /* export action */
 		return exportExcel;
 	}
 

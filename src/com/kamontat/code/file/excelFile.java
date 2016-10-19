@@ -22,12 +22,16 @@ import static com.kamontat.code.window.Display.dir;
 public class ExcelFile {
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
-	private static File excelFile = new File(path + name + ".xls");
 
 	/**
 	 * create excel file by <code>idList</code>
+	 *
+	 * @param extension
+	 * 		extension of file with `.` Example ".xlsx", ".xls"
 	 */
-	public static void createExcelFile() {
+	public static void createExcelFile(String extension) {
+		File excelFile = new File(path + name + extension);
+
 		//Blank workbook
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		//Create a blank sheet
@@ -39,14 +43,14 @@ public class ExcelFile {
 		try {
 			int i = 1;
 			while (!excelFile.createNewFile()) {
-				excelFile = new File(path + name + "(" + (i++) + ")" + ".xls");
+				excelFile = new File(path + name + "(" + (i++) + ")" + extension);
 			}
 
 			FileOutputStream out = new FileOutputStream(excelFile);
 			workbook.write(out);
 			out.close();
 
-			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + ".xls\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + extension + "\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Cannot export.", "Error", JOptionPane.ERROR_MESSAGE);

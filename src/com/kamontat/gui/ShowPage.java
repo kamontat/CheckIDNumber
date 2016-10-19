@@ -15,9 +15,7 @@ import java.util.*;
 
 import static com.kamontat.code.database.Database.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.gui.MainPage.backMenu;
-import static com.kamontat.gui.MainPage.exitMenu;
-import static com.kamontat.gui.MainPage.exportMenu;
+import static com.kamontat.gui.MainPage.*;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;
@@ -197,7 +195,8 @@ public class ShowPage extends JDialog {
 		actions.add(addMenu());
 		actions.add(clearMenu());
 		actions.addSeparator();
-		actions.add(exportMenu());
+		actions.add(exportMenuXLS());
+		actions.add(exportMenuXLSX());
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
