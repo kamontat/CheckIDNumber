@@ -13,7 +13,7 @@ import java.io.InputStream;
  */
 public class FontBook {
 	/**
-	 * using <b>PTMono.ttc</b> font
+	 * using <b>PTMono.ttc</b> font size 42
 	 *
 	 * @return font
 	 */
@@ -30,7 +30,7 @@ public class FontBook {
 	}
 
 	/**
-	 * using <b>Caudex-Regular.ttf</b> font
+	 * using <b>Caudex-Regular.ttf</b> font size 24
 	 *
 	 * @return font
 	 */
@@ -46,7 +46,7 @@ public class FontBook {
 	}
 
 	/**
-	 * using <b>BigshotOne.ttf</b> font
+	 * using <b>BigshotOne.ttf</b> font size 22
 	 *
 	 * @return font
 	 */
@@ -62,7 +62,7 @@ public class FontBook {
 	}
 
 	/**
-	 * using <b>AlmendraSC-Regular.ttf</b> font
+	 * using <b>AlmendraSC-Regular.ttf</b> font size 22
 	 *
 	 * @return font
 	 */
@@ -78,7 +78,7 @@ public class FontBook {
 	}
 
 	/**
-	 * using <b>CharlemagneStd-Bold.otf</b> font
+	 * using <b>CharlemagneStd-Bold.otf</b> font size 26
 	 *
 	 * @return font
 	 */
@@ -94,7 +94,7 @@ public class FontBook {
 	}
 
 	/**
-	 * using <b>DigitalNumbers-Regular.ttf</b> font
+	 * using <b>DigitalNumbers-Regular.ttf</b> font size 25
 	 *
 	 * @return font
 	 */
@@ -112,6 +112,8 @@ public class FontBook {
 	/**
 	 * using <b>waan-free_regular.ttf</b> font
 	 *
+	 * @param size
+	 * 		create by <code>size</code>
 	 * @return font
 	 */
 	public static Font getThaiFont(float size) {

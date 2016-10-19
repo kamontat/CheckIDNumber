@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 import static com.kamontat.code.database.Database.openFolder;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
@@ -30,8 +30,6 @@ public class MainPage extends JFrame {
 
 		createMenuBar();
 
-		pack();
-
 		enterBtn.addActionListener(e -> {
 			EnterPage page = new EnterPage();
 			page.run(getCenterLocation(page.getSize()));
@@ -44,6 +42,8 @@ public class MainPage extends JFrame {
 
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> System.exit(0), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+		pack();
 	}
 
 	private void addFont() {
@@ -80,7 +80,33 @@ public class MainPage extends JFrame {
 			}
 		});
 
+		JMenu status = new JMenu("File Status");
+		status.addMenuListener(new MenuListener() {
+			@Override
+			public void menuSelected(MenuEvent e) {
+				status.removeAll();
+				JMenuItem stat = new JMenuItem("");
+				if (Database.textFile.exists()) {
+					stat = new JMenuItem("GOOD");
+				} else {
+					stat = new JMenuItem("BAD");
+				}
+				status.add(stat);
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+			}
+		});
+
 		menu.add(actions);
+		menu.add(Box.createHorizontalGlue());
+		menu.add(status);
+
 		setJMenuBar(menu);
 	}
 
@@ -92,7 +118,7 @@ public class MainPage extends JFrame {
 
 	static JMenuItem backMenu(Window page) {
 		JMenuItem exit = new JMenuItem("Back");
-		exit.addActionListener(e -> page.dispose()); /* exit action */
+		exit.addActionListener(e -> page.dispose()); /* back action */
 		return exit;
 	}
 
