@@ -63,8 +63,10 @@ public class Location {
 
 		String districtText = districts.get(districtID);
 		if (districtText == null) {
+			type = Type.NO_DISTRICT;
 			return new String[]{provinceText + "(" + provinceID + ")", "Unknown District (" + id.getIDDistrict() + ")"};
 		} else {
+			type = Type.OK;
 			return new String[]{provinceText + "(" + provinceID + ")", districtText + "(" + id.getIDDistrict() + ")"};
 		}
 	}

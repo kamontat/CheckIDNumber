@@ -13,10 +13,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
-import static com.kamontat.code.database.Database.updateTextFile;
-import static com.kamontat.code.database.Database.idList;
-import static com.kamontat.code.database.Database.searchingIDList;
+import static com.kamontat.code.database.Database.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.gui.MainPage.backMenu;
 import static com.kamontat.gui.MainPage.exitMenu;
 import static com.kamontat.gui.MainPage.exportMenu;
 
@@ -186,6 +185,7 @@ public class ShowPage extends JDialog {
 		actions.addSeparator();
 		actions.add(exportMenu());
 		actions.addSeparator();
+		actions.add(backMenu(this));
 		actions.add(exitMenu());
 
 		menu.add(actions);

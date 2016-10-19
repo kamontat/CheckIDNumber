@@ -74,12 +74,6 @@ public class InformationPage extends JDialog {
 	}
 
 	private void setInformation(IDNumber id) {
-		typeLabel.setText(id.getType());
-		provinceLabel.setText(Location.getProvinceAndDistrict(id)[0]);
-		districtLabel.setText(Location.getProvinceAndDistrict(id)[1]);
-		numBCLabel.setText(id.getIDBC());
-		orderLabel.setText(id.getIDOrder());
-
 		if (id.getStatusMessage() == Status.NOT_CREATE) {
 			// impossible
 			setStatus("Not Create Yet!", new Color(255, 0, 0));
@@ -89,12 +83,22 @@ public class InformationPage extends JDialog {
 		} else if (id.getStatusMessage() == Status.UNCORRECTED) {
 			// impossible
 			setStatus("NOT Real ID Number", new Color(255, 0, 0));
-		} else if (Location.getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
-			setStatus("NO district", new Color(255, 228, 0));
-		} else if (Location.getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
-			setStatus("NO json_location and district", new Color(255, 168, 0));
-		} else if (Location.getType() == com.kamontat.code.constant.Type.OK && id.getStatusMessage() == Status.OK) {
-			setStatus("Prefect ID!", new Color(0, 249, 255));
+		} else {
+			typeLabel.setText(id.getType());
+			provinceLabel.setText(Location.getProvinceAndDistrict(id)[0]);
+			districtLabel.setText(Location.getProvinceAndDistrict(id)[1]);
+			numBCLabel.setText(id.getIDBC());
+			orderLabel.setText(id.getIDOrder());
+			
+			if (Location.getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
+				setStatus("NO district", new Color(255, 228, 0));
+			} else if (Location.getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
+				setStatus("NO province and district", new Color(255, 168, 0));
+			} else if (Location.getType() == com.kamontat.code.constant.Type.OK && id.getStatusMessage() == Status.OK) {
+				setStatus("Prefect ID!", new Color(0, 249, 255));
+			} else {
+				setStatus("Something Wrong", new Color(255, 0, 0));
+			}
 		}
 	}
 

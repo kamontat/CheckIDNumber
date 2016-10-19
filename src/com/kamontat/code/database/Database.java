@@ -4,7 +4,9 @@ import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -42,10 +44,15 @@ public class Database {
 				String[] dataIDNumber = input.nextLine().split(" ");
 
 				String id = dataIDNumber[0];
-				LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
-				idList.add(new IDNumber(id, time));
+				// if wrong format
+				if (dataIDNumber.length == 0) {
+					idList.add(new IDNumber(id));
+				} else {
+					LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
+					idList.add(new IDNumber(id, time));
+				}
 			}
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -95,7 +102,7 @@ public class Database {
 		try {
 			FileWriter writer = new FileWriter(textFile);
 			for (IDNumber id : idList) {
-				writer.write(id + "\n");
+				writer.write(id.saveFormat() + "\n");
 			}
 			writer.close();
 		} catch (IOException e) {

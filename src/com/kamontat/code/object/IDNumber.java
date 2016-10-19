@@ -72,8 +72,12 @@ public class IDNumber {
 		this.statusMessage = statusMessage;
 	}
 
-	public boolean isSame(IDNumber id) {
-		return getId().equals(id.getId());
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
+
+	public LocalDateTime getTime() {
+		return time;
 	}
 
 	public String getType() {
@@ -120,7 +124,6 @@ public class IDNumber {
 		return String.copyValueOf(splitID, 10, 2);
 	}
 
-
 	private boolean checkLength() {
 		if (id.length() == 13) {
 			return true;
@@ -158,8 +161,16 @@ public class IDNumber {
 		return false;
 	}
 
+	public boolean isSame(IDNumber id) {
+		return getId().equals(id.getId());
+	}
+
 	@Override
 	public String toString() {
+		return id;
+	}
+
+	public String saveFormat() {
 		return id + " " + time.toLocalDate() + " " + time.toLocalTime() + " Asia/Bangkok";
 	}
 }

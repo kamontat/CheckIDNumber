@@ -11,10 +11,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
+import static com.kamontat.code.database.Database.idList;
 import static com.kamontat.code.database.Database.updateTextFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.gui.MainPage.backMenu;
 import static com.kamontat.gui.MainPage.exitMenu;
-import static com.kamontat.code.database.Database.idList;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
@@ -152,6 +153,7 @@ public class EnterPage extends JDialog {
 
 		actions.add(showMenu());
 		actions.addSeparator();
+		actions.add(backMenu(this));
 		actions.add(exitMenu());
 
 		menu.add(actions);

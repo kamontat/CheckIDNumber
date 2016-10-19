@@ -89,6 +89,12 @@ public class MainPage extends JFrame {
 		return exit;
 	}
 
+	static JMenuItem backMenu(Window page) {
+		JMenuItem exit = new JMenuItem("Back");
+		exit.addActionListener(e -> page.dispose()); /* exit action */
+		return exit;
+	}
+
 	static JMenuItem exportMenu() {
 		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
 		exportExcel.addActionListener(e -> createExcelFile()); /* export action */
