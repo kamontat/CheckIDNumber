@@ -65,6 +65,13 @@ public class ShowPage extends JDialog {
 
 		assignSearching((DefaultListModel<IDNumber>) list.getModel());
 
+		// disable searching if id more than 1000
+		if (model.size() > 1000) {
+			searchingField.setEnabled(false);
+		} else {
+			searchingField.setEnabled(true);
+		}
+
 		countLabel.setText(String.format("(%03d)", model.size()));
 
 		list.addMouseListener(new MouseAdapter() {
@@ -118,6 +125,13 @@ public class ShowPage extends JDialog {
 			idList.remove(index);
 			model.remove(list.getSelectedIndex());
 			updateTextFile();
+
+			// disable searching if id more than 1000
+			if (model.size() > 1000) {
+				searchingField.setEnabled(false);
+			} else {
+				searchingField.setEnabled(true);
+			}
 
 			countLabel.setText(String.format("(%03d)", model.size()));
 		});

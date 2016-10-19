@@ -89,7 +89,7 @@ public class InformationPage extends JDialog {
 			districtLabel.setText(Location.getProvinceAndDistrict(id)[1]);
 			numBCLabel.setText(id.getIDBC());
 			orderLabel.setText(id.getIDOrder());
-			
+
 			if (Location.getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
 				setStatus("NO district", new Color(255, 228, 0));
 			} else if (Location.getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
