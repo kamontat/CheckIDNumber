@@ -2,13 +2,13 @@
 
 # IntelliJ project files
 .idea
+*.iml
 out
-lib
-gen
+
+#lib
+
+
+src/META-INF
+folderList/
 *.xls
 *.xlsx
-*.iml
-
-folderList/
-src/META-INF
-output.txt

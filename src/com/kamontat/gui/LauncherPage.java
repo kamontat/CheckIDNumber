@@ -133,8 +133,4 @@ public class LauncherPage extends JFrame {
 	private void addFont() {
 		statusLabel.setFont(FontBook.getFontLabel());
 	}
-
-	public static void main(String[] args) throws InterruptedException {
-		LauncherPage page = new LauncherPage();
-	}
 }

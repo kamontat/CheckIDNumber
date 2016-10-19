@@ -26,6 +26,8 @@ public class ShowPage extends JDialog {
 	private JLabel countLabel;
 	private JLabel label1;
 
+	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
+
 	ShowPage() {
 		setContentPane(contentPane);
 		setModal(true);
@@ -53,22 +55,15 @@ public class ShowPage extends JDialog {
 	}
 
 	private void assignList() {
-
-		DefaultListModel<IDNumber> model = new DefaultListModel<>();
 		idList.forEach(model::addElement);
 
 		list.setModel(model);
 
-		JMenuItem[] items = assignPopupList((DefaultListModel<IDNumber>) list.getModel());
+		JMenuItem[] items = assignPopupList();
 
-		assignSearching((DefaultListModel<IDNumber>) list.getModel());
+		assignSearching();
 
-		// disable searching if id more than 1000
-		if (model.size() > 1000) {
-			searchingField.setEnabled(false);
-		} else {
-			searchingField.setEnabled(true);
-		}
+		disableSearch();
 
 		countLabel.setText(String.format("(%03d)", model.size()));
 
@@ -91,7 +86,7 @@ public class ShowPage extends JDialog {
 		});
 	}
 
-	private JMenuItem[] assignPopupList(DefaultListModel<IDNumber> model) {
+	private JMenuItem[] assignPopupList() {
 		int i, j = 0;
 		if (Location.readable) i = 3;
 		else i = 2;
@@ -124,12 +119,7 @@ public class ShowPage extends JDialog {
 			model.remove(list.getSelectedIndex());
 			updateTextFile();
 
-			// disable searching if id more than 1000
-			if (model.size() > 1000) {
-				searchingField.setEnabled(false);
-			} else {
-				searchingField.setEnabled(true);
-			}
+			disableSearch();
 
 			countLabel.setText(String.format("(%03d)", model.size()));
 		});
@@ -137,7 +127,7 @@ public class ShowPage extends JDialog {
 		return itemList;
 	}
 
-	private void assignSearching(DefaultListModel<IDNumber> model) {
+	private void assignSearching() {
 		searchingField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -170,6 +160,20 @@ public class ShowPage extends JDialog {
 				countLabel.setText(String.format("(%03d)", model.size()));
 			}
 		});
+	}
+
+	/**
+	 * disable searching if id more than 1000
+	 */
+	private void disableSearch() {
+		// disable searching if id more than 1000
+		if (model.size() > 1000) {
+			searchingField.setEnabled(false);
+			searchingField.setToolTipText("Search can't use, if id more than 1000");
+		} else {
+			searchingField.setEnabled(true);
+			searchingField.setToolTipText("");
+		}
 	}
 
 	private void addFont() {
