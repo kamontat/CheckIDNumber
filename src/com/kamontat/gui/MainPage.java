@@ -9,6 +9,7 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.*;
 
+import static com.kamontat.code.database.Database.assignIDList;
 import static com.kamontat.code.database.Database.openFolder;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
@@ -63,6 +64,7 @@ public class MainPage extends JFrame {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				actions.removeAll();
+				actions.add(refreshMenu());
 				actions.add(toMenu());
 				actions.addSeparator();
 				actions.add(exportMenuXLS());
@@ -120,6 +122,14 @@ public class MainPage extends JFrame {
 		JMenuItem exit = new JMenuItem("Back");
 		exit.addActionListener(e -> page.dispose()); /* back action */
 		return exit;
+	}
+
+	static JMenuItem refreshMenu() {
+		JMenuItem refresh = new JMenuItem("reload data");
+		refresh.addActionListener(e -> {
+			assignIDList();
+		}); /* refresh action */
+		return refresh;
 	}
 
 	static JMenuItem exportMenuXLS() {

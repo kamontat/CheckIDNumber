@@ -37,6 +37,7 @@ public class Database {
 	 * get all id-number from textFile and assign it into <code>idList</code>
 	 */
 	public static void assignIDList() {
+		boolean hasWrong = false;
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
@@ -45,13 +46,15 @@ public class Database {
 
 				String id = dataIDNumber[0];
 				// if wrong format
-				if (dataIDNumber.length == 0) {
+				if (dataIDNumber.length == 1) {
+					hasWrong = true;
 					idList.add(new IDNumber(id));
 				} else {
 					LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
 					idList.add(new IDNumber(id, time));
 				}
 			}
+			if (hasWrong) updateTextFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
