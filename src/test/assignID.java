@@ -28,7 +28,7 @@ public class assignID {
 
 			for (int i = 0; i < num; i++) {
 				IDNumber number = new IDNumber(String.valueOf(Math.abs(random.nextLong())).substring(0, 12));
-				while (number.getStatusMessage() == Status.UNCORRECTED || number.getStatusMessage() == Status.OUT_LENGTH) {
+				while (number.getStatus() == Status.UNCORRECTED || number.getStatus() == Status.OUT_LENGTH) {
 					number = new IDNumber(String.valueOf(Math.abs(random.nextLong())).substring(0, 12));
 					number.setId(number.getId() + lastDigit(number.getId()));
 				}

@@ -8,42 +8,67 @@ import java.time.ZoneId;
 import static com.kamontat.code.constant.Status.*;
 
 /**
+ * object that deal with <code>id-number</code> of this program <br>
+ * <p>
+ * keep id-number by String, <br>
+ * keep update time in form of <code>LocalDateTime</code>, <br>
+ * and status of this id-number by using id rule of <b>Thailand</b> <br>
+ *
  * @author kamontat
+ * @version 2.2
  * @since 19/8/59 - 20:41
  */
 public class IDNumber {
 	private char[] splitID;
 	private String id;
 	private LocalDateTime time;
-	private Status statusMessage;
+	private Status status;
 
+	/**
+	 * <b>init</b> id-number with nothing
+	 */
 	public IDNumber() {
 		this.id = null;
 		splitID = null;
 
-		statusMessage = NOT_CREATE;
+		status = NOT_CREATE;
 
 		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 
 	}
 
+	/**
+	 * <b>init</b> id-number by using parameter <code>id</code>
+	 *
+	 * @param id
+	 * 		some id-number
+	 */
 	public IDNumber(String id) {
 		this.id = id;
 		splitID = id.toCharArray();
 
 		if (checkLength() && isIDCorrect()) {
-			statusMessage = OK;
+			status = OK;
 		}
 
 		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 	}
 
+	/**
+	 * <b>init</b> id-number by using parameter <code>id</code> and <code>time</code> <br>
+	 * it's method using for loading id from file (server)
+	 *
+	 * @param id
+	 * 		some id-number
+	 * @param time
+	 * 		time that update this id-number
+	 */
 	public IDNumber(String id, LocalDateTime time) {
 		this.id = id;
 		splitID = id.toCharArray();
 
 		if (checkLength() && isIDCorrect()) {
-			statusMessage = OK;
+			status = OK;
 		}
 
 		this.time = time;
@@ -58,18 +83,18 @@ public class IDNumber {
 		splitID = id.toCharArray();
 
 		if (checkLength() && isIDCorrect()) {
-			statusMessage = OK;
+			status = OK;
 
 			time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 		}
 	}
 
-	public Status getStatusMessage() {
-		return statusMessage;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setStatusMessage(Status statusMessage) {
-		this.statusMessage = statusMessage;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public void setTime(LocalDateTime time) {
@@ -80,6 +105,11 @@ public class IDNumber {
 		return time;
 	}
 
+	/**
+	 * convert first digit in id-number to type in form of String by using id rule of <b>Thailand</b>
+	 *
+	 * @return string of type
+	 */
 	public String getType() {
 		if (splitID[0] == '1') {
 			return "สัญชาติไทย และ แจ้งเกิดทันเวลา";
@@ -104,37 +134,70 @@ public class IDNumber {
 		}
 	}
 
+	/**
+	 * get address in id-number by using id rule of <b>Thailand</b><br>
+	 * <b>address</b> is mean province + district
+	 *
+	 * @return address in form of number
+	 */
 	public String getIDAddress() {
 		return String.copyValueOf(splitID, 1, 4);
 	}
 
+	/**
+	 * get province in id-number by using id rule of <b>Thailand</b>
+	 *
+	 * @return province in form of number
+	 */
 	public String getIDProvince() {
 		return String.copyValueOf(splitID, 1, 2);
 	}
 
+	/**
+	 * get district in id-number by using id rule of <b>Thailand</b>
+	 *
+	 * @return district in form of number
+	 */
 	public String getIDDistrict() {
 		return String.copyValueOf(splitID, 3, 2);
 	}
 
+	/**
+	 * get ID of <b>Birth Certificate</b> in id-number by using id rule of <b>Thailand</b>
+	 *
+	 * @return Birth Certificate ID in form of number
+	 */
 	public String getIDBC() {
 		return String.copyValueOf(splitID, 5, 5);
 	}
 
+	/**
+	 * get order in <b>Birth Certificate</b> by using id rule of <b>Thailand</b>
+	 *
+	 * @return order of that in form of number
+	 */
 	public String getIDOrder() {
 		return String.copyValueOf(splitID, 10, 2);
 	}
 
+	/**
+	 * check length of id
+	 *
+	 * @return if length isn't 13 change status and return false, otherwise return true
+	 */
 	private boolean checkLength() {
-		if (id.length() == 13) {
-			return true;
-		}
-		statusMessage = OUT_LENGTH;
-		return false;
+		if (id.length() != 13) status = OUT_LENGTH;
+		return id.length() == 13;
 	}
 
+	/**
+	 * check id is passing id rule of <b>Thailand</b> or not
+	 *
+	 * @return if pass return true, otherwise return false
+	 */
 	private boolean isIDCorrect() {
 		if (splitID[0] == '9') {
-			statusMessage = NOT_NINE;
+			status = NOT_NINE;
 			return false;
 		}
 
@@ -157,10 +220,17 @@ public class IDNumber {
 			}
 		}
 
-		statusMessage = UNCORRECTED;
+		status = UNCORRECTED;
 		return false;
 	}
 
+	/**
+	 * For check duplicate id
+	 *
+	 * @param id
+	 * 		some id
+	 * @return if <code>some id</code> is same with <code>this id</code> return true, otherwise return false
+	 */
 	public boolean isSame(IDNumber id) {
 		return getId().equals(id.getId());
 	}
@@ -170,6 +240,11 @@ public class IDNumber {
 		return id;
 	}
 
+	/**
+	 * use for saving id into file (server)
+	 *
+	 * @return format to save in file
+	 */
 	public String saveFormat() {
 		return id + " " + time.toLocalDate() + " " + time.toLocalTime() + " Asia/Bangkok";
 	}

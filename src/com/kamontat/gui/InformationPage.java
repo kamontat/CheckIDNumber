@@ -74,9 +74,9 @@ public class InformationPage extends JDialog {
 	}
 
 	private void setInformation(IDNumber id) {
-		if (id.getStatusMessage() != Status.OK) {
+		if (id.getStatus() != Status.OK) {
 			// impossible
-			setStatus(id.getStatusMessage().toString(), new Color(255, 0, 0));
+			setStatus(id.getStatus().toString(), new Color(255, 0, 0));
 		} else {
 			typeLabel.setText(id.getType());
 			provinceLabel.setText(Location.getProvinceAndDistrict(id)[0]);

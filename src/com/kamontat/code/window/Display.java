@@ -19,6 +19,13 @@ public class Display {
 	 */
 	public static File dir = Paths.get("").toAbsolutePath().toFile();
 
+	/**
+	 * get point that stay in the center of the screen
+	 *
+	 * @param pageSize
+	 * 		size of page that want to show in the center
+	 * @return point of center screen
+	 */
 	public static Point getCenterLocation(Dimension pageSize) {
 		return new Point((int) ((display.getWidth() / 2) - (pageSize.getWidth() / 2)), (int) ((display.getHeight() / 2) - (pageSize.getHeight() / 2)));
 	}
