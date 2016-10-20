@@ -8,5 +8,18 @@ package com.kamontat.code.constant;
  * @since 16/9/59 - 23:07
  */
 public enum Type {
-	OK, NO_DISTRICT, NO_EVERYTHING;
+	NO_DISTRICT("NO district"),
+	NO_EVERYTHING("NO province and district"),
+	OK("perfect ID");
+
+	private String message;
+
+	Type(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public String toString() {
+		return message;
+	}
 }

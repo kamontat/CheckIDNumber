@@ -62,6 +62,24 @@ public class FontBook {
 	}
 
 	/**
+	 * using <b>BigshotOne.ttf</b> font by parems size
+	 *
+	 * @param size
+	 * 		size of font
+	 * @return font
+	 */
+	public static Font getFontLabel(float size) {
+		try {
+			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/BigshotOne.ttf");
+			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(size);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
 	 * using <b>AlmendraSC-Regular.ttf</b> font size 22
 	 *
 	 * @return font

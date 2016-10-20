@@ -8,5 +8,20 @@ package com.kamontat.code.constant;
  * @since 16/9/59 - 23:05
  */
 public enum Status {
-	OK, OUT_LENGTH, UNCORRECTED, NOT_CREATE;
+	OK("GOOD"),
+	OUT_LENGTH("MUST be 13 Digit"),
+	NOT_NINE("First digit CANNOT be 9"),
+	UNCORRECTED("ID NOT match with id rule"),
+	NOT_CREATE("NEVER assign ID");
+
+	private String message;
+
+	Status(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public String toString() {
+		return message;
+	}
 }

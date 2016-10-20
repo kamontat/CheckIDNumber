@@ -9,9 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class InformationPage extends JDialog {
-	private ShowPage page;
+import static com.kamontat.gui.MainPage.exPack;
 
+public class InformationPage extends JDialog {
 	private JPanel contentPane;
 	private JButton okBtn;
 
@@ -26,6 +26,7 @@ public class InformationPage extends JDialog {
 	private JLabel numBCLabel;
 	private JLabel orderLabel;
 	private JLabel statusLabel;
+	private JLabel update_atLabel;
 
 	public InformationPage(IDNumber id) {
 		setContentPane(contentPane);
@@ -52,7 +53,6 @@ public class InformationPage extends JDialog {
 
 	private void onOK() {
 		dispose();
-		page.run(this.getLocation());
 	}
 
 	private void addFont() {
@@ -74,41 +74,34 @@ public class InformationPage extends JDialog {
 	}
 
 	private void setInformation(IDNumber id) {
-		if (id.getStatusMessage() == Status.NOT_CREATE) {
+		if (id.getStatusMessage() != Status.OK) {
 			// impossible
-			setStatus("Not Create Yet!", new Color(255, 0, 0));
-		} else if (id.getStatusMessage() == Status.OUT_LENGTH) {
-			// impossible
-			setStatus("NOT 13 Digit!?", new Color(255, 0, 0));
-		} else if (id.getStatusMessage() == Status.UNCORRECTED) {
-			// impossible
-			setStatus("NOT Real ID Number", new Color(255, 0, 0));
+			setStatus(id.getStatusMessage().toString(), new Color(255, 0, 0));
 		} else {
 			typeLabel.setText(id.getType());
 			provinceLabel.setText(Location.getProvinceAndDistrict(id)[0]);
 			districtLabel.setText(Location.getProvinceAndDistrict(id)[1]);
 			numBCLabel.setText(id.getIDBC());
 			orderLabel.setText(id.getIDOrder());
+			update_atLabel.setText("update_at " + id.getTime().toLocalDate() + ", " + id.getTime().toLocalTime());
 
+			Color color = Color.BLACK;
 			if (Location.getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
-				setStatus("NO district", new Color(255, 228, 0));
+				color = new Color(255, 228, 0);
 			} else if (Location.getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
-				setStatus("NO province and district", new Color(255, 168, 0));
-			} else if (Location.getType() == com.kamontat.code.constant.Type.OK && id.getStatusMessage() == Status.OK) {
-				setStatus("Prefect ID!", new Color(0, 249, 255));
-			} else {
-				setStatus("Something Wrong", new Color(255, 0, 0));
+				color = new Color(255, 168, 0);
+			} else if (Location.getType() == com.kamontat.code.constant.Type.OK) {
+				color = new Color(0, 249, 255);
 			}
+			setStatus(Location.getType().toString(), color);
+
+			exPack(this);
 		}
 	}
 
 	private void setStatus(String message, Color color) {
 		statusLabel.setText(message);
 		statusLabel.setForeground(color);
-	}
-
-	public void keepPage(ShowPage page) {
-		this.page = page;
 	}
 
 	public void run(Point point) {

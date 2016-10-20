@@ -8,12 +8,14 @@ import java.awt.*;
 
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.code.database.Database.assignIDList;
+import static com.kamontat.gui.MainPage.exPack;
 
 /**
  * @author kamontat
  * @since 10/18/2016 AD - 2:30 PM
  */
 public class LauncherPage extends JFrame {
+	private JFrame self = this;
 	private JProgressBar progressBar;
 	private JPanel panel;
 	private JLabel statusLabel;
@@ -28,7 +30,7 @@ public class LauncherPage extends JFrame {
 			public void run() {
 				super.run();
 				setContentPane(panel);
-				pack();
+				exPack(self);
 				setLocation(getCenterLocation(getSize()));
 				setVisible(true);
 				setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -121,7 +123,7 @@ public class LauncherPage extends JFrame {
 				status.setForeground(Color.BLUE);
 			}
 
-			pack();
+			exPack(this);
 			try {
 				Thread.sleep((long) Math.ceil(Math.random() * 100));
 			} catch (InterruptedException e) {

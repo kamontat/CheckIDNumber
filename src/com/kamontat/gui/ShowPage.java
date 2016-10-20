@@ -36,7 +36,7 @@ public class ShowPage extends JDialog {
 		createMenuBar();
 		addFont();
 
-		pack();
+		exPack(this);
 
 		buttonOK.addActionListener(e -> onOK());
 
@@ -98,8 +98,7 @@ public class ShowPage extends JDialog {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
 				InformationPage page = new InformationPage(list.getSelectedValue());
-				page.keepPage(this);
-				page.run(this.getLocation());
+				page.run(getCenterLocation(page.getSize()));
 			});
 		}
 

@@ -1,7 +1,7 @@
-- TODO: 10/19/2016 AD Reopen program button, or refresh loading file
-- TODO: 10/19/2016 AD Status of text-file if it isn't exist
-- TODO: 10/19/2016 AD New error about first digit can't be `9`
-- TODO: 10/19/2016 AD information page must add create_time
+- TODO: 10/19/2016 AD Reopen program button, or refresh loading file (v.1)
+- TODO: 10/19/2016 AD Status of text-file if it isn't exist (beta-1)
+- TODO: 10/19/2016 AD New error about first digit can't be `9` (done)
+- TODO: 10/19/2016 AD information page must add create_time (v.1)
 - TODO: 10/19/2016 AD fixed program crash when search many id in show page
 - TODO: 10/20/2016 AD Sync data between file and idList in program
 - TODO: 10/20/2016 AD sort data by time every time upload list to file

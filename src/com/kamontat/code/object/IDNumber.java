@@ -134,7 +134,7 @@ public class IDNumber {
 
 	private boolean isIDCorrect() {
 		if (splitID[0] == '9') {
-			statusMessage = UNCORRECTED;
+			statusMessage = NOT_NINE;
 			return false;
 		}
 

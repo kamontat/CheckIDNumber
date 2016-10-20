@@ -11,6 +11,7 @@ import java.awt.event.*;
 
 import static com.kamontat.code.database.Database.assignIDList;
 import static com.kamontat.code.database.Database.openFolder;
+import static com.kamontat.code.database.Database.updateTextFile;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 
@@ -44,7 +45,7 @@ public class MainPage extends JFrame {
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> System.exit(0), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-		pack();
+		exPack(this);
 	}
 
 	private void addFont() {
@@ -125,9 +126,10 @@ public class MainPage extends JFrame {
 	}
 
 	static JMenuItem refreshMenu() {
-		JMenuItem refresh = new JMenuItem("reload data");
+		JMenuItem refresh = new JMenuItem("refresh data");
 		refresh.addActionListener(e -> {
 			assignIDList();
+			updateTextFile();
 		}); /* refresh action */
 		return refresh;
 	}
@@ -155,8 +157,13 @@ public class MainPage extends JFrame {
 		return to;
 	}
 
+	public static void exPack(Window frame) {
+		frame.pack();
+		frame.setLocation(getCenterLocation(frame.getSize()));
+	}
+
 	public void run(Point point) {
-		pack();
+		exPack(this);
 		setLocation(point);
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
