@@ -70,7 +70,7 @@ public class Database {
 	 */
 	public static int searchingIDList(IDNumber id) {
 		for (int i = 0; i < idList.size(); i++) {
-			if (idList.get(i).isSame(id)) {
+			if (idList.get(i).getId().equals(id.getId())) {
 				return i;
 			}
 		}

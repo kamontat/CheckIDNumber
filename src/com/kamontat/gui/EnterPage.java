@@ -9,10 +9,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.*;
 
-import static com.kamontat.code.database.Database.idList;
-import static com.kamontat.code.database.Database.updateTextFile;
+import static com.kamontat.code.database.Database.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.backMenu;
 import static com.kamontat.gui.MainPage.exitMenu;
@@ -64,14 +62,13 @@ public class EnterPage extends JDialog {
 	}
 
 	private void onOK() {
-		warn();
+		assignIDList();
 
-		if (!isDuplicate(new IDNumber(textField.getText()), idList) && okBtn.isEnabled()) {
-			idList.add(new IDNumber(textField.getText()));
-			updateTextFile();
-			setMessage("Collect ID (Saved)", new Color(0, 122, 255));
-			textField.selectAll();
-		}
+		idList.add(number);
+		updateTextFile();
+		setMessage("Collect ID (Saved)", new Color(0, 122, 255));
+		textField.selectAll();
+
 		pack();
 	}
 
@@ -80,19 +77,17 @@ public class EnterPage extends JDialog {
 	}
 
 	private void warn() {
-		if (isAllNumberIn(textField.getText())) {
-			number.setId(textField.getText());
-			// id haven't 13 character
-			if (number.getStatus() == Status.OUT_LENGTH) {
+		if (textField.getText().equals("")) {
+			setMessage("Enter (enter some id)", new Color(0, 0, 0));
+		} else if (isAllNumberIn(textField.getText())) {
+			number = new IDNumber(textField.getText());
+
+			if (number.getStatus() != Status.OK) {
 				okBtn.setEnabled(false);
-				setMessage("Warning (not equal 13)", new Color(255, 189, 0));
-				// 13th digit is not match with id theorem
-			} else if (number.getStatus() == Status.UNCORRECTED) {
-				okBtn.setEnabled(false);
-				setMessage("Error (ID Number Wrong)", new Color(195, 0, 255));
+				setMessage(number.getStatus().toString(), number.getStatus().getColor());
 			} else {
 				// id haven't 13 character
-				if (isDuplicate(new IDNumber(textField.getText()), idList)) {
+				if (new IDNumber(textField.getText()).isDuplicate()) {
 					okBtn.setEnabled(false);
 					setMessage("Error (Duplicate ID)", new Color(255, 0, 0));
 				} else {
@@ -118,13 +113,6 @@ public class EnterPage extends JDialog {
 			if (!Character.isDigit(aChar)) return false;
 		}
 		return true;
-	}
-
-	private boolean isDuplicate(IDNumber otherID, ArrayList<IDNumber> list) {
-		for (IDNumber id : list) {
-			if (id.isSame(otherID)) return true;
-		}
-		return false;
 	}
 
 	private void setMessage(String message, Color color) {

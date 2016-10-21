@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import static com.kamontat.code.constant.Status.*;
+import static com.kamontat.code.database.Database.idList;
 
 /**
  * object that deal with <code>id-number</code> of this program <br>
@@ -49,7 +50,7 @@ public class IDNumber {
 		splitID = id.toCharArray();
 		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 
-		if (checkLength() && isIDCorrect()) {
+		if (isIDCorrect()) {
 			status = OK;
 			location = new Location(this);
 		}
@@ -70,7 +71,7 @@ public class IDNumber {
 		this.time = time;
 
 
-		if (checkLength() && isIDCorrect()) {
+		if (isIDCorrect()) {
 			status = OK;
 			location = new Location(this);
 		}
@@ -84,7 +85,7 @@ public class IDNumber {
 		this.id = id;
 		splitID = id.toCharArray();
 
-		if (checkLength() && isIDCorrect()) {
+		if (isIDCorrect()) {
 			status = OK;
 			location = new Location(this);
 
@@ -214,6 +215,9 @@ public class IDNumber {
 			return false;
 		}
 
+		if (!checkLength()) return false;
+
+
 		int total = 0;
 		for (int i = 1; i <= 12; i++) {
 			int digit = Character.getNumericValue(splitID[i - 1]);
@@ -238,14 +242,15 @@ public class IDNumber {
 	}
 
 	/**
-	 * For check duplicate id
+	 * For check duplicate id in the list
 	 *
-	 * @param id
-	 * 		some id
 	 * @return if <code>some id</code> is same with <code>this id</code> return true, otherwise return false
 	 */
-	public boolean isSame(IDNumber id) {
-		return getId().equals(id.getId());
+	public boolean isDuplicate() {
+		for (IDNumber id : idList) {
+			if (id.getId().equals(getId())) return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -268,6 +273,6 @@ public class IDNumber {
 
 	public static boolean validID(String id) {
 		IDNumber idNumber = new IDNumber(id);
-		return idNumber.isIDCorrect() && idNumber.checkLength();
+		return idNumber.isIDCorrect();
 	}
 }
