@@ -1,7 +1,6 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.Status;
-import com.kamontat.code.file.Location;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -78,22 +77,22 @@ public class InformationPage extends JDialog {
 			// impossible
 			setStatus(id.getStatus().toString(), new Color(255, 0, 0));
 		} else {
-			typeLabel.setText(id.getType());
-			provinceLabel.setText(Location.getProvinceAndDistrict(id)[0]);
-			districtLabel.setText(Location.getProvinceAndDistrict(id)[1]);
+			typeLabel.setText(id.getIDGenre());
+			provinceLabel.setText(id.getLocation().getProvince());
+			districtLabel.setText(id.getLocation().getDistrict());
 			numBCLabel.setText(id.getIDBC());
 			orderLabel.setText(id.getIDOrder());
 			update_atLabel.setText("update_at " + id.getTime().toLocalDate() + ", " + id.getTime().toLocalTime());
 
 			Color color = Color.BLACK;
-			if (Location.getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
+			if (id.getLocation().getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
 				color = new Color(255, 228, 0);
-			} else if (Location.getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
+			} else if (id.getLocation().getType() == com.kamontat.code.constant.Type.NO_EVERYTHING) {
 				color = new Color(255, 168, 0);
-			} else if (Location.getType() == com.kamontat.code.constant.Type.OK) {
+			} else if (id.getLocation().getType() == com.kamontat.code.constant.Type.OK) {
 				color = new Color(0, 249, 255);
 			}
-			setStatus(Location.getType().toString(), color);
+			setStatus(id.getLocation().getType().toString(), color);
 
 			exPack(this);
 		}

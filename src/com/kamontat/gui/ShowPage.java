@@ -1,6 +1,6 @@
 package com.kamontat.gui;
 
-import com.kamontat.code.file.Location;
+import com.kamontat.code.object.Location;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 

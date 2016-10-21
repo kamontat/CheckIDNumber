@@ -23,6 +23,7 @@ public class IDNumber {
 	private String id;
 	private LocalDateTime time;
 	private Status status;
+	private Location location = new Location();
 
 	/**
 	 * <b>init</b> id-number with nothing
@@ -46,12 +47,12 @@ public class IDNumber {
 	public IDNumber(String id) {
 		this.id = id;
 		splitID = id.toCharArray();
+		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 
 		if (checkLength() && isIDCorrect()) {
 			status = OK;
+			location = new Location(this);
 		}
-
-		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 	}
 
 	/**
@@ -66,12 +67,13 @@ public class IDNumber {
 	public IDNumber(String id, LocalDateTime time) {
 		this.id = id;
 		splitID = id.toCharArray();
+		this.time = time;
+
 
 		if (checkLength() && isIDCorrect()) {
 			status = OK;
+			location = new Location(this);
 		}
-
-		this.time = time;
 	}
 
 	public String getId() {
@@ -84,6 +86,7 @@ public class IDNumber {
 
 		if (checkLength() && isIDCorrect()) {
 			status = OK;
+			location = new Location(this);
 
 			time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 		}
@@ -106,11 +109,21 @@ public class IDNumber {
 	}
 
 	/**
-	 * convert first digit in id-number to type in form of String by using id rule of <b>Thailand</b>
+	 * get <code>location</code> of this id <br>
 	 *
-	 * @return string of type
+	 * @return first is The Province, second is District <br>
+	 * @see Location
 	 */
-	public String getType() {
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * convert first digit in id-number to genre in form of String by using id rule of <b>Thailand</b>
+	 *
+	 * @return string of genre
+	 */
+	public String getIDGenre() {
 		if (splitID[0] == '1') {
 			return "สัญชาติไทย และ แจ้งเกิดทันเวลา";
 		} else if (splitID[0] == '2') {
@@ -130,7 +143,7 @@ public class IDNumber {
 		} else if (splitID[0] == '0') {
 			return "บุคคลที่ไม่มีสถานะทางทะเบียนราษฎร ไม่มีสัญชาติ";
 		} else {
-			return "No type";
+			return "No Genre";
 		}
 	}
 
@@ -237,6 +250,10 @@ public class IDNumber {
 
 	@Override
 	public String toString() {
+		//		String text = "id: " + id + "\n";
+		//		text += "status: " + status + "\n";
+		//		text += "type: " + getLocation().getType() + "\n";
+		//		text += "\n\n";
 		return id;
 	}
 
@@ -247,5 +264,10 @@ public class IDNumber {
 	 */
 	public String saveFormat() {
 		return id + " " + time.toLocalDate() + " " + time.toLocalTime() + " Asia/Bangkok";
+	}
+
+	public static boolean validID(String id) {
+		IDNumber idNumber = new IDNumber(id);
+		return idNumber.isIDCorrect() && idNumber.checkLength();
 	}
 }

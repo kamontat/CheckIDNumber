@@ -1,6 +1,6 @@
 package com.kamontat.main;
 
-import com.kamontat.code.file.Location;
+import com.kamontat.code.object.Location;
 import com.kamontat.gui.LoadingPage;
 
 import javax.swing.*;
@@ -28,6 +28,10 @@ public class Main {
 				}
 				// get time
 				long start = System.currentTimeMillis();
+
+				// label in launcher
+				LoadingPage.statusMessage = "Start loading Province and District";
+
 				// read province and district
 				if (!Location.read()) {
 					JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
