@@ -3,7 +3,7 @@ package com.kamontat.code.file;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.constant.Type;
 import com.kamontat.code.object.IDNumber;
-import com.kamontat.gui.LauncherPage;
+import com.kamontat.gui.LoadingPage;
 
 import java.io.InputStream;
 import java.util.*;
@@ -25,7 +25,7 @@ public class Location {
 	 */
 	public static boolean read() {
 		// label in launcher
-		LauncherPage.statusMessage = "Start loading Province and District";
+		LoadingPage.statusMessage = "Start loading Province and District";
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {

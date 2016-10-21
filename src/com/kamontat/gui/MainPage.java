@@ -14,6 +14,7 @@ import static com.kamontat.code.database.Database.openFolder;
 import static com.kamontat.code.database.Database.updateTextFile;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.main.Main.version;
 
 /**
  * @author kamontat
@@ -50,6 +51,7 @@ public class MainPage extends JFrame {
 
 	private void addFont() {
 		label1.setFont(FontBook.getFontMain());
+		label1.setToolTipText("Version: " + version);
 
 		enterBtn.setFont(FontBook.getFontButton());
 		showBtn.setFont(FontBook.getFontButton());
@@ -65,6 +67,8 @@ public class MainPage extends JFrame {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				actions.removeAll();
+				actions.add(about());
+				actions.addSeparator();
 				actions.add(refreshMenu());
 				actions.add(toMenu());
 				actions.addSeparator();
@@ -155,6 +159,13 @@ public class MainPage extends JFrame {
 		}
 		to.addActionListener(e -> openFolder()); /* export action */
 		return to;
+	}
+
+	static JMenuItem about() {
+		String text = String.format("If you have any error, feel free to contact me by mail \"kamontat_c@hotmail.com\"\nThis current version is (%s)", version);
+		JMenuItem about = new JMenuItem("about");
+		about.addActionListener(e -> JOptionPane.showMessageDialog(null, text, "About Me", JOptionPane.INFORMATION_MESSAGE));
+		return about;
 	}
 
 	public static void exPack(Window frame) {

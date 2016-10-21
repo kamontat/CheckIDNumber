@@ -1,8 +1,13 @@
 
 - FEATURE (Major): kamontat 10/21/2016 AD Enter ID-Number and check correction
 - FEATURE (Major): kamontat 10/21/2016 AD Show all ID-Number that save in program
+- FEATURE (Major): kamontat 10/21/2016 AD searching bar in show page
 - FEATURE (Major): kamontat 10/21/2016 AD Save ID-Number using text-file Because easy to manage
+- FEATURE (Major): kamontat 10/21/2016 AD Export id-number data to xls or xlsx
+
 - FEATURE (Minor): kamontat 10/21/2016 AD shortcut menu in bar menu
+- FEATURE (Minor): kamontat 10/21/2016 AD clear all history
+- FEATURE (Minor): kamontat 10/21/2016 AD file status when file got deleted by accidentally
 
 
 - TODO: 10/19/2016 AD 21:11 PM (1) Reopen program button, or refresh loading file (v.1)
@@ -15,4 +20,3 @@
 
 
 - FIXME: 10/21/2016 AD 1:25 AM fixed program crash when search many id in show page
-

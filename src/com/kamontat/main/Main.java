@@ -1,6 +1,11 @@
 package com.kamontat.main;
 
-import com.kamontat.gui.LauncherPage;
+import com.kamontat.code.file.Location;
+import com.kamontat.gui.LoadingPage;
+
+import javax.swing.*;
+
+import static com.kamontat.code.database.Database.assignIDList;
 
 /**
  * @author kamontat
@@ -8,7 +13,44 @@ import com.kamontat.gui.LauncherPage;
  * @since 10/19/2016 AD - 1:45 AM
  */
 public class Main {
+	public static String version = "2.1.1";
+
 	public static void main(String[] args) {
-		LauncherPage page = new LauncherPage();
+
+		Thread readingThread = new Thread() {
+			@Override
+			public void run() {
+				super.run();
+
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException ignored) {
+				}
+				// get time
+				long start = System.currentTimeMillis();
+				// read province and district
+				if (!Location.read()) {
+					JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
+				} else {
+					LoadingPage.statusMessage = "Finish load Province and District " + (System.currentTimeMillis() - start) + " ms";
+				}
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException ignored) {
+				}
+
+				start = System.currentTimeMillis();
+				LoadingPage.statusMessage = "Start loading id-number";
+				// read id number from file
+				assignIDList();
+				LoadingPage.statusMessage = "Finish loading id-number " + (System.currentTimeMillis() - start) + " ms";
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException ignored) {
+				}
+			}
+		};
+
+		LoadingPage page = new LoadingPage(true, readingThread);
 	}
 }
