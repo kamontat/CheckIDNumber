@@ -17,33 +17,33 @@ public class LoadingPage extends JFrame {
 	private JProgressBar progressBar;
 	private JPanel panel;
 	private JLabel statusLabel;
-
+	
 	public static String statusMessage = "Start Loading";
-
+	
 	public LoadingPage(boolean isAutoProgress, Thread... threads) {
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		addFont();
-
+		
 		Thread runThread = new Thread() {
 			@Override
 			public void run() {
 				super.run();
 				setContentPane(panel);
-
+				
 				pack();
 				setLocation(getCenterLocation(getSize()));
 				setVisible(true);
 				setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			}
 		};
-
+		
 		try {
 			runThread.start();
 			runThread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
+		
 		Thread progressThread = new Thread();
 		if (isAutoProgress) {
 			progressThread = new Thread() {
@@ -53,33 +53,33 @@ public class LoadingPage extends JFrame {
 					progress();
 				}
 			};
-
+			
 			progressThread.start();
 		}
-
+		
 		try {
 			for (Thread thread : threads) {
 				thread.start();
 			}
-
+			
 			for (Thread thread : threads) {
 				thread.join();
 			}
-
+			
 			if (isAutoProgress) progressThread.join();
-
+			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			dispose();
-
-
+			
+			
 			MainPage page = new MainPage();
 			page.run(getCenterLocation(page.getSize()));
-
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * auto run progress bar if cannot manage it.
 	 */
@@ -91,10 +91,14 @@ public class LoadingPage extends JFrame {
 			statusLabel.setText(LoadingPage.statusMessage);
 			if (LoadingPage.statusMessage.contains("Finish")) {
 				statusLabel.setForeground(Color.RED);
+				LoadingPage.statusMessage = "Start loading another content";
 			} else {
 				statusLabel.setForeground(Color.BLUE);
+				if (progressBar.getValue() >= 95) {
+					LoadingPage.statusMessage = "Finish load another content";
+				}
 			}
-
+			
 			exPack(this);
 			try {
 				Thread.sleep((long) Math.ceil(Math.random() * 100));
@@ -103,11 +107,11 @@ public class LoadingPage extends JFrame {
 			}
 		}
 	}
-
+	
 	private void addFont() {
 		statusLabel.setFont(FontBook.getFontLabel());
 	}
-
+	
 	private void run() {
 		pack();
 		setLocation(getCenterLocation(getSize()));

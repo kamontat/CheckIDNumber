@@ -25,48 +25,48 @@ public class ShowPage extends JDialog {
 	private JTextField searchingField;
 	private JLabel countLabel;
 	private JLabel label1;
-
+	
 	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
-
+	
 	ShowPage() {
 		setContentPane(contentPane);
 		setModal(true);
-
+		
 		assignList();
 		createMenuBar();
 		addFont();
-
+		
 		exPack(this);
-
+		
 		buttonOK.addActionListener(e -> onOK());
-
+		
 		buttonCancel.addActionListener(e -> onCancel());
-
+		
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 	}
-
+	
 	private void onOK() {
 		dispose();
 	}
-
+	
 	private void onCancel() {
 		dispose();
 	}
-
+	
 	private void assignList() {
 		idList.forEach(model::addElement);
-
+		
 		list.setModel(model);
-
+		
 		JMenuItem[] items = assignPopupList();
-
+		
 		assignSearching();
-
+		
 		disableSearch();
-
+		
 		countLabel.setText(String.format("(%03d)", model.size()));
-
+		
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -75,25 +75,25 @@ public class ShowPage extends JDialog {
 				if (e.getButton() == 3) {
 					JPopupMenu menu = new JPopupMenu();
 					Arrays.stream(items).forEach(menu::add);
-
+					
 					if (list.getSelectedIndex() != -1) {
 						Point selectedPoint = list.indexToLocation(list.getSelectedIndex());
-
+						
 						menu.show(list, (int) selectedPoint.getX(), (int) selectedPoint.getY());
 					}
 				}
 			}
 		});
 	}
-
+	
 	private JMenuItem[] assignPopupList() {
 		int i, j = 0;
 		if (Location.readable) i = 3;
 		else i = 2;
-
+		
 		JMenuItem[] itemList = new JMenuItem[i];
-
-
+		
+		
 		if (Location.readable) {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
@@ -101,72 +101,79 @@ public class ShowPage extends JDialog {
 				page.run(getCenterLocation(page.getSize()));
 			});
 		}
-
+		
 		itemList[j] = new JMenuItem("Add");
 		itemList[j++].addActionListener(e1 -> {
 			dispose();
 			EnterPage page = new EnterPage();
 			page.run(this.getLocation());
 		});
-
+		
 		itemList[j] = new JMenuItem("Remove");
 		itemList[j].addActionListener(e1 -> {
-
+			
 			int index = searchingIDList(list.getSelectedValue());
-
+			
 			idList.remove(index);
 			model.remove(list.getSelectedIndex());
 			updateTextFile();
-
+			
 			disableSearch();
-
+			
 			countLabel.setText(String.format("(%03d)", model.size()));
 		});
-
+		
 		return itemList;
 	}
-
+	
 	private void assignSearching() {
 		searchingField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				filter();
 			}
-
+			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				filter();
 			}
-
+			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				filter();
 			}
-
+			
 			private void filter() {
+				long start = System.currentTimeMillis();
 				String filter = searchingField.getText();
-				for (IDNumber s : idList) {
-					if (!s.getId().startsWith(filter)) {
-						if (model.contains(s)) {
-							model.removeElement(s);
+				if (EnterPage.isAllNumberIn(filter)) {
+					searchingField.setBackground(Color.WHITE);
+					idList.forEach(idNumber -> {
+						if (idNumber.isContain(filter)) {
+							if (model.contains(idNumber)) {
+								model.removeElement(idNumber);
+							}
+						} else {
+							if (!model.contains(idNumber)) {
+								model.addElement(idNumber);
+							}
 						}
-					} else {
-						if (!model.contains(s)) {
-							model.addElement(s);
-						}
-					}
+					});
+					countLabel.setText(String.format("(%03d)", model.size()));
+				} else {
+					searchingField.setBackground(Color.RED);
 				}
-				countLabel.setText(String.format("(%03d)", model.size()));
+				System.out.println(System.currentTimeMillis() - start);
 			}
 		});
 	}
-
+	
 	/**
 	 * disable searching if id more than 1000
 	 */
 	private void disableSearch() {
 		// disable searching if id more than 1000
-		if (model.size() > 1000) {
+		if (model.size() > 1000 && false) {
 			searchingField.setEnabled(false);
 			searchingField.setToolTipText("Search can't use, if id more than 1000");
 		} else {
@@ -174,27 +181,27 @@ public class ShowPage extends JDialog {
 			searchingField.setToolTipText("");
 		}
 	}
-
+	
 	private void addFont() {
 		label1.setFont(FontBook.getFontLabel());
-
+		
 		countLabel.setFont(FontBook.getDigitalFont());
-
+		
 		searchingField.setFont(FontBook.getFontTextField());
-
+		
 		list.setFont(FontBook.getFontList());
-
+		
 		buttonOK.setFont(FontBook.getFontButton());
 		buttonCancel.setFont(FontBook.getFontButton());
 	}
-
+	
 	/**
 	 * create new menu bar with unit item inside it.
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
-
+		
 		actions.add(addMenu());
 		actions.add(clearMenu());
 		actions.addSeparator();
@@ -203,11 +210,11 @@ public class ShowPage extends JDialog {
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
-
+		
 		menu.add(actions);
 		setJMenuBar(menu);
 	}
-
+	
 	private JMenuItem addMenu() {
 		JMenuItem add = new JMenuItem("Add ID");
 		add.addActionListener(e -> {
@@ -217,21 +224,21 @@ public class ShowPage extends JDialog {
 		});
 		return add;
 	}
-
+	
 	private JMenuItem clearMenu() {
 		JMenuItem clear = new JMenuItem("Clear History");
 		clear.addActionListener(e -> {
 			idList.removeAll(idList);
-
+			
 			DefaultListModel<IDNumber> model = (DefaultListModel<IDNumber>) list.getModel();
 			model.removeAllElements();
 			updateTextFile();
-
+			
 			countLabel.setText(String.format("(%03d)", model.size()));
 		}); /* clear action */
 		return clear;
 	}
-
+	
 	void run(Point point) {
 		pack();
 		setLocation(point);

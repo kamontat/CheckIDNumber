@@ -23,65 +23,68 @@ public class EnterPage extends JDialog {
 	private JLabel totalNumberLabel;
 	private JLabel messageLabel;
 	private JLabel label1;
-
+	
 	private IDNumber number = new IDNumber();
-
+	
 	public EnterPage() {
 		setContentPane(contentPane);
 		setModal(true);
 		createMenuBar();
 		addFont();
-
+		
 		pack();
-
+		
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				warn();
 			}
-
+			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				warn();
 			}
-
+			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				warn();
 			}
 		});
-
+		
 		okBtn.addActionListener(e -> onOK());
-
+		
 		cancelBtn.addActionListener(e -> onCancel());
-
+		
 		// call onCancel() on ESCAPE
 		contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		// call onOK() on ENTER
 		contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 	}
-
+	
 	private void onOK() {
 		assignIDList();
-
+		
 		idList.add(number);
 		updateTextFile();
 		setMessage("Collect ID (Saved)", new Color(0, 122, 255));
 		textField.selectAll();
-
+		
 		pack();
 	}
-
+	
 	private void onCancel() {
 		dispose();
 	}
-
+	
 	private void warn() {
 		if (textField.getText().equals("")) {
 			setMessage("Enter (enter some id)", new Color(0, 0, 0));
 		} else if (isAllNumberIn(textField.getText())) {
+			// update label
+			totalNumberLabel.setText(String.format("(%02d)", textField.getText().length()));
+			
 			number = new IDNumber(textField.getText());
-
+			
 			if (number.getStatus() != Status.OK) {
 				okBtn.setEnabled(false);
 				setMessage(number.getStatus().toString(), number.getStatus().getColor());
@@ -100,13 +103,11 @@ public class EnterPage extends JDialog {
 			okBtn.setEnabled(false);
 			setMessage("Error (Have Alphabet)", new Color(255, 0, 0));
 		}
-
+		
 		pack();
 	}
-
-	private boolean isAllNumberIn(String input) {
-		// update label
-		totalNumberLabel.setText(String.format("(%02d)", input.length()));
+	
+	public static boolean isAllNumberIn(String input) {
 		// check every char in input String
 		for (int i = 0; i < input.length(); i++) {
 			char aChar = input.charAt(i);
@@ -114,40 +115,40 @@ public class EnterPage extends JDialog {
 		}
 		return true;
 	}
-
+	
 	private void setMessage(String message, Color color) {
 		messageLabel.setText(message);
 		messageLabel.setForeground(color);
 	}
-
+	
 	private void addFont() {
 		label1.setFont(FontBook.getFontLabel());
 		messageLabel.setFont(FontBook.getFontLabel());
-
+		
 		totalNumberLabel.setFont(FontBook.getDigitalFont());
-
+		
 		textField.setFont(FontBook.getFontTextField());
-
+		
 		okBtn.setFont(FontBook.getFontButton());
 		cancelBtn.setFont(FontBook.getFontButton());
 	}
-
+	
 	/**
 	 * create new menu bar with unit item inside it.
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
-
+		
 		actions.add(showMenu());
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
-
+		
 		menu.add(actions);
 		setJMenuBar(menu);
 	}
-
+	
 	private JMenuItem showMenu() {
 		JMenuItem add = new JMenuItem("Show all ID");
 		add.addActionListener(e -> {
@@ -157,7 +158,7 @@ public class EnterPage extends JDialog {
 		});
 		return add;
 	}
-
+	
 	public void run(Point point) {
 		pack();
 		setLocation(point);
