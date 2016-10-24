@@ -231,9 +231,13 @@ public class ShowPage extends JDialog {
 	private JMenuItem clearMenu() {
 		JMenuItem clear = new JMenuItem("Clear History");
 		clear.addActionListener(e -> {
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			
 			idList.removeAll(idList);
 			model.removeAllElements();
 			clearFile();
+			
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			
 			countLabel.setText(String.format("(%03d)", model.size()));
 		}); /* clear action */

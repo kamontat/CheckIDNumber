@@ -110,7 +110,6 @@ public class EnterPage extends JDialog {
 	}
 	
 	public static boolean isAllNumberIn(String input) {
-		if (input.equals("")) return false;
 		// check every char in input String
 		for (int i = 0; i < input.length(); i++) {
 			char aChar = input.charAt(i);
