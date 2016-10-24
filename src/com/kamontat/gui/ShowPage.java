@@ -146,9 +146,7 @@ public class ShowPage extends JDialog {
 			private void filter() {
 				long start = System.currentTimeMillis();
 				String filter = searchingField.getText();
-				if (filter.equals("")) {
-					searchingField.setBackground(Color.WHITE);
-				} else if (EnterPage.isAllNumberIn(filter)) {
+				if (EnterPage.isAllNumberIn(filter)) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					searchingField.setBackground(Color.WHITE);
 					for (IDNumber s : idList) {
