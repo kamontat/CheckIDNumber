@@ -1,8 +1,8 @@
 package com.kamontat.gui;
 
-import com.kamontat.code.object.Location;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
+import com.kamontat.code.object.Location;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -146,19 +146,24 @@ public class ShowPage extends JDialog {
 			private void filter() {
 				long start = System.currentTimeMillis();
 				String filter = searchingField.getText();
-				if (EnterPage.isAllNumberIn(filter)) {
+				if (filter.equals("")) {
 					searchingField.setBackground(Color.WHITE);
-					idList.forEach(idNumber -> {
-						if (idNumber.isContain(filter)) {
-							if (model.contains(idNumber)) {
-								model.removeElement(idNumber);
+				} else if (EnterPage.isAllNumberIn(filter)) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					searchingField.setBackground(Color.WHITE);
+					for (IDNumber s : idList) {
+						int index = model.indexOf(s);
+						if (!s.isContain(filter)) {
+							if (index != -1) {
+								model.remove(index);
 							}
 						} else {
-							if (!model.contains(idNumber)) {
-								model.addElement(idNumber);
+							if (index == -1) {
+								model.addElement(s);
 							}
 						}
-					});
+					}
+					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					countLabel.setText(String.format("(%03d)", model.size()));
 				} else {
 					searchingField.setBackground(Color.RED);
@@ -172,8 +177,8 @@ public class ShowPage extends JDialog {
 	 * disable searching if id more than 1000
 	 */
 	private void disableSearch() {
-		// disable searching if id more than 1000
-		if (model.size() > 1000 && false) {
+		// disable searching if id more than 100000
+		if (model.size() > 100000) {
 			searchingField.setEnabled(false);
 			searchingField.setToolTipText("Search can't use, if id more than 1000");
 		} else {
@@ -229,10 +234,8 @@ public class ShowPage extends JDialog {
 		JMenuItem clear = new JMenuItem("Clear History");
 		clear.addActionListener(e -> {
 			idList.removeAll(idList);
-			
-			DefaultListModel<IDNumber> model = (DefaultListModel<IDNumber>) list.getModel();
 			model.removeAllElements();
-			updateTextFile();
+			clearFile();
 			
 			countLabel.setText(String.format("(%03d)", model.size()));
 		}); /* clear action */

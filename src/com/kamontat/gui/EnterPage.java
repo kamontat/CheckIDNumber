@@ -62,14 +62,16 @@ public class EnterPage extends JDialog {
 	}
 	
 	private void onOK() {
+		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		assignIDList();
 		
 		idList.add(number);
-		updateTextFile();
+		insertToFile(number);
 		setMessage("Collect ID (Saved)", new Color(0, 122, 255));
 		textField.selectAll();
 		
 		pack();
+		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	}
 	
 	private void onCancel() {
@@ -108,6 +110,7 @@ public class EnterPage extends JDialog {
 	}
 	
 	public static boolean isAllNumberIn(String input) {
+		if (input.equals("")) return false;
 		// check every char in input String
 		for (int i = 0; i < input.length(); i++) {
 			char aChar = input.charAt(i);
