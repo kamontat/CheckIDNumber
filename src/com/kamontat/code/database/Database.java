@@ -60,7 +60,7 @@ public class Database {
 	}
 	
 	/**
-	 * search <code>IDNumber</code> id from <code>idList</code> and return index that id
+	 * search <code>IDNumber</code> by id from <code>idList</code> and return index that id <br>
 	 * O-notation = O(idList.length)
 	 *
 	 * @param id
@@ -68,8 +68,8 @@ public class Database {
 	 * @return position of that id if it's exist, otherwise return -1
 	 */
 	public static int searchingIDList(IDNumber id) {
-		for (int i = 0; i < idList.size(); i++) {
-			if (idList.get(i).getId().equals(id.getId())) {
+		for (int i = idList.size() - 1; i >= 0; i--) {
+			if (idList.get(i).getId().equals(id.getId()) && idList.get(i).getStatus() == id.getStatus()) {
 				return i;
 			}
 		}

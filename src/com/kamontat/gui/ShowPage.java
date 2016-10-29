@@ -98,7 +98,7 @@ public class ShowPage extends JDialog {
 		if (Location.readable) {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
-				InformationPage page = new InformationPage(list.getSelectedValue());
+				InformationPage page = new InformationPage(this, list.getSelectedValue());
 				page.run(getCenterLocation(page.getSize()));
 			});
 		}
@@ -114,14 +114,7 @@ public class ShowPage extends JDialog {
 		itemList[j].addActionListener(e1 -> {
 			
 			int index = searchingIDList(list.getSelectedValue());
-			
-			idList.remove(index);
-			model.remove(list.getSelectedIndex());
-			updateTextFile();
-			
-			disableSearch();
-			
-			countLabel.setText(String.format("(%03d)", model.size()));
+			remove(index);
 		});
 		
 		return itemList;
@@ -184,6 +177,14 @@ public class ShowPage extends JDialog {
 			searchingField.setEnabled(true);
 			searchingField.setToolTipText("");
 		}
+	}
+	
+	public void removeIDList(int index) {
+		idList.remove(index);
+		model.remove(list.getSelectedIndex());
+		updateTextFile();
+		disableSearch();
+		countLabel.setText(String.format("(%03d)", model.size()));
 	}
 	
 	private void addFont() {

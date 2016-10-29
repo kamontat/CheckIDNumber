@@ -6,8 +6,11 @@ import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import static com.kamontat.code.database.Database.searchingIDList;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class InformationPage extends JDialog {
@@ -25,13 +28,14 @@ public class InformationPage extends JDialog {
 	private JLabel numBCLabel;
 	private JLabel orderLabel;
 	private JLabel statusLabel;
-	private JLabel update_atLabel;
+	private JLabel createAtLabel;
+	private JButton deleteBtn;
 	
-	public InformationPage(IDNumber id) {
+	public InformationPage(ShowPage showPage, IDNumber id) {
 		setContentPane(contentPane);
 		setModal(true);
 		addFont();
-		setInformation(id);
+		setInformation(showPage, id);
 		
 		okBtn.addActionListener(e -> onOK());
 		
@@ -66,18 +70,27 @@ public class InformationPage extends JDialog {
 		orderLabel.setFont(FontBook.getDigitalFont());
 		
 		okBtn.setFont(FontBook.getFontButton());
+		deleteBtn.setFont(FontBook.getFontButton());
 	}
 	
-	private void setInformation(IDNumber id) {
+	private void setInformation(ShowPage showPage, IDNumber id) {
 		if (id.getStatus() != Status.OK) {
 			setStatus(id.getStatus().toString(), id.getStatus().getColor());
+			deleteBtn.setVisible(true);
+			deleteBtn.addActionListener(e -> {
+				int index = searchingIDList(id);
+				showPage.removeIDList(index);
+				dispose();
+			});
+			
+			exPack(this);
 		} else {
 			typeLabel.setText(id.getIDGenre());
 			provinceLabel.setText(id.getLocation().getProvince());
 			districtLabel.setText(id.getLocation().getDistrict());
 			numBCLabel.setText(id.getIDBC());
 			orderLabel.setText(id.getIDOrder());
-			update_atLabel.setText("update_at " + id.getCreateAt().toLocalDate() + ", " + id.getCreateAt().toLocalTime());
+			createAtLabel.setText("create_at " + id.getCreateAt().toLocalDate() + ", " + id.getCreateAt().toLocalTime());
 			
 			Color color = Color.BLACK;
 			if (id.getLocation().getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {
