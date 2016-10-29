@@ -11,9 +11,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import static com.kamontat.code.database.Database.*;
-import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.gui.MainPage.backMenu;
-import static com.kamontat.gui.MainPage.exitMenu;
+import static com.kamontat.code.menu.MenuItem.*;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
@@ -142,23 +140,16 @@ public class EnterPage extends JDialog {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
 		
-		actions.add(showMenu());
+		actions.add(showMenu(this));
+		actions.addSeparator();
+		actions.add(uploadMenu());
+		actions.add(downloadMenu());
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
 		
 		menu.add(actions);
 		setJMenuBar(menu);
-	}
-	
-	private JMenuItem showMenu() {
-		JMenuItem add = new JMenuItem("Show all ID");
-		add.addActionListener(e -> {
-			dispose();
-			ShowPage page = new ShowPage();
-			page.run(getCenterLocation(page.getSize()));
-		});
-		return add;
 	}
 	
 	public void run(Point point) {

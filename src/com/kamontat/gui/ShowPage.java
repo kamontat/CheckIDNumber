@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 
 import static com.kamontat.code.database.Database.*;
+import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.*;
 
@@ -28,7 +29,7 @@ public class ShowPage extends JDialog {
 	
 	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
 	
-	ShowPage() {
+	public ShowPage() {
 		setContentPane(contentPane);
 		setModal(true);
 		
@@ -166,7 +167,7 @@ public class ShowPage extends JDialog {
 				} else {
 					searchingField.setBackground(Color.RED);
 				}
-				System.out.println(System.currentTimeMillis() - start);
+				System.out.println("searching time: " + (System.currentTimeMillis() - start));
 			}
 		});
 	}
@@ -175,8 +176,8 @@ public class ShowPage extends JDialog {
 	 * disable searching if id more than 1000
 	 */
 	private void disableSearch() {
-		// disable searching if id more than 100000
-		if (model.size() > 100000) {
+		// disable searching if id more than 50000
+		if (model.size() > 50000) {
 			searchingField.setEnabled(false);
 			searchingField.setToolTipText("Search can't use, if id more than 1000");
 		} else {
@@ -205,7 +206,7 @@ public class ShowPage extends JDialog {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
 		
-		actions.add(addMenu());
+		actions.add(addMenu(this));
 		actions.add(clearMenu());
 		actions.addSeparator();
 		actions.add(exportMenuXLS());
@@ -216,16 +217,6 @@ public class ShowPage extends JDialog {
 		
 		menu.add(actions);
 		setJMenuBar(menu);
-	}
-	
-	private JMenuItem addMenu() {
-		JMenuItem add = new JMenuItem("Add ID");
-		add.addActionListener(e -> {
-			dispose();
-			EnterPage page = new EnterPage();
-			page.run(getCenterLocation(page.getSize()));
-		});
-		return add;
 	}
 	
 	private JMenuItem clearMenu() {
@@ -244,7 +235,7 @@ public class ShowPage extends JDialog {
 		return clear;
 	}
 	
-	void run(Point point) {
+	public void run(Point point) {
 		pack();
 		setLocation(point);
 		setVisible(true);
