@@ -6,14 +6,14 @@ import static com.kamontat.code.database.LocationModel.districts;
 import static com.kamontat.code.database.LocationModel.provinces;
 
 /**
+ * show location of id by assign id into constructor and save that location into IDNumber
+ *
  * @author kamontat
  * @since 20/8/59 - 23:15
  */
 public class Location {
-	
 	private String province;
 	private String district;
-	
 	private Type type;
 	
 	public Location() {
@@ -22,6 +22,16 @@ public class Location {
 		type = Type.NO_EVERYTHING;
 	}
 	
+	/**
+	 * Assign id into it, and it will give 3 parameter in this class <br>
+	 * First is province -> if the id has province, otherwise province will be <b>Unknown</b> <br>
+	 * Second id district ->  if the id has district, otherwise district will be <b>Unknown</b> <br>
+	 * And can easy to know id have location correctly or not by using getType()
+	 *
+	 * @param id
+	 * 		some id
+	 * @see Type
+	 */
 	public Location(IDNumber id) {
 		String addressID = "(" + id.getIDAddress() + ")";
 		String provinceID = "(" + id.getIDProvince() + ")";
