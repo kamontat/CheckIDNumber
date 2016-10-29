@@ -33,11 +33,7 @@ public class InformationPage extends JDialog {
 		addFont();
 		setInformation(id);
 		
-		okBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				onOK();
-			}
-		});
+		okBtn.addActionListener(e -> onOK());
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

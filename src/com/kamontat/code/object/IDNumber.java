@@ -59,7 +59,7 @@ public class IDNumber {
 		
 		
 		if (isIDCorrect()) {
-			status = OK;
+			status = isDuplicate() ? DUPLICATE: OK;
 			location = new Location(this);
 		}
 	}
