@@ -52,7 +52,7 @@ public class MenuItem {
 	
 	
 	public static JMenuItem uploadMenu() {
-		JMenuItem refresh = new JMenuItem("upload (To File)");
+		JMenuItem refresh = new JMenuItem("upload (Local -> File)");
 		refresh.addActionListener(e -> {
 			updateTextFile();
 		}); /* upload action */
@@ -60,7 +60,7 @@ public class MenuItem {
 	}
 	
 	public static JMenuItem downloadMenu() {
-		JMenuItem refresh = new JMenuItem("download (From File)");
+		JMenuItem refresh = new JMenuItem("download (File -> Local)");
 		refresh.addActionListener(e -> {
 			assignIDList();
 		}); /* download action */
@@ -98,4 +98,30 @@ public class MenuItem {
 		about.addActionListener(e -> JOptionPane.showMessageDialog(null, text, "About Me", JOptionPane.INFORMATION_MESSAGE));
 		return about;
 	}
+	
+	
+	public static JMenuItem fileStatus() {
+		JMenuItem stat = new JMenuItem("");
+		if (Database.textFile.exists()) {
+			if (getLine() > idList.size()) {
+				stat = new JMenuItem("Download (save id in file)");
+			} else if (getLine() < idList.size()) {
+				stat = new JMenuItem("Upload (save id in local)");
+			} else {
+				stat = new JMenuItem("GOOD");
+			}
+		} else {
+			stat = new JMenuItem("Lost");
+		}
+		return stat;
+	}
+	
+	public static JMenuItem fileCount() {
+		return new JMenuItem(String.format("File  have: %03d ID", getLine()));
+	}
+	
+	public static JMenuItem localCount() {
+		return new JMenuItem(String.format("Local have: %03d ID", idList.size()));
+	}
+	
 }

@@ -4,9 +4,7 @@ import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,15 +33,16 @@ public class Database {
 	/**
 	 * remove all id-number in <code>idList</code> and <br>
 	 * get all id-number from textFile and assign it into <code>idList</code>
+	 * this method <b>already</b> update textFile if have something wrong
 	 */
 	public static void assignIDList() {
+		
 		boolean hasWrong = false;
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
 			while (input.hasNextLine()) {
 				String[] dataIDNumber = input.nextLine().split(" ");
-				
 				String id = dataIDNumber[0];
 				// if wrong format
 				if (dataIDNumber.length == 1) {
@@ -95,6 +94,17 @@ public class Database {
 			e.printStackTrace();
 		}
 		return textFile;
+	}
+	
+	public static int getLine() {
+		LineNumberReader lnr = null;
+		try {
+			lnr = new LineNumberReader(new FileReader(textFile));
+			lnr.skip(Long.MAX_VALUE);
+			return lnr.getLineNumber();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 	
 	/**

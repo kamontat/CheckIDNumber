@@ -37,7 +37,7 @@ public class assignID {
 
 				LocalDateTime dataTime = LocalDateTime.parse(timeText);
 
-				number.setTime(dataTime);
+				number.setCreateAt(dataTime);
 
 				writer.write(number.saveFormat() + "\n");
 			}

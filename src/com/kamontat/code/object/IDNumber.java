@@ -12,7 +12,7 @@ import static com.kamontat.code.database.Database.idList;
  * object that deal with <code>id-number</code> of this program <br>
  * <p>
  * keep id-number by String, <br>
- * keep update time in form of <code>LocalDateTime</code>, <br>
+ * keep update createAt in form of <code>LocalDateTime</code>, <br>
  * and status of this id-number by using id rule of <b>Thailand</b> <br>
  *
  * @author kamontat
@@ -22,22 +22,9 @@ import static com.kamontat.code.database.Database.idList;
 public class IDNumber {
 	private char[] splitID;
 	private String id;
-	private LocalDateTime time;
+	private LocalDateTime createAt;
 	private Status status;
 	private Location location = new Location();
-	
-	/**
-	 * <b>init</b> id-number with nothing
-	 */
-	public IDNumber() {
-		this.id = null;
-		splitID = null;
-		
-		status = NOT_CREATE;
-		
-		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
-		
-	}
 	
 	/**
 	 * <b>init</b> id-number by using parameter <code>id</code>
@@ -48,27 +35,27 @@ public class IDNumber {
 	public IDNumber(String id) {
 		this.id = id;
 		splitID = id.toCharArray();
-		time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
+		createAt = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 		
 		if (isIDCorrect()) {
-			status = OK;
+			status = isDuplicate() ? DUPLICATE: OK;
 			location = new Location(this);
 		}
 	}
 	
 	/**
-	 * <b>init</b> id-number by using parameter <code>id</code> and <code>time</code> <br>
+	 * <b>init</b> id-number by using parameter <code>id</code> and <code>createAt</code> <br>
 	 * it's method using for loading id from file (server)
 	 *
 	 * @param id
 	 * 		some id-number
-	 * @param time
-	 * 		time that update this id-number
+	 * @param createAt
+	 * 		createAt that update this id-number
 	 */
-	public IDNumber(String id, LocalDateTime time) {
+	public IDNumber(String id, LocalDateTime createAt) {
 		this.id = id;
 		splitID = id.toCharArray();
-		this.time = time;
+		this.createAt = createAt;
 		
 		
 		if (isIDCorrect()) {
@@ -86,10 +73,8 @@ public class IDNumber {
 		splitID = id.toCharArray();
 		
 		if (isIDCorrect()) {
-			status = OK;
+			status = isDuplicate() ? DUPLICATE: OK;
 			location = new Location(this);
-			
-			time = LocalDateTime.now(ZoneId.of("Asia/Bangkok"));
 		}
 	}
 	
@@ -97,16 +82,12 @@ public class IDNumber {
 		return status;
 	}
 	
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
 	}
 	
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
-	
-	public LocalDateTime getTime() {
-		return time;
+	public LocalDateTime getCreateAt() {
+		return createAt;
 	}
 	
 	/**
@@ -272,7 +253,7 @@ public class IDNumber {
 	 * @return format to save in file
 	 */
 	public String saveFormat() {
-		return id + " " + time.toLocalDate() + " " + time.toLocalTime() + " Asia/Bangkok";
+		return id + " " + createAt.toLocalDate() + " " + createAt.toLocalTime() + " Asia/Bangkok";
 	}
 	
 	public static boolean validID(String id) {

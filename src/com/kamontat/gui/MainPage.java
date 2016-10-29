@@ -1,6 +1,5 @@
 package com.kamontat.gui;
 
-import com.kamontat.code.database.Database;
 import com.kamontat.code.font.FontBook;
 
 import javax.swing.*;
@@ -9,6 +8,8 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static com.kamontat.code.database.Database.getLine;
+import static com.kamontat.code.database.Database.idList;
 import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.main.Main.version;
@@ -90,13 +91,9 @@ public class MainPage extends JFrame {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				status.removeAll();
-				JMenuItem stat = new JMenuItem("");
-				if (Database.textFile.exists()) {
-					stat = new JMenuItem("GOOD");
-				} else {
-					stat = new JMenuItem("BAD");
-				}
-				status.add(stat);
+				status.add(fileStatus());
+				status.add(new JMenuItem("File  Have: " + getLine() + " ID"));
+				status.add(new JMenuItem("Local Have: " + idList.size() + " ID"));
 			}
 			
 			@Override

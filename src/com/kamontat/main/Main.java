@@ -41,6 +41,7 @@ public class Main {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException ignored) {
+					
 				}
 				
 				start = System.currentTimeMillis();

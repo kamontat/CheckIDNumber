@@ -22,7 +22,7 @@ public class EnterPage extends JDialog {
 	private JLabel messageLabel;
 	private JLabel label1;
 	
-	private IDNumber number = new IDNumber();
+	private IDNumber number;
 	
 	public EnterPage() {
 		setContentPane(contentPane);
@@ -60,16 +60,16 @@ public class EnterPage extends JDialog {
 	}
 	
 	private void onOK() {
-		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-		assignIDList();
-		
-		idList.add(number);
-		insertToFile(number);
-		setMessage("Collect ID (Saved)", new Color(0, 122, 255));
-		textField.selectAll();
-		
-		pack();
-		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		if (okBtn.isEnabled()) {
+			okBtn.setEnabled(false);
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			idList.add(number);
+			insertToFile(number);
+			setMessage("Collect ID (Saved)", new Color(0, 122, 255));
+			textField.selectAll();
+			pack();
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		}
 	}
 	
 	private void onCancel() {
@@ -77,6 +77,9 @@ public class EnterPage extends JDialog {
 	}
 	
 	private void warn() {
+		// update last version list
+		assignIDList();
+		
 		if (textField.getText().equals("")) {
 			setMessage("Enter (enter some id)", new Color(0, 0, 0));
 		} else if (isAllNumberIn(textField.getText())) {
@@ -89,14 +92,8 @@ public class EnterPage extends JDialog {
 				okBtn.setEnabled(false);
 				setMessage(number.getStatus().toString(), number.getStatus().getColor());
 			} else {
-				// id haven't 13 character
-				if (new IDNumber(textField.getText()).isDuplicate()) {
-					okBtn.setEnabled(false);
-					setMessage("Error (Duplicate ID)", new Color(255, 0, 0));
-				} else {
-					okBtn.setEnabled(true);
-					setMessage("OK (Good ID)", new Color(0, 200, 0));
-				}
+				okBtn.setEnabled(true);
+				setMessage("OK (Good ID)", new Color(0, 200, 0));
 			}
 			// have some String too. :(
 		} else {

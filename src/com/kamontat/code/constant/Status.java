@@ -13,6 +13,7 @@ public enum Status {
 	OK("OK (Good ID)", new Color(0, 200, 0)),
 	OUT_LENGTH("Warning (MUST be 13 Digit)", new Color(255, 213, 0)),
 	NOT_NINE("Warning (First digit CANNOT be 9)", new Color(255, 119, 0)),
+	DUPLICATE("Error (ID duplicate)", new Color(255, 0, 0)),
 	UNCORRECTED("Error (ID NOT match with id rule)", new Color(195, 0, 255)),
 	NOT_CREATE("Error (NEVER assign ID)", new Color(255, 0, 0));
 
