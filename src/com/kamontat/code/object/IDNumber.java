@@ -7,6 +7,7 @@ import java.time.ZoneId;
 
 import static com.kamontat.code.constant.Status.*;
 import static com.kamontat.code.database.Database.idList;
+import static com.kamontat.config.Config.canDuplicate;
 
 /**
  * object that deal with <code>id-number</code> of this program <br>
@@ -57,7 +58,6 @@ public class IDNumber {
 		splitID = id.toCharArray();
 		this.createAt = createAt;
 		
-		
 		if (isIDCorrect()) {
 			status = isDuplicate() ? DUPLICATE: OK;
 			location = new Location(this);
@@ -67,6 +67,7 @@ public class IDNumber {
 	public String getId() {
 		return id;
 	}
+	
 	
 	public void setId(String id) {
 		this.id = id;
@@ -78,14 +79,31 @@ public class IDNumber {
 		}
 	}
 	
+	/**
+	 * get current status <br>
+	 *
+	 * @return status
+	 * @see Status
+	 */
 	public Status getStatus() {
 		return status;
 	}
 	
+	/**
+	 * set new create time (debug only)
+	 *
+	 * @param createAt
+	 * 		new create time
+	 */
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
 	}
 	
+	/**
+	 * get create time
+	 *
+	 * @return LocalDataTime that create this id
+	 */
 	public LocalDateTime getCreateAt() {
 		return createAt;
 	}
@@ -228,6 +246,7 @@ public class IDNumber {
 	 * @return if <code>some id</code> is same with <code>this id</code> return true, otherwise return false
 	 */
 	public boolean isDuplicate() {
+		if (canDuplicate) return false;
 		for (IDNumber id : idList) {
 			if (id.getId().equals(getId())) return true;
 		}

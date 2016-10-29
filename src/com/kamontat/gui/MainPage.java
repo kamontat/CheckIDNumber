@@ -12,7 +12,7 @@ import static com.kamontat.code.database.Database.getLine;
 import static com.kamontat.code.database.Database.idList;
 import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.main.Main.version;
+import static com.kamontat.config.Config.version;
 
 /**
  * @author kamontat

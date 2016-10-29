@@ -13,8 +13,6 @@ import static com.kamontat.code.database.Database.assignIDList;
  * @since 10/19/2016 AD - 1:45 AM
  */
 public class Main {
-	public static String version = "2.1.2";
-	
 	public static void main(String[] args) {
 		
 		Thread readingThread = new Thread() {

@@ -3,7 +3,15 @@ package com.kamontat.code.constant;
 import java.awt.*;
 
 /**
- * this enum use for check status of id-number
+ * This enum use for check status of id-number <br>
+ * This enum have <br>
+ *     1) OK          -> id is correct <br>
+ *     2) OUT_LENGTH  -> length of id isn't 13 <br>
+ *     3) NOT_NINE    -> first digit is 9 <br>
+ *     4) DUPLICATE   -> this id have duplicate with other in program <br>
+ *     5) UNCORRECTED -> id don't match with id rule <br>
+ *     6) NOT_CREATE  -> id never be assign <br>
+ *
  *
  * @author kamontat
  * @version 1.0
