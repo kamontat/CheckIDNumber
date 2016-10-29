@@ -17,7 +17,7 @@ import static com.kamontat.config.Config.canDuplicate;
  * and status of this id-number by using id rule of <b>Thailand</b> <br>
  *
  * @author kamontat
- * @version 2.2
+ * @version 2.3
  * @since 19/8/59 - 20:41
  */
 public class IDNumber {

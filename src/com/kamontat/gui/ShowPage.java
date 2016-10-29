@@ -1,8 +1,8 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.database.LocationModel;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
-import com.kamontat.code.object.Location;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -16,7 +16,7 @@ import java.util.*;
 import static com.kamontat.code.database.Database.*;
 import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.gui.MainPage.*;
+import static com.kamontat.gui.MainPage.exPack;
 
 public class ShowPage extends JDialog {
 	private JPanel contentPane;
@@ -89,13 +89,13 @@ public class ShowPage extends JDialog {
 	
 	private JMenuItem[] assignPopupList() {
 		int i, j = 0;
-		if (Location.readable) i = 3;
+		if (LocationModel.readable) i = 3;
 		else i = 2;
 		
 		JMenuItem[] itemList = new JMenuItem[i];
 		
 		
-		if (Location.readable) {
+		if (LocationModel.readable) {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
 				InformationPage page = new InformationPage(this, list.getSelectedValue());

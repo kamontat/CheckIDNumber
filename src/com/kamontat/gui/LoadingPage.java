@@ -10,16 +10,28 @@ import static com.kamontat.gui.MainPage.exPack;
 
 /**
  * @author kamontat
+ * @version 1.0
  * @since 10/18/2016 AD - 2:30 PM
  */
 public class LoadingPage extends JFrame {
 	private JFrame self = this;
-	private JProgressBar progressBar;
 	private JPanel panel;
-	private JLabel statusLabel;
+	public JProgressBar progressBar;
+	public JLabel statusLabel;
 	
 	public static String statusMessage = "Start Loading";
 	
+	/**
+	 * To show loading progress if some progress may using very long time <br>
+	 * autoProgress is for if can't avg time to run progressBar the AutoProgress will do it, but <b>NOT good</b> <br>
+	 * and threads is the running progress that want to run and include time to increase progressBar <br>
+	 * To increase progressBar, it have to have <b>progressBar</b>, <b>statusLabel</b>, <b>LoadingPage.statusMessage</b>
+	 *
+	 * @param isAutoProgress
+	 * 		true, if don't know how to manage time running
+	 * @param threads
+	 * 		running thread
+	 */
 	public LoadingPage(boolean isAutoProgress, Thread... threads) {
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		addFont();
@@ -83,7 +95,7 @@ public class LoadingPage extends JFrame {
 	/**
 	 * auto run progress bar if cannot manage it.
 	 */
-	public void progress() {
+	private void progress() {
 		progressBar.setStringPainted(true);
 		while (progressBar.getValue() != progressBar.getMaximum()) {
 			progressBar.setString(progressBar.getValue() + "%");

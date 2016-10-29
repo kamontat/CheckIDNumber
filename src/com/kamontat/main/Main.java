@@ -1,6 +1,6 @@
 package com.kamontat.main;
 
-import com.kamontat.code.object.Location;
+import com.kamontat.code.database.LocationModel;
 import com.kamontat.gui.LoadingPage;
 
 import javax.swing.*;
@@ -14,7 +14,6 @@ import static com.kamontat.code.database.Database.assignIDList;
  */
 public class Main {
 	public static void main(String[] args) {
-		
 		Thread readingThread = new Thread() {
 			@Override
 			public void run() {
@@ -31,7 +30,7 @@ public class Main {
 				LoadingPage.statusMessage = "Start loading Province and District";
 				
 				// read province and district
-				if (!Location.read()) {
+				if (!LocationModel.read()) {
 					JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
 				} else {
 					LoadingPage.statusMessage = "Finish load Province and District " + (System.currentTimeMillis() - start) + " ms";

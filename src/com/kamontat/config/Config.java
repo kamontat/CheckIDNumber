@@ -8,5 +8,4 @@ package com.kamontat.config;
 public class Config {
 	public static String version = "2.1.2";
 	public static Boolean canDuplicate = false;
-	
 }
