@@ -209,21 +209,28 @@ public class IDNumber {
 	 * @return if pass return true, otherwise return false
 	 */
 	private boolean isIDCorrect() {
+		// check alphabet
+		for (int i = 0; i < splitID.length; i++) {
+			if (!Character.isDigit(splitID[i])) {
+				status = NOT_ALPHABET;
+				return false;
+			}
+		}
+		// check fist digit
 		if (splitID[0] == '9') {
 			status = NOT_NINE;
 			return false;
 		}
-		
+		// check length
 		if (!checkLength()) return false;
 		
-		
+		// check rule
 		int total = 0;
 		for (int i = 1; i <= 12; i++) {
 			int digit = Character.getNumericValue(splitID[i - 1]);
 			total += (14 - i) * digit;
 		}
 		total = (total % 11);
-		
 		int lastDigit = Character.getNumericValue(splitID[splitID.length - 1]);
 		
 		if (total <= 1) {
@@ -235,8 +242,7 @@ public class IDNumber {
 				return true;
 			}
 		}
-		
-		status = UNCORRECTED;
+		status = NOT_CORRECT;
 		return false;
 	}
 	

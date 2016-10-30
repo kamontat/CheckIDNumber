@@ -9,9 +9,9 @@ import java.awt.*;
  *     2) OUT_LENGTH  -> length of id isn't 13 <br>
  *     3) NOT_NINE    -> first digit is 9 <br>
  *     4) DUPLICATE   -> this id have duplicate with other in program <br>
- *     5) UNCORRECTED -> id don't match with id rule <br>
+ *     5) NOT_CORRECT -> id don't match with id rule <br>
+ *     5) NOT_ALPHABET   -> some part of id isn't number<br>
  *     6) NOT_CREATE  -> id never be assign <br>
- *
  *
  * @author kamontat
  * @version 1.0
@@ -22,8 +22,9 @@ public enum Status {
 	OUT_LENGTH("Warning (MUST be 13 Digit)", new Color(255, 213, 0)),
 	NOT_NINE("Warning (First digit CANNOT be 9)", new Color(255, 119, 0)),
 	DUPLICATE("Error (ID duplicate)", new Color(255, 0, 0)),
-	UNCORRECTED("Error (ID NOT match with id rule)", new Color(195, 0, 255)),
-	NOT_CREATE("Error (NEVER assign ID)", new Color(255, 0, 0));
+	NOT_CORRECT("Error (ID NOT match with id rule)", new Color(195, 0, 255)),
+	NOT_ALPHABET("Error (ID MUST BE INTEGER)", new Color(255,0,0)),
+	NOT_CREATE("Error (NEVER assign ID)", new Color(255, 0, 255));
 
 	private String message;
 	private Color color;
