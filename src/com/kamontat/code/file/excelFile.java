@@ -22,7 +22,7 @@ import static com.kamontat.code.window.Display.dir;
 public class ExcelFile {
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
-
+	
 	/**
 	 * create excel file by <code>idList</code>
 	 *
@@ -31,7 +31,7 @@ public class ExcelFile {
 	 */
 	public static void createExcelFile(String extension) {
 		File excelFile = new File(path + name + extension);
-
+		
 		//Blank workbook
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		//Create a blank sheet
@@ -45,11 +45,11 @@ public class ExcelFile {
 			while (!excelFile.createNewFile()) {
 				excelFile = new File(path + name + "(" + (i++) + ")" + extension);
 			}
-
+			
 			FileOutputStream out = new FileOutputStream(excelFile);
 			workbook.write(out);
 			out.close();
-
+			
 			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + extension + "\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();

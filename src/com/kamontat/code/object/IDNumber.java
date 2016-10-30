@@ -17,7 +17,7 @@ import static com.kamontat.config.Config.canDuplicate;
  * and status of this id-number by using id rule of <b>Thailand</b> <br>
  *
  * @author kamontat
- * @version 2.3
+ * @version 2.4
  * @since 19/8/59 - 20:41
  */
 public class IDNumber {
@@ -204,23 +204,42 @@ public class IDNumber {
 	}
 	
 	/**
+	 * check first digit can't be 9
+	 *
+	 * @return if first digit is 9 return false, otherwise return true
+	 */
+	private boolean checkFirstDigit() {
+		if (splitID[0] == '9') status = NOT_NINE;
+		return splitID[0] != '9';
+	}
+	
+	/**
+	 * all id number must be integer
+	 *
+	 * @return if some part of id <b>isn't</b> number return false, otherwise return true
+	 */
+	private boolean checkAlphabet() {
+		for (char id : splitID) {
+			if (!Character.isDigit(id)) {
+				status = NOT_ALPHABET;
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * check id is passing id rule of <b>Thailand</b> or not
 	 *
 	 * @return if pass return true, otherwise return false
 	 */
 	private boolean isIDCorrect() {
 		// check alphabet
-		for (int i = 0; i < splitID.length; i++) {
-			if (!Character.isDigit(splitID[i])) {
-				status = NOT_ALPHABET;
-				return false;
-			}
-		}
+		if (!checkAlphabet()) return false;
+		
 		// check fist digit
-		if (splitID[0] == '9') {
-			status = NOT_NINE;
-			return false;
-		}
+		if (!checkFirstDigit()) return false;
+		
 		// check length
 		if (!checkLength()) return false;
 		

@@ -8,8 +8,6 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.database.Database.getLine;
-import static com.kamontat.code.database.Database.idList;
 import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.config.Config.version;
@@ -92,8 +90,8 @@ public class MainPage extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				status.removeAll();
 				status.add(fileStatus());
-				status.add(new JMenuItem("File  Have: " + getLine() + " ID"));
-				status.add(new JMenuItem("Local Have: " + idList.size() + " ID"));
+				status.add(fileCount());
+				status.add(localCount());
 			}
 			
 			@Override

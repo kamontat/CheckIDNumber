@@ -13,6 +13,9 @@ import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.config.Config.version;
 
 /**
+ * this class is from create new JMenuItem
+ * in each method they have own action to do, so please choose the correct or fit your action
+ *
  * @author kamontat
  * @version 1.0
  * @since 10/29/2016 AD - 11:13 PM
@@ -52,19 +55,19 @@ public class MenuItem {
 	
 	
 	public static JMenuItem uploadMenu() {
-		JMenuItem refresh = new JMenuItem("upload (Local -> File)");
-		refresh.addActionListener(e -> {
+		JMenuItem upload = new JMenuItem("upload (Local -> File)");
+		upload.addActionListener(e -> {
 			updateTextFile();
 		}); /* upload action */
-		return refresh;
+		return upload;
 	}
 	
 	public static JMenuItem downloadMenu() {
-		JMenuItem refresh = new JMenuItem("download (File -> Local)");
-		refresh.addActionListener(e -> {
+		JMenuItem download = new JMenuItem("download (File -> Local)");
+		download.addActionListener(e -> {
 			assignIDList();
 		}); /* download action */
-		return refresh;
+		return download;
 	}
 	
 	public static JMenuItem toMenu() {

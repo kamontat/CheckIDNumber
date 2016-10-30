@@ -14,7 +14,7 @@ import java.awt.*;
  *     6) NOT_CREATE  -> id never be assign <br>
  *
  * @author kamontat
- * @version 1.0
+ * @version 1.1
  * @since 16/9/59 - 23:05
  */
 public enum Status {

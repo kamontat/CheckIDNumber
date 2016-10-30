@@ -9,6 +9,7 @@ import static com.kamontat.code.database.LocationModel.provinces;
  * show location of id by assign id into constructor and save that location into IDNumber
  *
  * @author kamontat
+ * @version 1.3
  * @since 20/8/59 - 23:15
  */
 public class Location {

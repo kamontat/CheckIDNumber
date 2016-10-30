@@ -20,5 +20,6 @@
 - TODO: 10/29/2016 AD 10:51 PM (3) search with other key like address, province etc.
 - TODO: 10/20/2016 AD 23:12 PM (4) increase performance & speed when deal with very large id-number
 - TODO: 10/30/2016 AD 12:03 AM (5) searching by status of idNumber
+- TODO: 10/30/2016 AD 11:38 AM (6) edit menu in show page
 
 - FIXME: 10/21/2016 AD 1:25 AM fixed program crash when search many id in show page (maximum 50000)

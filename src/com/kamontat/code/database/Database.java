@@ -16,6 +16,7 @@ import static com.kamontat.code.window.Display.dir;
  * this class is about text file of id-number (server) and list in the app (local)
  *
  * @author kamontat
+ * @version 1.2
  * @since 17/8/59 - 23:52
  */
 public class Database {
