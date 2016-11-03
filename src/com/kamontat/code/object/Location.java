@@ -39,7 +39,7 @@ public class Location {
 		String districtID = "(" + id.getIDDistrict() + ")";
 		
 		province = provinces.get(id.getIDProvince());
-		district = districts.get(id.getIDDistrict());
+		district = districts.get(id.getIDAddress());
 		
 		if (province == null) {
 			province = "Unknown " + addressID;
