@@ -48,36 +48,31 @@ public class Database {
 			Scanner input = new Scanner(textFile);
 			final boolean[] hasWrong = {false};
 			
-			Thread thread = new Thread() {
-				@Override
-				public void run() {
-					super.run();
-					
-					int idCount = getLine();
-					loading.setProgressLabel("Start loading " + (idCount) + " ID");
-					
-					int readID = 0;
-					while (input.hasNextLine()) {
-						String[] dataIDNumber = input.nextLine().split(" ");
-						String id = dataIDNumber[0];
-						// if wrong format
-						if (dataIDNumber.length == 1) {
-							hasWrong[0] = true;
-							idList.add(new IDNumber(id));
-						} else if (dataIDNumber.length == 3 || dataIDNumber.length == 4) {
-							LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
-							idList.add(new IDNumber(id, time));
-						} else {
-							loading.setProgressLabel("Some id Error (can't load)");
-						}
-						loading.setProgressValue(((++readID) * 100) / idCount);
+			Runnable runner = () -> {
+				int idCount = getLine();
+				loading.setProgressLabel("Start loading " + (idCount) + " ID");
+				
+				int readID = 0;
+				while (input.hasNextLine()) {
+					String[] dataIDNumber = input.nextLine().split(" ");
+					String id = dataIDNumber[0];
+					// if wrong format
+					if (dataIDNumber.length == 1) {
+						hasWrong[0] = true;
+						idList.add(new IDNumber(id));
+					} else if (dataIDNumber.length == 3 || dataIDNumber.length == 4) {
+						LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
+						idList.add(new IDNumber(id, time));
+					} else {
+						loading.setProgressLabel("Some id Error (can't load)");
 					}
-					watch.stop();
-					loading.setDoneLabel("Finish loaded IDNumber" + watch);
+					loading.setProgressValue(((++readID) * 100) / idCount);
 				}
+				watch.stop();
+				loading.setDoneLabel("Finish loaded IDNumber" + watch);
 			};
 			
-			loading.startLoading(thread);
+			loading.startLoading(new Thread(runner));
 			
 			if (hasWrong[0]) updateTextFile();
 		} catch (Exception e) {
@@ -143,27 +138,23 @@ public class Database {
 		loading.setProgressLabel("Start update " + idList.size() + " ID to text-file");
 		StopWatch watch = new StopWatch();
 		watch.start();
-		
-		loading.startLoading(new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				try {
-					FileWriter writer = new FileWriter(textFile);
-					for (int i = 0; i < idList.size(); i++) {
-						writer.write(idList.get(i).saveFormat() + "\n");
-						
-						loading.setProgressValue(((i + 1) * 100) / idList.size());
-					}
-					writer.close();
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
-					textFile = createTextFile();
+		Runnable runner = () -> {
+			try {
+				FileWriter writer = new FileWriter(textFile);
+				for (int i = 0; i < idList.size(); i++) {
+					writer.write(idList.get(i).saveFormat() + "\n");
+					
+					loading.setProgressValue(((i + 1) * 100) / idList.size());
 				}
-				watch.stop();
-				loading.setDoneLabel("Finish update textfile" + watch);
+				writer.close();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
+				textFile = createTextFile();
 			}
-		});
+			watch.stop();
+			loading.setDoneLabel("Finish update textfile" + watch);
+		};
+		loading.startLoading(new Thread(runner));
 	}
 	
 	/**

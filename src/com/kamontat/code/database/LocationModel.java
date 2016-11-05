@@ -27,37 +27,33 @@ public class LocationModel {
 		LoadingPopup loading = LoadingPopup.getInstance();
 		StopWatch watch = new StopWatch();
 		
-		Thread thread = new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				ObjectMapper mapper = new ObjectMapper();
-				try {
-					watch.start();
-					loading.setProgressLabel("Start loading Province and District");
-					loading.setProgressValue(0);
-					
-					InputStream streamProvince = Location.class.getResourceAsStream("/resources/json_location/provinces.json");
-					provinces = mapper.readValue(streamProvince, provinces.getClass());
-					
-					loading.setProgressValue(50);
-					
-					InputStream streamDistrict = Location.class.getResourceAsStream("/resources/json_location/districts.json");
-					districts = mapper.readValue(streamDistrict, districts.getClass());
-					
-					watch.stop();
-					loading.setProgressValue(100);
-					loading.setDoneLabel("Finish loaded Province and District" + watch);
-					
-					readable = true;
-				} catch (Exception e) {
-					e.printStackTrace();
-					readable = false;
-					JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
-				}
+		Runnable runner = () -> {
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				watch.start();
+				loading.setProgressLabel("Start loading Province and District");
+				loading.setProgressValue(0);
+				
+				InputStream streamProvince = Location.class.getResourceAsStream("/resources/json_location/provinces.json");
+				provinces = mapper.readValue(streamProvince, provinces.getClass());
+				
+				loading.setProgressValue(50);
+				
+				InputStream streamDistrict = Location.class.getResourceAsStream("/resources/json_location/districts.json");
+				districts = mapper.readValue(streamDistrict, districts.getClass());
+				
+				watch.stop();
+				loading.setProgressValue(100);
+				loading.setDoneLabel("Finish loaded Province and District" + watch);
+				
+				readable = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				readable = false;
+				JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
 			}
 		};
 		
-		loading.startLoading(thread);
+		loading.startLoading(new Thread(runner));
 	}
 }

@@ -26,11 +26,6 @@ public class LoadingPopup extends JDialog {
 		
 		addFont();
 		progressBar.setStringPainted(true);
-		progressBar.setString("0%");
-		progressBar.setValue(0);
-		statusLabel.setText("Status");
-		statusLabel.setForeground(Color.BLACK);
-		
 		
 		setAlwaysOnTop(true);
 	}

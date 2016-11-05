@@ -32,7 +32,6 @@ public class ShowPage extends JDialog {
 	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
 	
 	public ShowPage() {
-		
 		setContentPane(contentPane);
 		setModal(true);
 		
@@ -140,8 +139,6 @@ public class ShowPage extends JDialog {
 			}
 			
 			private void update() {
-				long start = System.currentTimeMillis();
-				
 				ArrayList<IDNumber> tempList = filter();
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				
@@ -151,8 +148,6 @@ public class ShowPage extends JDialog {
 				
 				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				countLabel.setText(String.format("(%03d)", model.size()));
-				
-				JOptionPane.showMessageDialog(null, "time: " + (System.currentTimeMillis() - start), "Time", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			private ArrayList<IDNumber> filter() {
