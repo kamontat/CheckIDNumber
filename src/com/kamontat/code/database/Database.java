@@ -2,7 +2,7 @@ package com.kamontat.code.database;
 
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.code.watch.StopWatch;
-import com.kamontat.gui.LoadingPage;
+import com.kamontat.gui.LoadingPopup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,11 +39,18 @@ public class Database {
 	 * this method <b>already</b> update textFile if have something wrong
 	 */
 	public static void assignIDList() {
-		LoadingPage loading = LoadingPage.getInstance();
+		LoadingPopup loading = new LoadingPopup();
 		StopWatch watch = new StopWatch();
 		watch.start();
 		
-		Arrays.stream(Window.getWindows()).forEach(System.out::println);
+		try {
+			System.out.println("Open LoadingPage");
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		//		Arrays.stream(Window.getWindows()).forEach(System.out::println);
 		
 		idList.removeAll(idList);
 		try {
@@ -54,6 +61,13 @@ public class Database {
 				@Override
 				public void run() {
 					super.run();
+					
+					try {
+						System.out.println("Start Thread");
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					
 					int idCount = getLine();
 					
@@ -76,7 +90,15 @@ public class Database {
 						loading.setProgressValue(((++readID) * 100) / idCount);
 					}
 					watch.stop();
+					
 					loading.setDoneLabel("Finish loaded IDNumber" + watch);
+					
+					try {
+						System.out.println("finish Thread");
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			};
 			
@@ -141,7 +163,7 @@ public class Database {
 	 * O-notation = O(idList.length)
 	 */
 	public static void updateTextFile() {
-		LoadingPage loading = LoadingPage.getInstance();
+		LoadingPopup loading = new LoadingPopup();
 		
 		loading.setProgressLabel("Start update " + idList.size() + " ID to text-file");
 		StopWatch watch = new StopWatch();

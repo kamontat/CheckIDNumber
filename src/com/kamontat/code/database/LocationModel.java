@@ -3,7 +3,7 @@ package com.kamontat.code.database;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.object.Location;
 import com.kamontat.code.watch.StopWatch;
-import com.kamontat.gui.LoadingPage;
+import com.kamontat.gui.LoadingPopup;
 
 import javax.swing.*;
 import java.io.InputStream;
@@ -24,7 +24,7 @@ public class LocationModel {
 	 * <b>May Slow</b>, (In my test it's run 300 ms)
 	 */
 	public static void read() {
-		LoadingPage loading = LoadingPage.getInstance();
+		LoadingPopup loading = new LoadingPopup();
 		StopWatch watch = new StopWatch();
 		
 		Thread thread = new Thread() {
@@ -32,7 +32,6 @@ public class LocationModel {
 			public void run() {
 				super.run();
 				ObjectMapper mapper = new ObjectMapper();
-				
 				try {
 					watch.start();
 					loading.setProgressLabel("Start loading Province and District");

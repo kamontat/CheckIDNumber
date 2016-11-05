@@ -12,15 +12,12 @@ import static com.kamontat.code.window.Display.getCenterLocation;
  * @version 1.0
  * @since 10/18/2016 AD - 2:30 PM
  */
-public class LoadingPage extends JFrame {
-	private JFrame self = this;
+public class LoadingPage extends JDialog {
 	private JPanel panel;
 	private JProgressBar progressBar;
 	private JLabel statusLabel;
 	
 	private String done = "Finish";
-	
-	private static LoadingPage page;
 	
 	/**
 	 * To show loading progress if some progress may using very long time <br>
@@ -29,8 +26,9 @@ public class LoadingPage extends JFrame {
 	 * second: setProgressValue -> for setting percent that on loading
 	 * third: startLoading -> for setting which progress that you what to progress
 	 */
-	private LoadingPage() {
+	public LoadingPage() {
 		setContentPane(panel);
+		
 		addFont();
 		progressBar.setStringPainted(true);
 		setAlwaysOnTop(true);
@@ -38,20 +36,7 @@ public class LoadingPage extends JFrame {
 		setSize(450, 100);
 		setVisible(true);
 		setLocation(getCenterLocation(getSize()));
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
-	}
-	
-	public static LoadingPage getInstance() {
-		if (page == null) {
-			page = new LoadingPage();
-		} else {
-			page.setVisible(true);
-			page.repaint();
-			page.revalidate();
-		}
-		
-		return page;
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 	
 	private void addFont() {
@@ -86,7 +71,7 @@ public class LoadingPage extends JFrame {
 			Thread.sleep(500);
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			setVisible(false);
+			dispose();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
