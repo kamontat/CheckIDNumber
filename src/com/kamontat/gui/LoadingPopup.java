@@ -61,7 +61,6 @@ public class LoadingPopup extends JDialog {
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			
-			toBack();
 			dispose();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
