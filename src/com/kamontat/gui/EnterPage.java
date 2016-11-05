@@ -77,8 +77,6 @@ public class EnterPage extends JDialog {
 	}
 	
 	private void warn() {
-		// update last version list
-		assignIDList();
 		
 		if (textField.getText().equals("")) {
 			setMessage("Enter (enter some id)", new Color(0, 0, 0));
@@ -92,6 +90,10 @@ public class EnterPage extends JDialog {
 				okBtn.setEnabled(false);
 				setMessage(number.getStatus().toString(), number.getStatus().getColor());
 			} else {
+				// update last version list
+				assignIDList();
+				number.updateStatus();
+				
 				okBtn.setEnabled(true);
 				setMessage("OK (Good ID)", new Color(0, 200, 0));
 			}

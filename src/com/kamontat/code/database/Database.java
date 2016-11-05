@@ -1,6 +1,8 @@
 package com.kamontat.code.database;
 
 import com.kamontat.code.object.IDNumber;
+import com.kamontat.code.watch.StopWatch;
+import com.kamontat.gui.LoadingPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,24 +39,43 @@ public class Database {
 	 * this method <b>already</b> update textFile if have something wrong
 	 */
 	public static void assignIDList() {
-		boolean hasWrong = false;
+		LoadingPage loading = LoadingPage.getInstance();
+		loading.setProgressLabel("Start loading ID");
+		StopWatch watch = new StopWatch();
+		watch.start();
+		
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
+			final boolean[] hasWrong = {false};
 			
-			while (input.hasNextLine()) {
-				String[] dataIDNumber = input.nextLine().split(" ");
-				String id = dataIDNumber[0];
-				// if wrong format
-				if (dataIDNumber.length == 1) {
-					hasWrong = true;
-					idList.add(new IDNumber(id));
-				} else {
-					LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
-					idList.add(new IDNumber(id, time));
+			loading.startLoading(new Thread() {
+				@Override
+				public void run() {
+					super.run();
+					int idCount = getLine();
+					int readID = 0;
+					while (input.hasNextLine()) {
+						String[] dataIDNumber = input.nextLine().split(" ");
+						String id = dataIDNumber[0];
+						// if wrong format
+						if (dataIDNumber.length == 1) {
+							hasWrong[0] = true;
+							idList.add(new IDNumber(id));
+						} else if (dataIDNumber.length == 3 || dataIDNumber.length == 4) {
+							LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
+							idList.add(new IDNumber(id, time));
+						} else {
+							loading.setProgressLabel("Some id Error (can't load)");
+						}
+						loading.setProgressValue(((++readID) * 100) / idCount);
+					}
+					watch.stop();
+					loading.setDoneLabel("Finish loaded IDNumber" + watch);
 				}
-			}
-			if (hasWrong) updateTextFile();
+			});
+			
+			if (hasWrong[0]) updateTextFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +90,7 @@ public class Database {
 	 * @return position of that id if it's exist, otherwise return -1
 	 */
 	public static int searchingIDList(IDNumber id) {
-		for (int i = idList.size() - 1; i >= 0; i--) {
+		for (int i = 0; i < idList.size(); i++) {
 			if (idList.get(i).getId().equals(id.getId()) && idList.get(i).getStatus() == id.getStatus()) {
 				return i;
 			}
@@ -83,7 +104,7 @@ public class Database {
 	 * @return that new text-file
 	 */
 	private static File createTextFile() {
-		File textFile = null;
+		File textFile;
 		
 		textFile = new File(dir.getPath() + "/folderList");
 		textFile.mkdir();
@@ -98,7 +119,7 @@ public class Database {
 	}
 	
 	public static int getLine() {
-		LineNumberReader lnr = null;
+		LineNumberReader lnr;
 		try {
 			lnr = new LineNumberReader(new FileReader(textFile));
 			lnr.skip(Long.MAX_VALUE);
@@ -113,16 +134,31 @@ public class Database {
 	 * O-notation = O(idList.length)
 	 */
 	public static void updateTextFile() {
-		try {
-			FileWriter writer = new FileWriter(textFile);
-			for (IDNumber id : idList) {
-				writer.write(id.saveFormat() + "\n");
+		LoadingPage loading = LoadingPage.getInstance();
+		loading.setProgressLabel("Start update text-file");
+		StopWatch watch = new StopWatch();
+		watch.start();
+		
+		loading.startLoading(new Thread() {
+			@Override
+			public void run() {
+				super.run();
+				try {
+					FileWriter writer = new FileWriter(textFile);
+					for (int i = 0; i < idList.size(); i++) {
+						writer.write(idList.get(i).saveFormat() + "\n");
+						
+						loading.setProgressValue(((i + 1) * 100) / idList.size());
+					}
+					writer.close();
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
+					textFile = createTextFile();
+				}
+				watch.stop();
+				loading.setDoneLabel("Finish update textfile" + watch);
 			}
-			writer.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
-			textFile = createTextFile();
-		}
+		});
 	}
 	
 	/**

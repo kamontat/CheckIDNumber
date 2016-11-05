@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import static com.kamontat.code.window.Display.getCenterLocation;
-import static com.kamontat.gui.MainPage.exPack;
 
 /**
  * @author kamontat
@@ -18,125 +17,75 @@ public class LoadingPage extends JFrame {
 	private JPanel panel;
 	private JProgressBar progressBar;
 	private JLabel statusLabel;
-	private Thread[] threads;
 	
-	public static String statusMessage = "Start Loading";
+	private String done = "Finish";
+	
+	private static LoadingPage page;
 	
 	/**
 	 * To show loading progress if some progress may using very long time <br>
-	 * autoProgress is for if can't avg time to run progressBar the AutoProgress will do it, but <b>NOT good</b> <br>
-	 * and threads is the running progress that want to run and include time to increase progressBar <br>
-	 * To increase progressBar, it have to have <b>progressBar</b>, <b>statusLabel</b>, <b>LoadingPage.statusMessage</b>
-	 *
-	 * @param isAutoProgress
-	 * 		true, if don't know how to manage time running
-	 * @param threads
-	 * 		running thread
+	 * to use this class you must setting something before <br>
+	 * first: setProgressLabel -> for setting label to tell what thing that on load
+	 * second: setProgressValue -> for setting percent that on loading
+	 * third: startLoading -> for setting which progress that you what to progress
 	 */
-	public LoadingPage(boolean isAutoProgress, Thread... threads) {
-		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+	private LoadingPage() {
 		addFont();
-		this.threads = threads;
-		
-		Thread runThread = new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				setContentPane(panel);
-				
-				pack();
-				setLocation(getCenterLocation(getSize()));
-				setVisible(true);
-				setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-			}
-		};
-		
-		try {
-			runThread.start();
-			runThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		Thread progressThread = new Thread();
-		if (isAutoProgress) {
-			progressThread = new Thread() {
-				@Override
-				public void run() {
-					super.run();
-					progress();
-				}
-			};
-			
-			progressThread.start();
-		}
-		
-		try {
-			for (Thread thread : threads) {
-				thread.start();
-			}
-			
-			for (Thread thread : threads) {
-				thread.join();
-			}
-			
-			if (isAutoProgress) progressThread.join();
-			
-			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			dispose();
-			
-			
-			MainPage page = new MainPage();
-			page.run(getCenterLocation(page.getSize()));
-			
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		progressBar.setStringPainted(true);
+		setAlwaysOnTop(true);
+		setContentPane(panel);
+		setSize(450, 100);
+		setLocation(getCenterLocation(getSize()));
+		setVisible(true);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	}
 	
-	/**
-	 * auto run progress bar if cannot manage it.
-	 */
-	private void progress() {
-		progressBar.setStringPainted(true);
-		while (progressBar.getValue() != progressBar.getMaximum()) {
-			progressBar.setString(progressBar.getValue() + "%");
-			progressBar.setValue(progressBar.getValue() + 1);
-			statusLabel.setText(LoadingPage.statusMessage);
-			if (LoadingPage.statusMessage.contains("Finish")) {
-				statusLabel.setForeground(Color.RED);
-				if (progressBar.getValue() >= 95) {
-					if (progressBar.getValue() != 0) LoadingPage.statusMessage = "Finish load another content";
-				}
-			} else {
-				if (progressBar.getValue() >= 98) {
-					for (Thread thread : threads) {
-						if (thread.isAlive()) {
-							progressBar.setString(progressBar.getValue() + "%");
-							progressBar.setValue(0);
-							break;
-						}
-					}
-				}
-				statusLabel.setForeground(Color.BLUE);
-			}
-			statusLabel.setText(LoadingPage.statusMessage);
-			exPack(this);
-			try {
-				Thread.sleep((long) Math.ceil(Math.random() * 100));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+	public static LoadingPage getInstance() {
+		if (page == null) {
+			page = new LoadingPage();
 		}
+		if (!page.isVisible()) {
+			page.setVisible(true);
+		}
+		return page;
 	}
 	
 	private void addFont() {
 		statusLabel.setFont(FontBook.getFontLabel());
 	}
 	
-	private void run() {
-		pack();
-		setLocation(getCenterLocation(getSize()));
-		setVisible(true);
+	public void setProgressValue(int value) {
+		progressBar.setValue(value);
+		progressBar.setString(progressBar.getValue() + "%");
+	}
+	
+	public void setProgressLabel(String status) {
+		this.statusLabel.setText(status);
+		statusLabel.setForeground(Color.GREEN);
+	}
+	
+	public void setDoneLabel(String status) {
+		done = status;
+	}
+	
+	public void startLoading(Thread... threads) {
+		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		
+		try {
+			for (Thread thread : threads) {
+				thread.start();
+				thread.join();
+			}
+			
+			this.statusLabel.setText(done);
+			statusLabel.setForeground(Color.RED);
+			
+			Thread.sleep(500);
+			
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			setVisible(false);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

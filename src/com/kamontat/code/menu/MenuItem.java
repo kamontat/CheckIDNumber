@@ -56,22 +56,18 @@ public class MenuItem {
 	
 	public static JMenuItem uploadMenu() {
 		JMenuItem upload = new JMenuItem("upload (Local -> File)");
-		upload.addActionListener(e -> {
-			updateTextFile();
-		}); /* upload action */
+		upload.addActionListener(e -> updateTextFile()); /* upload action */
 		return upload;
 	}
 	
 	public static JMenuItem downloadMenu() {
 		JMenuItem download = new JMenuItem("download (File -> Local)");
-		download.addActionListener(e -> {
-			assignIDList();
-		}); /* download action */
+		download.addActionListener(e -> assignIDList()); /* download action */
 		return download;
 	}
 	
 	public static JMenuItem toMenu() {
-		JMenuItem to = null;
+		JMenuItem to;
 		if (!Database.textFile.exists()) {
 			to = new JMenuItem("Backup Data");
 		} else {
@@ -103,7 +99,8 @@ public class MenuItem {
 	}
 	
 	public static JMenuItem fileStatus() {
-		JMenuItem stat = new JMenuItem("");
+		JMenuItem stat;
+		
 		if (Database.textFile.exists()) {
 			if (getLine() > idList.size()) {
 				stat = new JMenuItem("Download (save id in file)");
