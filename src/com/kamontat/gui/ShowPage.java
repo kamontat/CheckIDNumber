@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import static com.kamontat.code.database.Database.*;
 import static com.kamontat.code.menu.MenuItem.*;
@@ -124,43 +126,52 @@ public class ShowPage extends JDialog {
 		searchingField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				filter();
+				update();
 			}
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				filter();
+				update();
 			}
 			
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				filter();
+				update();
 			}
 			
-			private void filter() {
+			private void update() {
 				long start = System.currentTimeMillis();
-				String filter = searchingField.getText();
-				if (EnterPage.isAllNumberIn(filter)) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				
+				ArrayList<IDNumber> tempList = filter();
+				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				
+				model = new DefaultListModel<IDNumber>();
+				tempList.forEach(model::addElement);
+				list.setModel(model);
+				
+				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				countLabel.setText(String.format("(%03d)", model.size()));
+				
+				JOptionPane.showMessageDialog(null, "time: " + (System.currentTimeMillis() - start), "Time", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+			private ArrayList<IDNumber> filter() {
+				ArrayList<IDNumber> tempIDList = new ArrayList<>();
+				String filterText = searchingField.getText();
+				if (EnterPage.isAllNumberIn(filterText)) {
 					searchingField.setBackground(Color.WHITE);
-					for (IDNumber s : idList) {
-						int index = model.indexOf(s);
-						if (!s.isContain(filter)) {
-							if (index != -1) {
-								model.remove(index);
-							}
-						} else {
-							if (index == -1) {
-								model.addElement(s);
-							}
-						}
-					}
-					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-					countLabel.setText(String.format("(%03d)", model.size()));
+					
+					Predicate<IDNumber> filter = id -> id.isContain(filterText);
+					Comparator<IDNumber> sortBy = (o1, o2) -> o1.getId().compareTo(o2.getId());
+					Consumer<IDNumber> addNewList = tempIDList::add;
+					
+					idList.stream().filter(filter).sorted(sortBy).forEach(addNewList);
+					
+					return tempIDList;
 				} else {
 					searchingField.setBackground(Color.RED);
+					return idList;
 				}
-				System.out.println("searching time: " + (System.currentTimeMillis() - start));
 			}
 		});
 	}

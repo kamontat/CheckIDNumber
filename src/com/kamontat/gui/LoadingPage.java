@@ -103,11 +103,11 @@ public class LoadingPage extends JFrame {
 			statusLabel.setText(LoadingPage.statusMessage);
 			if (LoadingPage.statusMessage.contains("Finish")) {
 				statusLabel.setForeground(Color.RED);
-			} else {
-				statusLabel.setForeground(Color.BLUE);
 				if (progressBar.getValue() >= 95) {
 					LoadingPage.statusMessage = "Finish load another content";
 				}
+			} else {
+				statusLabel.setForeground(Color.BLUE);
 			}
 			statusLabel.setText(LoadingPage.statusMessage);
 			

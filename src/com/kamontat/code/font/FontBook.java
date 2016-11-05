@@ -18,17 +18,18 @@ public class FontBook {
 	 * @return font
 	 */
 	public static Font getFontMain() {
+		String path = "";
 		try {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/PTMono.ttc");
 			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(Font.BOLD, 42f);
 		} catch (Exception e) {
-			String a = e.getMessage();
-			JOptionPane.showMessageDialog(null, "cannot load font " + a, "Error", JOptionPane.ERROR_MESSAGE);
+			String print = "cannot load font \n" + e.getMessage();
+			JOptionPane.showMessageDialog(null, print, "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>Caudex-Regular.ttf</b> font size 24
 	 *
@@ -39,12 +40,13 @@ public class FontBook {
 			InputStream stream = Main.class.getResourceAsStream("/resources/fontbook/Caudex-Regular.ttf");
 			return Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(24f);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "cannot load font", "Error", JOptionPane.ERROR_MESSAGE);
+			String print = "cannot load font \n" + e.getMessage();
+			JOptionPane.showMessageDialog(null, print, "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>BigshotOne.ttf</b> font size 22
 	 *
@@ -60,7 +62,7 @@ public class FontBook {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>BigshotOne.ttf</b> font by parems size
 	 *
@@ -78,7 +80,7 @@ public class FontBook {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>AlmendraSC-Regular.ttf</b> font size 22
 	 *
@@ -94,7 +96,7 @@ public class FontBook {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>CharlemagneStd-Bold.otf</b> font size 26
 	 *
@@ -110,7 +112,7 @@ public class FontBook {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>DigitalNumbers-Regular.ttf</b> font size 25
 	 *
@@ -126,7 +128,7 @@ public class FontBook {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * using <b>waan-free_regular.ttf</b> font
 	 *

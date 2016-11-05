@@ -37,7 +37,6 @@ public class Database {
 	 * this method <b>already</b> update textFile if have something wrong
 	 */
 	public static void assignIDList() {
-		
 		boolean hasWrong = false;
 		idList.removeAll(idList);
 		try {
