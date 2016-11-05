@@ -24,7 +24,7 @@ public class LocationModel {
 	 * <b>May Slow</b>, (In my test it's run 300 ms)
 	 */
 	public static void read() {
-		LoadingPopup loading = new LoadingPopup();
+		LoadingPopup loading = LoadingPopup.getInstance();
 		StopWatch watch = new StopWatch();
 		
 		Thread thread = new Thread() {

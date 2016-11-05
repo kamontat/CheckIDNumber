@@ -15,17 +15,30 @@ public class LoadingPopup extends JDialog {
 	
 	private String done = "Finish";
 	
-	public LoadingPopup() {
+	private static LoadingPopup page;
+	
+	private LoadingPopup() {
 		setContentPane(contentPane);
 		
 		setSize(450, 100);
 		setLocation(getCenterLocation(getSize()));
 		setVisible(true);
 		
-		progressBar.setStringPainted(true);
 		addFont();
+		progressBar.setStringPainted(true);
+		progressBar.setString("0%");
+		progressBar.setValue(0);
+		statusLabel.setText("Status");
+		statusLabel.setForeground(Color.BLACK);
+		
 		
 		setAlwaysOnTop(true);
+	}
+	
+	public static LoadingPopup getInstance() {
+		if (page == null) page = new LoadingPopup();
+		if (!page.isValid()) page.setVisible(true);
+		return page;
 	}
 	
 	private void addFont() {
@@ -60,8 +73,7 @@ public class LoadingPopup extends JDialog {
 			Thread.sleep(500);
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			
-			dispose();
+			page.setVisible(false);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -39,18 +39,9 @@ public class Database {
 	 * this method <b>already</b> update textFile if have something wrong
 	 */
 	public static void assignIDList() {
-		LoadingPopup loading = new LoadingPopup();
+		LoadingPopup loading = LoadingPopup.getInstance();
 		StopWatch watch = new StopWatch();
 		watch.start();
-		
-		try {
-			System.out.println("Open LoadingPage");
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		//		Arrays.stream(Window.getWindows()).forEach(System.out::println);
 		
 		idList.removeAll(idList);
 		try {
@@ -62,15 +53,7 @@ public class Database {
 				public void run() {
 					super.run();
 					
-					try {
-						System.out.println("Start Thread");
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					
 					int idCount = getLine();
-					
 					loading.setProgressLabel("Start loading " + (idCount) + " ID");
 					
 					int readID = 0;
@@ -90,15 +73,7 @@ public class Database {
 						loading.setProgressValue(((++readID) * 100) / idCount);
 					}
 					watch.stop();
-					
 					loading.setDoneLabel("Finish loaded IDNumber" + watch);
-					
-					try {
-						System.out.println("finish Thread");
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
 				}
 			};
 			
@@ -163,7 +138,7 @@ public class Database {
 	 * O-notation = O(idList.length)
 	 */
 	public static void updateTextFile() {
-		LoadingPopup loading = new LoadingPopup();
+		LoadingPopup loading = LoadingPopup.getInstance();
 		
 		loading.setProgressLabel("Start update " + idList.size() + " ID to text-file");
 		StopWatch watch = new StopWatch();
