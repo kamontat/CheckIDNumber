@@ -15,13 +15,6 @@ public class Main {
 	public static void main(String[] args) {
 		
 		LocationModel.read();
-		
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
 		assignIDList();
 		
 		MainPage page = new MainPage();

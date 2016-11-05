@@ -32,6 +32,7 @@ public class ShowPage extends JDialog {
 	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
 	
 	public ShowPage() {
+		
 		setContentPane(contentPane);
 		setModal(true);
 		
