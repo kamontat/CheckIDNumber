@@ -16,8 +16,9 @@ import static com.kamontat.gui.MainPage.exPack;
 public class LoadingPage extends JFrame {
 	private JFrame self = this;
 	private JPanel panel;
-	public JProgressBar progressBar;
-	public JLabel statusLabel;
+	private JProgressBar progressBar;
+	private JLabel statusLabel;
+	private Thread[] threads;
 	
 	public static String statusMessage = "Start Loading";
 	
@@ -35,6 +36,7 @@ public class LoadingPage extends JFrame {
 	public LoadingPage(boolean isAutoProgress, Thread... threads) {
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		addFont();
+		this.threads = threads;
 		
 		Thread runThread = new Thread() {
 			@Override
@@ -104,13 +106,21 @@ public class LoadingPage extends JFrame {
 			if (LoadingPage.statusMessage.contains("Finish")) {
 				statusLabel.setForeground(Color.RED);
 				if (progressBar.getValue() >= 95) {
-					LoadingPage.statusMessage = "Finish load another content";
+					if (progressBar.getValue() != 0) LoadingPage.statusMessage = "Finish load another content";
 				}
 			} else {
+				if (progressBar.getValue() >= 98) {
+					for (Thread thread : threads) {
+						if (thread.isAlive()) {
+							progressBar.setString(progressBar.getValue() + "%");
+							progressBar.setValue(0);
+							break;
+						}
+					}
+				}
 				statusLabel.setForeground(Color.BLUE);
 			}
 			statusLabel.setText(LoadingPage.statusMessage);
-			
 			exPack(this);
 			try {
 				Thread.sleep((long) Math.ceil(Math.random() * 100));

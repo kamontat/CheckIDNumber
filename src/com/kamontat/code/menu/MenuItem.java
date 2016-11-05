@@ -102,7 +102,6 @@ public class MenuItem {
 		return about;
 	}
 	
-	
 	public static JMenuItem fileStatus() {
 		JMenuItem stat = new JMenuItem("");
 		if (Database.textFile.exists()) {

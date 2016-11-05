@@ -41,6 +41,7 @@ public class Database {
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
+			
 			while (input.hasNextLine()) {
 				String[] dataIDNumber = input.nextLine().split(" ");
 				String id = dataIDNumber[0];
