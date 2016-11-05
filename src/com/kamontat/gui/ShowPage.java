@@ -179,8 +179,8 @@ public class ShowPage extends JDialog {
 	 * disable searching if id more than 1000
 	 */
 	private void disableSearch() {
-		// disable searching if id more than 50000
-		if (model.size() > 50000) {
+		// disable searching if id more than 120000
+		if (model.size() > 120000) {
 			searchingField.setEnabled(false);
 			searchingField.setToolTipText("Search can't use, if id more than 1000");
 		} else {

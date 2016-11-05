@@ -27,7 +27,7 @@ public class LocationModel {
 		LoadingPage loading = LoadingPage.getInstance();
 		StopWatch watch = new StopWatch();
 		
-		loading.startLoading(new Thread() {
+		Thread thread = new Thread() {
 			@Override
 			public void run() {
 				super.run();
@@ -57,6 +57,8 @@ public class LocationModel {
 					JOptionPane.showMessageDialog(null, "Can't read json_location file \nplease contact to developer.\nif you want information feature.", "Error Loading file", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-		});
+		};
+		
+		loading.startLoading(thread);
 	}
 }

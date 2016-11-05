@@ -14,35 +14,10 @@ import static com.kamontat.code.window.Display.getCenterLocation;
 public class Main {
 	public static void main(String[] args) {
 		
-		Thread loadingLocation = new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				// read location
-				LocationModel.read();
-			}
-		};
+		LocationModel.read();
+		assignIDList();
 		
-		Thread loadingID = new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				// read id
-				assignIDList();
-			}
-		};
-		
-		try {
-			loadingLocation.run();
-			loadingLocation.join();
-			
-			loadingID.run();
-			loadingID.join();
-			
-			MainPage page = new MainPage();
-			page.run(getCenterLocation(page.getSize()));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		MainPage page = new MainPage();
+		page.run(getCenterLocation(page.getSize()));
 	}
 }

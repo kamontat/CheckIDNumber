@@ -40,20 +40,25 @@ public class Database {
 	 */
 	public static void assignIDList() {
 		LoadingPage loading = LoadingPage.getInstance();
-		loading.setProgressLabel("Start loading ID");
 		StopWatch watch = new StopWatch();
 		watch.start();
+		
+		Arrays.stream(Window.getWindows()).forEach(System.out::println);
 		
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
 			final boolean[] hasWrong = {false};
 			
-			loading.startLoading(new Thread() {
+			Thread thread = new Thread() {
 				@Override
 				public void run() {
 					super.run();
+					
 					int idCount = getLine();
+					
+					loading.setProgressLabel("Start loading " + (idCount) + " ID");
+					
 					int readID = 0;
 					while (input.hasNextLine()) {
 						String[] dataIDNumber = input.nextLine().split(" ");
@@ -73,7 +78,9 @@ public class Database {
 					watch.stop();
 					loading.setDoneLabel("Finish loaded IDNumber" + watch);
 				}
-			});
+			};
+			
+			loading.startLoading(thread);
 			
 			if (hasWrong[0]) updateTextFile();
 		} catch (Exception e) {
@@ -135,7 +142,8 @@ public class Database {
 	 */
 	public static void updateTextFile() {
 		LoadingPage loading = LoadingPage.getInstance();
-		loading.setProgressLabel("Start update text-file");
+		
+		loading.setProgressLabel("Start update " + idList.size() + " ID to text-file");
 		StopWatch watch = new StopWatch();
 		watch.start();
 		

@@ -30,23 +30,27 @@ public class LoadingPage extends JFrame {
 	 * third: startLoading -> for setting which progress that you what to progress
 	 */
 	private LoadingPage() {
+		setContentPane(panel);
 		addFont();
 		progressBar.setStringPainted(true);
 		setAlwaysOnTop(true);
-		setContentPane(panel);
+		
 		setSize(450, 100);
-		setLocation(getCenterLocation(getSize()));
 		setVisible(true);
-		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		setLocation(getCenterLocation(getSize()));
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
 	}
 	
 	public static LoadingPage getInstance() {
 		if (page == null) {
 			page = new LoadingPage();
-		}
-		if (!page.isVisible()) {
+		} else {
 			page.setVisible(true);
+			page.repaint();
+			page.revalidate();
 		}
+		
 		return page;
 	}
 	
@@ -60,7 +64,7 @@ public class LoadingPage extends JFrame {
 	}
 	
 	public void setProgressLabel(String status) {
-		this.statusLabel.setText(status);
+		statusLabel.setText(status);
 		statusLabel.setForeground(Color.GREEN);
 	}
 	
@@ -68,16 +72,15 @@ public class LoadingPage extends JFrame {
 		done = status;
 	}
 	
-	public void startLoading(Thread... threads) {
+	public void startLoading(Thread thread) {
 		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		
 		try {
-			for (Thread thread : threads) {
-				thread.start();
-				thread.join();
-			}
+			thread.start();
+			thread.join();
 			
-			this.statusLabel.setText(done);
+			System.out.println(done);
+			statusLabel.setText(done);
 			statusLabel.setForeground(Color.RED);
 			
 			Thread.sleep(500);

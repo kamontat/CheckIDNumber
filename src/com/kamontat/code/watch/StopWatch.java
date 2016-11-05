@@ -26,6 +26,15 @@ public class StopWatch {
 	
 	@Override
 	public String toString() {
-		return String.format("(%dms)", getElapsed());
+		String ms = "(%dms)";
+		String s = "(%.2fs)";
+		long interval = getElapsed();
+		
+		// convert to second
+		if (interval >= 1000) {
+			return String.format("(%.2fs)", interval / 1000.0);
+		} else {
+			return String.format("(%dms)", interval);
+		}
 	}
 }

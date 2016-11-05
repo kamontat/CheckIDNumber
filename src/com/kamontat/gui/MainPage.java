@@ -7,6 +7,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.*;
 
 import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
@@ -30,11 +31,13 @@ public class MainPage extends JFrame {
 		createMenuBar();
 		
 		enterBtn.addActionListener(e -> {
+			Arrays.stream(Window.getWindows()).forEach(System.out::println);
 			EnterPage page = new EnterPage();
 			page.run(getCenterLocation(page.getSize()));
 		});
 		
 		showBtn.addActionListener(e -> {
+			Arrays.stream(Window.getWindows()).forEach(System.out::println);
 			ShowPage page = new ShowPage();
 			page.run(getCenterLocation(page.getSize()));
 		});
@@ -110,7 +113,7 @@ public class MainPage extends JFrame {
 		setJMenuBar(menu);
 	}
 	
-	public static void exPack(Window frame) {
+	static void exPack(Window frame) {
 		frame.pack();
 		frame.setLocation(getCenterLocation(frame.getSize()));
 	}
