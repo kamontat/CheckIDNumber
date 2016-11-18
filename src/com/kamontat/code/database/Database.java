@@ -7,12 +7,11 @@ import com.kamontat.gui.LoadingPopup;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-
-import static com.kamontat.code.window.Display.dir;
 
 /**
  * this class is about text file of id-number (server) and list in the app (local)
@@ -22,6 +21,10 @@ import static com.kamontat.code.window.Display.dir;
  * @since 17/8/59 - 23:52
  */
 public class Database {
+	/**
+	 * get current dir
+	 */
+	public static File dir = Paths.get("").toAbsolutePath().toFile();
 	
 	/**
 	 * get text file
@@ -71,7 +74,6 @@ public class Database {
 				watch.stop();
 				loading.setDoneLabel("Finish loaded IDNumber" + watch);
 			};
-			
 			loading.startLoading(new Thread(runner));
 			
 			if (hasWrong[0]) updateTextFile();

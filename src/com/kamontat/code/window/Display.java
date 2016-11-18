@@ -16,11 +16,6 @@ public class Display {
 	private static DisplayMode display = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
 	
 	/**
-	 * get current dir
-	 */
-	public static File dir = Paths.get("").toAbsolutePath().toFile();
-	
-	/**
 	 * get point that stay in the center of the screen
 	 *
 	 * @param pageSize
