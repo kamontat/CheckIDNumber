@@ -1,7 +1,6 @@
 package test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.kamontat.code.database.Database;
 
 /**
  * @author kamontat
@@ -10,13 +9,7 @@ import java.sql.DriverManager;
  */
 public class test {
 	public static void main(String[] args) {
-		Connection c = null;
-		try {
-			c = DriverManager.getConnection("jdbc:sqlite:database");
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
-		System.out.println("Opened database successfully");
+		Database db = Database.getDatabase();
+		db.getAll();
 	}
 }

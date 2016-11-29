@@ -3,7 +3,7 @@ package com.kamontat.main;
 import com.kamontat.code.database.LocationModel;
 import com.kamontat.gui.MainPage;
 
-import static com.kamontat.code.database.DatabaseBackup.assignIDList;
+import static com.kamontat.code.database.DatabaseAPI.assignIDList;
 import static com.kamontat.code.window.Display.getCenterLocation;
 
 /**
@@ -14,7 +14,7 @@ import static com.kamontat.code.window.Display.getCenterLocation;
 public class Main {
 	public static void main(String[] args) {
 		
-		LocationModel.read();
+		new LocationModel().read();
 		assignIDList();
 		
 		MainPage page = new MainPage();

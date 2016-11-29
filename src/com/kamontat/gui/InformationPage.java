@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import static com.kamontat.code.database.DatabaseBackup.searchingIDList;
+import static com.kamontat.code.database.DatabaseAPI.searchingIDList;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class InformationPage extends JDialog {
@@ -90,7 +90,7 @@ public class InformationPage extends JDialog {
 			districtLabel.setText(id.getLocation().getDistrict());
 			numBCLabel.setText(id.getIDBC());
 			orderLabel.setText(id.getIDOrder());
-			createAtLabel.setText("create_at " + id.getCreateAt().toLocalDate() + ", " + id.getCreateAt().toLocalTime());
+			createAtLabel.setText("create_at " + id.getCreateAt_string());
 			
 			Color color = Color.BLACK;
 			if (id.getLocation().getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {

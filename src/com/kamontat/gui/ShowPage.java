@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.kamontat.code.database.DatabaseBackup.*;
+import static com.kamontat.code.database.DatabaseAPI.*;
 import static com.kamontat.code.menu.MenuItem.*;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.exPack;

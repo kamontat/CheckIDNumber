@@ -2,11 +2,15 @@ package com.kamontat.code.object;
 
 import com.kamontat.code.constant.Status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 import static com.kamontat.code.constant.Status.*;
-import static com.kamontat.code.database.DatabaseBackup.idList;
+import static com.kamontat.code.database.DatabaseAPI.idList;
 import static com.kamontat.config.Config.canDuplicate;
 
 /**
@@ -24,6 +28,7 @@ public class IDNumber {
 	private char[] splitID;
 	private String id;
 	private LocalDateTime createAt;
+	private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy,HH:mm:ss");
 	private Status status;
 	private Location location = new Location();
 	
@@ -53,10 +58,11 @@ public class IDNumber {
 	 * @param createAt
 	 * 		createAt that update this id-number
 	 */
-	public IDNumber(String id, LocalDateTime createAt) {
+	public IDNumber(String id, String create_at) {
+		String[] createAt = create_at.split(",");
 		this.id = id;
 		splitID = id.toCharArray();
-		this.createAt = createAt;
+		this.createAt = LocalDateTime.parse(create_at, format);
 		
 		if (isIDCorrect()) {
 			status = isDuplicate() ? DUPLICATE: OK;
@@ -110,6 +116,15 @@ public class IDNumber {
 	 */
 	public LocalDateTime getCreateAt() {
 		return createAt;
+	}
+	
+	/**
+	 * get create time in String format
+	 *
+	 * @return String of created time
+	 */
+	public String getCreateAt_string() {
+		return createAt.format(format);
 	}
 	
 	/**
