@@ -125,14 +125,11 @@ public class Database extends Observable {
 			}
 			set.close();
 			LoadingPopup.getInstance().hidePage(false);
-			System.out.println("YES");
 			return list;
 		} catch (SQLException e) {
-			System.out.println("error");
 			notifyObservers(SQLCode.which(e.getErrorCode()));
 			printSQLException(e);
 		}
-		System.out.println("null");
 		LoadingPopup.getInstance().hidePage(true);
 		return null;
 	}
