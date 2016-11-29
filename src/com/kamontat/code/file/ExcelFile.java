@@ -8,8 +8,8 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import static com.kamontat.code.database.Database.dir;
-import static com.kamontat.code.database.Database.idList;
+import static com.kamontat.code.database.DatabaseBackup.dir;
+import static com.kamontat.code.database.DatabaseBackup.idList;
 
 /**
  * This class use to create new excel file in <code>folderList</code> location <br>

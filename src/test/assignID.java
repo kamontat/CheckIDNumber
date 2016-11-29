@@ -1,7 +1,7 @@
 package test;
 
 import com.kamontat.code.constant.Status;
-import com.kamontat.code.database.Database;
+import com.kamontat.code.database.DatabaseBackup;
 import com.kamontat.code.object.IDNumber;
 
 import java.io.File;
@@ -20,7 +20,7 @@ public class assignID {
 		System.out.print("Enter: ");
 		int num = input.nextInt();
 
-		File file = Database.textFile;
+		File file = DatabaseBackup.textFile;
 		Random random = new Random(System.nanoTime());
 
 		try {

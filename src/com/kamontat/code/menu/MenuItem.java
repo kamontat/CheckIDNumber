@@ -1,13 +1,13 @@
 package com.kamontat.code.menu;
 
-import com.kamontat.code.database.Database;
+import com.kamontat.code.database.DatabaseBackup;
 import com.kamontat.gui.EnterPage;
 import com.kamontat.gui.ShowPage;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static com.kamontat.code.database.Database.*;
+import static com.kamontat.code.database.DatabaseBackup.*;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.config.Config.version;
@@ -68,7 +68,7 @@ public class MenuItem {
 	
 	public static JMenuItem toMenu() {
 		JMenuItem to;
-		if (!Database.textFile.exists()) {
+		if (!DatabaseBackup.textFile.exists()) {
 			to = new JMenuItem("Backup Data");
 		} else {
 			to = new JMenuItem("Go (To File)");
@@ -101,7 +101,7 @@ public class MenuItem {
 	public static JMenuItem fileStatus() {
 		JMenuItem stat;
 		
-		if (Database.textFile.exists()) {
+		if (DatabaseBackup.textFile.exists()) {
 			if (getLine() > idList.size()) {
 				stat = new JMenuItem("Download (save id in file)");
 			} else if (getLine() < idList.size()) {

@@ -3,7 +3,7 @@ package com.kamontat.main;
 import com.kamontat.code.database.LocationModel;
 import com.kamontat.gui.MainPage;
 
-import static com.kamontat.code.database.Database.assignIDList;
+import static com.kamontat.code.database.DatabaseBackup.assignIDList;
 import static com.kamontat.code.window.Display.getCenterLocation;
 
 /**

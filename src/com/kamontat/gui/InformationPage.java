@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import static com.kamontat.code.database.Database.searchingIDList;
+import static com.kamontat.code.database.DatabaseBackup.searchingIDList;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class InformationPage extends JDialog {

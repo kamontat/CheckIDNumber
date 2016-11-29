@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 import static com.kamontat.code.constant.Status.*;
-import static com.kamontat.code.database.Database.idList;
+import static com.kamontat.code.database.DatabaseBackup.idList;
 import static com.kamontat.config.Config.canDuplicate;
 
 /**

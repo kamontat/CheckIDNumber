@@ -10,7 +10,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.database.Database.*;
+import static com.kamontat.code.database.DatabaseBackup.*;
 import static com.kamontat.code.menu.MenuItem.*;
 
 public class EnterPage extends JDialog {
