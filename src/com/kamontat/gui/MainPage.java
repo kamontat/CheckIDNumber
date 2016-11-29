@@ -110,7 +110,7 @@ public class MainPage extends JFrame {
 		setJMenuBar(menu);
 	}
 	
-	public static void exPack(Window frame) {
+	static void exPack(Window frame) {
 		frame.pack();
 		frame.setLocation(getCenterLocation(frame.getSize()));
 	}

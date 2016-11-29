@@ -1,16 +1,17 @@
 package com.kamontat.code.database;
 
 import com.kamontat.code.object.IDNumber;
+import com.kamontat.code.watch.StopWatch;
+import com.kamontat.gui.LoadingPopup;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-
-import static com.kamontat.code.window.Display.dir;
 
 /**
  * this class is about text file of id-number (server) and list in the app (local)
@@ -20,6 +21,10 @@ import static com.kamontat.code.window.Display.dir;
  * @since 17/8/59 - 23:52
  */
 public class Database {
+	/**
+	 * get current dir
+	 */
+	public static File dir = Paths.get("").toAbsolutePath().toFile();
 	
 	/**
 	 * get text file
@@ -37,24 +42,41 @@ public class Database {
 	 * this method <b>already</b> update textFile if have something wrong
 	 */
 	public static void assignIDList() {
-		boolean hasWrong = false;
+		LoadingPopup loading = LoadingPopup.getInstance();
+		StopWatch watch = new StopWatch();
+		watch.start();
+		
 		idList.removeAll(idList);
 		try {
 			Scanner input = new Scanner(textFile);
+			final boolean[] hasWrong = {false};
 			
-			while (input.hasNextLine()) {
-				String[] dataIDNumber = input.nextLine().split(" ");
-				String id = dataIDNumber[0];
-				// if wrong format
-				if (dataIDNumber.length == 1) {
-					hasWrong = true;
-					idList.add(new IDNumber(id));
-				} else {
-					LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
-					idList.add(new IDNumber(id, time));
+			Runnable runner = () -> {
+				int idCount = getLine();
+				loading.setProgressLabel("Start loading " + (idCount) + " ID");
+				
+				int readID = 0;
+				while (input.hasNextLine()) {
+					String[] dataIDNumber = input.nextLine().split(" ");
+					String id = dataIDNumber[0];
+					// if wrong format
+					if (dataIDNumber.length == 1) {
+						hasWrong[0] = true;
+						idList.add(new IDNumber(id));
+					} else if (dataIDNumber.length == 3 || dataIDNumber.length == 4) {
+						LocalDateTime time = LocalDateTime.of(LocalDate.parse(dataIDNumber[1]), LocalTime.parse(dataIDNumber[2]));
+						idList.add(new IDNumber(id, time));
+					} else {
+						loading.setProgressLabel("Some id Error (can't load)");
+					}
+					loading.setProgressValue(((++readID) * 100) / idCount);
 				}
-			}
-			if (hasWrong) updateTextFile();
+				watch.stop();
+				loading.setDoneLabel("Finish loaded IDNumber" + watch);
+			};
+			loading.startLoading(new Thread(runner));
+			
+			if (hasWrong[0]) updateTextFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +91,7 @@ public class Database {
 	 * @return position of that id if it's exist, otherwise return -1
 	 */
 	public static int searchingIDList(IDNumber id) {
-		for (int i = idList.size() - 1; i >= 0; i--) {
+		for (int i = 0; i < idList.size(); i++) {
 			if (idList.get(i).getId().equals(id.getId()) && idList.get(i).getStatus() == id.getStatus()) {
 				return i;
 			}
@@ -83,7 +105,7 @@ public class Database {
 	 * @return that new text-file
 	 */
 	private static File createTextFile() {
-		File textFile = null;
+		File textFile;
 		
 		textFile = new File(dir.getPath() + "/folderList");
 		textFile.mkdir();
@@ -98,7 +120,7 @@ public class Database {
 	}
 	
 	public static int getLine() {
-		LineNumberReader lnr = null;
+		LineNumberReader lnr;
 		try {
 			lnr = new LineNumberReader(new FileReader(textFile));
 			lnr.skip(Long.MAX_VALUE);
@@ -113,16 +135,28 @@ public class Database {
 	 * O-notation = O(idList.length)
 	 */
 	public static void updateTextFile() {
-		try {
-			FileWriter writer = new FileWriter(textFile);
-			for (IDNumber id : idList) {
-				writer.write(id.saveFormat() + "\n");
+		LoadingPopup loading = LoadingPopup.getInstance();
+		
+		loading.setProgressLabel("Start update " + idList.size() + " ID to text-file");
+		StopWatch watch = new StopWatch();
+		watch.start();
+		Runnable runner = () -> {
+			try {
+				FileWriter writer = new FileWriter(textFile);
+				for (int i = 0; i < idList.size(); i++) {
+					writer.write(idList.get(i).saveFormat() + "\n");
+					
+					loading.setProgressValue(((i + 1) * 100) / idList.size());
+				}
+				writer.close();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
+				textFile = createTextFile();
 			}
-			writer.close();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
-			textFile = createTextFile();
-		}
+			watch.stop();
+			loading.setDoneLabel("Finish update textfile" + watch);
+		};
+		loading.startLoading(new Thread(runner));
 	}
 	
 	/**

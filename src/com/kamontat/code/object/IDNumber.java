@@ -89,6 +89,10 @@ public class IDNumber {
 		return status;
 	}
 	
+	public void updateStatus() {
+		if (isIDCorrect()) status = isDuplicate() ? DUPLICATE: OK;
+	}
+	
 	/**
 	 * set new create time (debug only)
 	 *

@@ -114,9 +114,8 @@ public class ShowPage extends JDialog {
 		
 		itemList[j] = new JMenuItem("Remove");
 		itemList[j].addActionListener(e1 -> {
-			
 			int index = searchingIDList(list.getSelectedValue());
-			remove(index);
+			removeIDList(index);
 		});
 		
 		return itemList;
@@ -140,8 +139,6 @@ public class ShowPage extends JDialog {
 			}
 			
 			private void update() {
-				long start = System.currentTimeMillis();
-				
 				ArrayList<IDNumber> tempList = filter();
 				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				
@@ -151,8 +148,6 @@ public class ShowPage extends JDialog {
 				
 				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				countLabel.setText(String.format("(%03d)", model.size()));
-				
-				JOptionPane.showMessageDialog(null, "time: " + (System.currentTimeMillis() - start), "Time", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			private ArrayList<IDNumber> filter() {
@@ -180,8 +175,8 @@ public class ShowPage extends JDialog {
 	 * disable searching if id more than 1000
 	 */
 	private void disableSearch() {
-		// disable searching if id more than 50000
-		if (model.size() > 50000) {
+		// disable searching if id more than 120000
+		if (model.size() > 120000) {
 			searchingField.setEnabled(false);
 			searchingField.setToolTipText("Search can't use, if id more than 1000");
 		} else {
@@ -193,7 +188,9 @@ public class ShowPage extends JDialog {
 	public void removeIDList(int index) {
 		idList.remove(index);
 		model.remove(list.getSelectedIndex());
+		
 		updateTextFile();
+		
 		disableSearch();
 		countLabel.setText(String.format("(%03d)", model.size()));
 	}
