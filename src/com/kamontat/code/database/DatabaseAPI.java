@@ -24,7 +24,7 @@ public class DatabaseAPI {
 	/**
 	 * get database.db (using sqlite)
 	 */
-	public static Database db = Database.getDatabase();
+	public static DatabaseModel db = DatabaseModel.getDatabase();
 	public static File textFile = new File("");
 	
 	/**

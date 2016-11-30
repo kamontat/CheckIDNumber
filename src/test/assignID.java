@@ -1,7 +1,7 @@
 package test;
 
 import com.kamontat.code.constant.Status;
-import com.kamontat.code.database.Database;
+import com.kamontat.code.database.DatabaseModel;
 import com.kamontat.code.object.IDNumber;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class assignID {
 	public static void main(String[] args) {
-		Database db = Database.getDatabase();
+		DatabaseModel db = DatabaseModel.getDatabase();
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter: ");
 		int num = input.nextInt();

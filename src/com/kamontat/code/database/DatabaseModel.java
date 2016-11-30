@@ -12,14 +12,14 @@ import java.util.*;
  * @version 1.0
  * @since 11/29/2016 AD - 9:39 PM
  */
-public class Database extends Observable {
+public class DatabaseModel extends Observable {
 	private Connection connection;
 	private Statement statement;
-	private static Database db = new Database();
+	private static DatabaseModel db = new DatabaseModel();
 	
 	public int progress;
 	
-	private Database() {
+	private DatabaseModel() {
 		addObserver(LoadingPopup.getInstance());
 		try {
 			assign();
@@ -49,9 +49,9 @@ public class Database extends Observable {
 		}
 	}
 	
-	public static Database getDatabase() {
+	public static DatabaseModel getDatabase() {
 		if (db == null) {
-			db = new Database();
+			db = new DatabaseModel();
 		}
 		return db;
 	}

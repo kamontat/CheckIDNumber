@@ -1,6 +1,6 @@
 package test;
 
-import com.kamontat.code.database.Database;
+import com.kamontat.code.database.DatabaseModel;
 
 /**
  * @author kamontat
@@ -9,7 +9,7 @@ import com.kamontat.code.database.Database;
  */
 public class test {
 	public static void main(String[] args) {
-		Database db = Database.getDatabase();
+		DatabaseModel db = DatabaseModel.getDatabase();
 		db.getAll().forEach(System.out::println);
 		db.close();
 	}
