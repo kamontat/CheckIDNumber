@@ -143,6 +143,10 @@ public class Database extends Observable {
 		return null;
 	}
 	
+	public void setAll(ArrayList<IDNumber> ids) {
+		// do something
+	}
+	
 	public void delete(IDNumber number) {
 		int id = getSqlID(number);
 		String sql = String.format("DELETE FROM DATA WHERE ID=%d;", id);

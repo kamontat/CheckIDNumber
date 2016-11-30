@@ -106,6 +106,11 @@ public class DatabaseAPI {
 		*/
 	}
 	
+	public static void addID(IDNumber id) {
+		idList.add(id);
+		db.addID(id);
+	}
+	
 	/**
 	 * update text-file by using <code>idList</code>
 	 * O-notation = O(idList.length)
