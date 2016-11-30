@@ -40,6 +40,15 @@ public class Database extends Observable {
 		statement = connection.createStatement();
 	}
 	
+	public void close() {
+		try {
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+	}
+	
 	public static Database getDatabase() {
 		if (db == null) {
 			db = new Database();
@@ -63,7 +72,7 @@ public class Database extends Observable {
 	}
 	
 	public int getSqlID(IDNumber number) {
-		int id = 0;
+		int id = -1;
 		String sql = String.format("SELECT id FROM DATA WHERE id_num = '%s';", number.getId());
 		
 		try {
@@ -169,14 +178,5 @@ public class Database extends Observable {
 	
 	public void done() {
 		deleteObservers();
-	}
-	
-	public void close() {
-		try {
-			connection.close();
-			statement.close();
-		} catch (SQLException e) {
-			printSQLException(e);
-		}
 	}
 }

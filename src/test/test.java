@@ -10,6 +10,7 @@ import com.kamontat.code.database.Database;
 public class test {
 	public static void main(String[] args) {
 		Database db = Database.getDatabase();
-		db.getAll();
+		db.getAll().forEach(System.out::println);
+		db.close();
 	}
 }

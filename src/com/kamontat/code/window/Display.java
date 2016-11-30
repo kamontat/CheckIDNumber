@@ -1,8 +1,6 @@
 package com.kamontat.code.window;
 
 import java.awt.*;
-import java.io.File;
-import java.nio.file.Paths;
 
 /**
  * @author kamontat

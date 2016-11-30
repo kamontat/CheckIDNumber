@@ -114,7 +114,7 @@ public class ShowPage extends JDialog {
 		
 		itemList[j] = new JMenuItem("Remove");
 		itemList[j].addActionListener(e1 -> {
-			int index = searchingIDList(list.getSelectedValue());
+			int index = search_index_local(list.getSelectedValue());
 			removeIDList(index);
 		});
 		
@@ -189,7 +189,7 @@ public class ShowPage extends JDialog {
 		idList.remove(index);
 		model.remove(list.getSelectedIndex());
 		
-		updateTextFile();
+		updateDatabase();
 		
 		disableSearch();
 		countLabel.setText(String.format("(%03d)", model.size()));

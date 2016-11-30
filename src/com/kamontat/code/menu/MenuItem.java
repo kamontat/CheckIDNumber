@@ -56,7 +56,7 @@ public class MenuItem {
 	
 	public static JMenuItem uploadMenu() {
 		JMenuItem upload = new JMenuItem("upload (Local -> File)");
-		upload.addActionListener(e -> updateTextFile()); /* upload action */
+		upload.addActionListener(e -> updateDatabase()); /* upload action */
 		return upload;
 	}
 	
@@ -102,9 +102,9 @@ public class MenuItem {
 		JMenuItem stat;
 		
 		if (DatabaseAPI.textFile.exists()) {
-			if (getLine() > idList.size()) {
+			if (getLocalSize() > idList.size()) {
 				stat = new JMenuItem("Download (save id in file)");
-			} else if (getLine() < idList.size()) {
+			} else if (DatabaseAPI.getLocalSize() < idList.size()) {
 				stat = new JMenuItem("Upload (save id in local)");
 			} else {
 				stat = new JMenuItem("GOOD");
@@ -116,7 +116,7 @@ public class MenuItem {
 	}
 	
 	public static JMenuItem fileCount() {
-		return new JMenuItem(String.format("File  have: %03d ID", getLine()));
+		return new JMenuItem(String.format("File  have: %03d ID", getLocalSize()));
 	}
 	
 	public static JMenuItem localCount() {

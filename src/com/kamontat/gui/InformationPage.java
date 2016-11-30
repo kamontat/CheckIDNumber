@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import static com.kamontat.code.database.DatabaseAPI.searchingIDList;
+import static com.kamontat.code.database.DatabaseAPI.search_index_local;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class InformationPage extends JDialog {
@@ -78,7 +78,7 @@ public class InformationPage extends JDialog {
 			setStatus(id.getStatus().toString(), id.getStatus().getColor());
 			deleteBtn.setVisible(true);
 			deleteBtn.addActionListener(e -> {
-				int index = searchingIDList(id);
+				int index = search_index_local(id);
 				showPage.removeIDList(index);
 				dispose();
 			});

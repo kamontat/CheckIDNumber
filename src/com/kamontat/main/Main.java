@@ -13,7 +13,6 @@ import static com.kamontat.code.window.Display.getCenterLocation;
  */
 public class Main {
 	public static void main(String[] args) {
-		
 		new LocationModel().read();
 		assignIDList();
 		
