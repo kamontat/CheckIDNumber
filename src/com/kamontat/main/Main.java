@@ -1,6 +1,6 @@
 package com.kamontat.main;
 
-import com.kamontat.code.database.LocationAPI;
+import com.kamontat.code.database.LocationModel;
 import com.kamontat.gui.MainPage;
 
 import static com.kamontat.code.database.DatabaseAPI.update_local;
@@ -13,10 +13,11 @@ import static com.kamontat.code.window.Display.getCenterLocation;
  */
 public class Main {
 	public static void main(String[] args) {
-		new LocationAPI().read();
+		LocationModel.getInstance().read();
 		update_local();
 		
 		MainPage page = new MainPage();
 		page.run(getCenterLocation(page.getSize()));
+		
 	}
 }

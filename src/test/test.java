@@ -1,6 +1,8 @@
 package test;
 
-import com.kamontat.code.database.DatabaseModel;
+import com.kamontat.gui.popup.LoadingPopup;
+
+import java.util.*;
 
 /**
  * @author kamontat
@@ -9,8 +11,19 @@ import com.kamontat.code.database.DatabaseModel;
  */
 public class test {
 	public static void main(String[] args) {
-		DatabaseModel db = DatabaseModel.getDatabase();
-		db.getAll().forEach(System.out::println);
-		db.close();
+		Scanner input = new Scanner(System.in);
+		int a = 0;
+		while (a != -99) {
+			System.out.println("new: ");
+			a = input.nextInt();
+			LoadingPopup popup = new LoadingPopup();
+			popup.showPage(100);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			popup.hidePage(false);
+		}
 	}
 }

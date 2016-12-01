@@ -2,8 +2,8 @@ package com.kamontat.code.object;
 
 import com.kamontat.code.constant.Type;
 
-import static com.kamontat.code.database.LocationAPI.districts;
-import static com.kamontat.code.database.LocationAPI.provinces;
+import static com.kamontat.code.database.LocationModel.districts;
+import static com.kamontat.code.database.LocationModel.provinces;
 
 /**
  * show location of id by assign id into constructor and save that location into IDNumber

@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import static com.kamontat.code.menu.MenuItem.*;
+import static com.kamontat.code.window.Display.getCenterLocation;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
@@ -24,9 +25,13 @@ public class EnterPage extends JDialog {
 	
 	private IDNumber number;
 	
-	public EnterPage() {
-		setContentPane(contentPane);
+	private Frame parent;
+	
+	public EnterPage(Frame parent) {
+		super(parent, "Enter Page");
+		this.parent = parent;
 		setModal(true);
+		setContentPane(contentPane);
 		createMenuBar();
 		addFont();
 		
@@ -138,7 +143,7 @@ public class EnterPage extends JDialog {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
 		
-		actions.add(showMenu(this));
+		actions.add(showMenu());
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
@@ -146,6 +151,17 @@ public class EnterPage extends JDialog {
 		menu.add(actions);
 		setJMenuBar(menu);
 	}
+	
+	private JMenuItem showMenu() {
+		JMenuItem add = new JMenuItem("Show all ID");
+		add.addActionListener(e -> {
+			dispose();
+			ShowPage page = new ShowPage(parent);
+			page.run(getCenterLocation(page.getSize()));
+		});
+		return add;
+	}
+	
 	
 	public void run(Point point) {
 		pack();

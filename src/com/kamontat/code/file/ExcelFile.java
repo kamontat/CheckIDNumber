@@ -25,12 +25,17 @@ import static com.kamontat.code.database.DatabaseAPI.idList;
 public class ExcelFile extends Observable {
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
+	private LoadingPopup popup = new LoadingPopup();
 	
 	private static ExcelFile file;
 	
 	public static ExcelFile getFile() {
 		if (file == null) file = new ExcelFile();
 		return file;
+	}
+	
+	private ExcelFile() {
+		addObserver(popup);
 	}
 	
 	/**
@@ -40,9 +45,8 @@ public class ExcelFile extends Observable {
 	 * 		extension of file with `.` Example ".xlsx", ".xls"
 	 */
 	public void createExcelFile(String extension) {
-		LoadingPopup popup = LoadingPopup.getInstance();
 		popup.showPage(getLocalSize() + 1);
-		addObserver(popup);
+		
 		setChanged();
 		notifyObservers("Start writing excel file");
 		
@@ -52,14 +56,16 @@ public class ExcelFile extends Observable {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		//Create a blank sheet
 		XSSFSheet sheet = workbook.createSheet("ID Data");
-		int rowNum = 0;
+		int row = 0, column = 0;
 		for (IDNumber id : idList) {
-			for (int i = 0; i < 100; i++) {
-				sheet.createRow(rowNum).createCell(i).setCellValue(id.getId());
-				setChanged();
-				notifyObservers((rowNum * 100) + i);
+			sheet.createRow(row).createCell(column).setCellValue(id.getId());
+			setChanged();
+			notifyObservers(row);
+			row++;
+			if (row > 30000) {
+				column++;
+				row = 0;
 			}
-			rowNum++;
 		}
 		
 		try {
@@ -73,7 +79,7 @@ public class ExcelFile extends Observable {
 			out.close();
 			
 			setChanged();
-			notifyObservers(rowNum);
+			notifyObservers(row);
 			popup.hidePage(false);
 			
 			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + extension + "\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);

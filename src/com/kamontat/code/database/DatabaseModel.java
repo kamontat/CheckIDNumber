@@ -16,13 +16,14 @@ public class DatabaseModel extends Observable {
 	private final static String DATABASE_NAME = "jdbc:sqlite:database.sqlite";
 	private Connection connection;
 	private Statement statement;
+	
 	private static DatabaseModel db = new DatabaseModel();
+	private LoadingPopup popup = new LoadingPopup();
 	
 	public int progress;
 	
 	private DatabaseModel() {
-		addObserver(LoadingPopup.getInstance());
-		
+		addObserver(popup);
 		try {
 			assign();
 		} catch (SQLException e) {
@@ -115,7 +116,7 @@ public class DatabaseModel extends Observable {
 		try {
 			int readID = 0, size = getSize();
 			
-			LoadingPopup.getInstance().showPage(size);
+			popup.showPage(size);
 			setChanged();
 			notifyObservers("Start Loading " + size + " IDs");
 			
@@ -129,13 +130,13 @@ public class DatabaseModel extends Observable {
 				notifyObservers(++readID);
 			}
 			set.close();
-			LoadingPopup.getInstance().hidePage(false);
+			popup.hidePage(false);
 			return list;
 		} catch (SQLException e) {
 			notifyObservers(SQLCode.which(e.getErrorCode()));
 			printSQLException(e);
 		}
-		LoadingPopup.getInstance().hidePage(true);
+		popup.hidePage(true);
 		return null;
 	}
 	

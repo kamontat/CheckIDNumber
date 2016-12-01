@@ -15,7 +15,7 @@ import java.util.*;
 public class assignID extends Observable {
 	public void assign() {
 		DatabaseModel db = DatabaseModel.getDatabase();
-		LoadingPopup popup = LoadingPopup.getInstance();
+		LoadingPopup popup = new LoadingPopup();
 		addObserver(popup);
 		
 		Scanner input = new Scanner(System.in);

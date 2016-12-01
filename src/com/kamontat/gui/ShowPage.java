@@ -1,7 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.database.DatabaseAPI;
-import com.kamontat.code.database.LocationAPI;
+import com.kamontat.code.database.LocationModel;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -32,9 +32,14 @@ public class ShowPage extends JDialog {
 	
 	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
 	
-	public ShowPage() {
-		setContentPane(contentPane);
+	private Frame parent;
+	
+	public ShowPage(Frame parent) {
+		super(parent, "Enter Page");
+		this.parent = parent;
 		setModal(true);
+		
+		setContentPane(contentPane);
 		
 		assignList();
 		createMenuBar();
@@ -92,13 +97,13 @@ public class ShowPage extends JDialog {
 	
 	private JMenuItem[] assignPopupList() {
 		int i, j = 0;
-		if (LocationAPI.readable) i = 3;
+		if (LocationModel.readable) i = 3;
 		else i = 2;
 		
 		JMenuItem[] itemList = new JMenuItem[i];
 		
 		
-		if (LocationAPI.readable) {
+		if (LocationModel.readable) {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
 				InformationPage page = new InformationPage(this, list.getSelectedValue());
@@ -109,7 +114,7 @@ public class ShowPage extends JDialog {
 		itemList[j] = new JMenuItem("Add");
 		itemList[j++].addActionListener(e1 -> {
 			dispose();
-			EnterPage page = new EnterPage();
+			EnterPage page = new EnterPage(parent);
 			page.run(this.getLocation());
 		});
 		
@@ -214,7 +219,7 @@ public class ShowPage extends JDialog {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
 		
-		actions.add(addMenu(this));
+		actions.add(addMenu());
 		actions.add(clearMenu());
 		actions.addSeparator();
 		actions.add(exportMenuXLS());
@@ -225,6 +230,16 @@ public class ShowPage extends JDialog {
 		
 		menu.add(actions);
 		setJMenuBar(menu);
+	}
+	
+	private JMenuItem addMenu() {
+		JMenuItem add = new JMenuItem("Add ID");
+		add.addActionListener(e -> {
+			dispose();
+			EnterPage page = new EnterPage(parent);
+			page.run(getCenterLocation(page.getSize()));
+		});
+		return add;
 	}
 	
 	private JMenuItem clearMenu() {

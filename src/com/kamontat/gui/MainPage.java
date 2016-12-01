@@ -30,12 +30,12 @@ public class MainPage extends JFrame {
 		createMenuBar();
 		
 		enterBtn.addActionListener(e -> {
-			EnterPage page = new EnterPage();
+			EnterPage page = new EnterPage(this);
 			page.run(getCenterLocation(page.getSize()));
 		});
 		
 		showBtn.addActionListener(e -> {
-			ShowPage page = new ShowPage();
+			ShowPage page = new ShowPage(this);
 			page.run(getCenterLocation(page.getSize()));
 		});
 		

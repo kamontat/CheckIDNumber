@@ -2,13 +2,10 @@ package com.kamontat.code.menu;
 
 import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.file.ExcelFile;
-import com.kamontat.gui.EnterPage;
-import com.kamontat.gui.ShowPage;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.config.Config.version;
 
 /**
@@ -21,26 +18,6 @@ import static com.kamontat.config.Config.version;
  */
 public class MenuItem {
 	private static ExcelFile file = ExcelFile.getFile();
-	
-	public static JMenuItem addMenu(Window window) {
-		JMenuItem add = new JMenuItem("Add ID");
-		add.addActionListener(e -> {
-			window.dispose();
-			EnterPage page = new EnterPage();
-			page.run(getCenterLocation(page.getSize()));
-		});
-		return add;
-	}
-	
-	public static JMenuItem showMenu(Window window) {
-		JMenuItem add = new JMenuItem("Show all ID");
-		add.addActionListener(e -> {
-			window.dispose();
-			ShowPage page = new ShowPage();
-			page.run(getCenterLocation(page.getSize()));
-		});
-		return add;
-	}
 	
 	public static JMenuItem backMenu(Window page) {
 		JMenuItem exit = new JMenuItem("Back");
@@ -95,11 +72,11 @@ public class MenuItem {
 	}
 	
 	public static JMenuItem fileCount() {
-		return new JMenuItem(String.format("Database have: %03d ID", DatabaseAPI.getDatabaseSize()));
+		return new JMenuItem(String.format("Database have: %,03d ID", DatabaseAPI.getDatabaseSize()));
 	}
 	
 	public static JMenuItem localCount() {
-		return new JMenuItem(String.format("Local    have: %03d ID", DatabaseAPI.getLocalSize()));
+		return new JMenuItem(String.format("Local    have: %,03d ID", DatabaseAPI.getLocalSize()));
 	}
 	
 }

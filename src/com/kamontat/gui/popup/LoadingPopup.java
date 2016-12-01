@@ -10,15 +10,15 @@ import java.util.*;
 
 import static com.kamontat.code.window.Display.getCenterLocation;
 
-public class LoadingPopup extends JFrame implements Observer {
+public class LoadingPopup extends JDialog implements Observer {
 	private JProgressBar progressBar;
 	private JLabel statusLabel;
 	
 	private static LoadingPopup page;
 	private StopWatch watch = new StopWatch();
 	
-	private LoadingPopup() {
-		super("Loading...");
+	public LoadingPopup() {
+		super();
 		Panel container = new Panel(new BorderLayout());
 		
 		statusLabel = new JLabel("Status");
@@ -36,16 +36,10 @@ public class LoadingPopup extends JFrame implements Observer {
 		
 		setSize(450, 100);
 		setLocation(getCenterLocation(getSize()));
-		setVisible(false);
 		
 		addFont();
 		
 		setAlwaysOnTop(true);
-	}
-	
-	public static LoadingPopup getInstance() {
-		if (page == null) page = new LoadingPopup();
-		return page;
 	}
 	
 	private void addFont() {
@@ -63,14 +57,16 @@ public class LoadingPopup extends JFrame implements Observer {
 	}
 	
 	public void showPage(int progressSize) {
+		repaint();
 		try {
-			setVisible(true);
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			progressBar.setMaximum(progressSize);
-			
-			Thread.sleep(1200);
-			
+			Thread.sleep(1000);
 			watch.start();
+			
+			progressBar.setVisible(true);
+			statusLabel.setVisible(true);
+			setVisible(true);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -79,15 +75,14 @@ public class LoadingPopup extends JFrame implements Observer {
 	public void hidePage(boolean isError) {
 		watch.stop();
 		try {
-			if (!isError) statusLabel.setText("Finish in " + watch);
-			Thread.sleep(1300);
+			if (!isError) setProgressLabel("Finish in " + watch, new Color(61, 225, 81));
+			else setProgressLabel("Have some Error", new Color(255, 12, 0));
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		setVisible(false);
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		setProgressValue(0);
-		setProgressLabel("Status", new Color(0, 0, 0));
+		dispose();
 	}
 	
 	@Override
