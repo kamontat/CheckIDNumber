@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.Status;
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -10,7 +11,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.database.DatabaseAPI.*;
 import static com.kamontat.code.menu.MenuItem.*;
 
 public class EnterPage extends JDialog {
@@ -62,13 +62,14 @@ public class EnterPage extends JDialog {
 	private void onOK() {
 		if (okBtn.isEnabled()) {
 			okBtn.setEnabled(false);
-			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			idList.add(number);
-			insertToFile(number);
-			setMessage("Collect ID (Saved)", new Color(0, 122, 255));
+			boolean done = DatabaseAPI.addID(number);
+			if (done) {
+				setMessage("Collect ID (Saved)", new Color(0, 122, 255));
+			} else {
+				setMessage("Have some error", new Color(255, 0, 0));
+			}
 			textField.selectAll();
 			pack();
-			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 	
@@ -90,8 +91,6 @@ public class EnterPage extends JDialog {
 				okBtn.setEnabled(false);
 				setMessage(number.getStatus().toString(), number.getStatus().getColor());
 			} else {
-				// update last version list
-				assignIDList();
 				number.updateStatus();
 				
 				okBtn.setEnabled(true);
@@ -140,9 +139,6 @@ public class EnterPage extends JDialog {
 		JMenu actions = new JMenu("Action");
 		
 		actions.add(showMenu(this));
-		actions.addSeparator();
-		actions.add(uploadMenu());
-		actions.add(downloadMenu());
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());

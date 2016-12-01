@@ -7,7 +7,6 @@ import com.kamontat.gui.ShowPage;
 import javax.swing.*;
 import java.awt.*;
 
-import static com.kamontat.code.database.DatabaseAPI.*;
 import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.config.Config.version;
@@ -54,30 +53,6 @@ public class MenuItem {
 	}
 	
 	
-	public static JMenuItem uploadMenu() {
-		JMenuItem upload = new JMenuItem("upload (Local -> File)");
-		upload.addActionListener(e -> updateDatabase()); /* upload action */
-		return upload;
-	}
-	
-	public static JMenuItem downloadMenu() {
-		JMenuItem download = new JMenuItem("download (File -> Local)");
-		download.addActionListener(e -> assignIDList()); /* download action */
-		return download;
-	}
-	
-	public static JMenuItem toMenu() {
-		JMenuItem to;
-		if (!DatabaseAPI.textFile.exists()) {
-			to = new JMenuItem("Backup Data");
-		} else {
-			to = new JMenuItem("Go (To File)");
-		}
-		to.addActionListener(e -> openFolder()); /* export action */
-		return to;
-	}
-	
-	
 	public static JMenuItem exportMenuXLS() {
 		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
 		exportExcel.addActionListener(e -> createExcelFile(".xls")); /* export action */
@@ -98,14 +73,16 @@ public class MenuItem {
 		return about;
 	}
 	
-	public static JMenuItem fileStatus() {
+	public static JMenuItem status() {
 		JMenuItem stat;
 		
-		if (DatabaseAPI.textFile.exists()) {
-			if (getLocalSize() > idList.size()) {
-				stat = new JMenuItem("Download (save id in file)");
-			} else if (DatabaseAPI.getLocalSize() < idList.size()) {
-				stat = new JMenuItem("Upload (save id in local)");
+		if (DatabaseAPI.isExist()) {
+			int localSize = DatabaseAPI.getLocalSize();
+			int dbSize = DatabaseAPI.getDatabaseSize();
+			if (localSize > dbSize) {
+				stat = new JMenuItem("Save id into Database");
+			} else if (localSize < dbSize) {
+				stat = new JMenuItem("Save id into Local");
 			} else {
 				stat = new JMenuItem("GOOD");
 			}
@@ -116,11 +93,11 @@ public class MenuItem {
 	}
 	
 	public static JMenuItem fileCount() {
-		return new JMenuItem(String.format("File  have: %03d ID", getLocalSize()));
+		return new JMenuItem(String.format("Database have: %03d ID", DatabaseAPI.getDatabaseSize()));
 	}
 	
 	public static JMenuItem localCount() {
-		return new JMenuItem(String.format("Local have: %03d ID", idList.size()));
+		return new JMenuItem(String.format("Local    have: %03d ID", DatabaseAPI.getLocalSize()));
 	}
 	
 }

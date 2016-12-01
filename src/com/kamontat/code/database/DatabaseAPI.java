@@ -3,8 +3,9 @@ package com.kamontat.code.database;
 import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -24,18 +25,22 @@ public class DatabaseAPI {
 	/**
 	 * get database.db (using sqlite)
 	 */
-	public static DatabaseModel db = DatabaseModel.getDatabase();
+	private static DatabaseModel db = DatabaseModel.getDatabase();
 	public static File textFile = new File("");
 	
 	/**
-	 * list all id in text file, update by method assignIDList
+	 * list all id in text file, update by method update_local
 	 */
 	public static ArrayList<IDNumber> idList = new ArrayList<>();
 	
 	/**
-	 * get all id-number from database.db and assign it into <code>idList</code>
+	 * get all id-number from database and assign it into <code>idList</code>
 	 */
-	public static void assignIDList() {
+	public static void update_local() {
+		idList = db.getAll();
+	}
+	
+	public static void update_database() {
 		idList = db.getAll();
 	}
 	
@@ -57,7 +62,7 @@ public class DatabaseAPI {
 	}
 	
 	/**
-	 * search <code>IDNumber</code> by id from <code>database.db</code> and return index<br>
+	 * search <code>IDNumber</code> by id from <code>database</code> and return index<br>
 	 *
 	 * @param id
 	 * 		id that want to search
@@ -75,81 +80,52 @@ public class DatabaseAPI {
 		return db.getSize();
 	}
 	
-	/**
-	 * update text-file by using <code>idList</code>
-	 * O-notation = O(idList.length)
-	 */
-	public static void updateDatabase() {
-		/*
-		LoadingPopup loading = LoadingPopup.getInstance();
-		
-		loading.setProgressLabel("Start update " + idList.size() + " ID to text-file");
-		StopWatch watch = new StopWatch();
-		watch.start();
-		Runnable runner = () -> {
-			try {
-				FileWriter writer = new FileWriter(textFile);
-				for (int i = 0; i < idList.size(); i++) {
-					writer.write(idList.get(i).saveFormat() + "\n");
-					
-					loading.setProgressValue(((i + 1) * 100) / idList.size());
-				}
-				writer.close();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
-				//				textFile = createTextFile();
-			}
-			watch.stop();
-			loading.setDoneLabel("Finish update textfile" + watch);
-		};
-		loading.startLoading(new Thread(runner));
-		*/
+	public static boolean addID(IDNumber id) {
+		boolean isDone = db.addID(id);
+		if (isDone) idList.add(id);
+		return isDone;
 	}
 	
-	public static void addID(IDNumber id) {
-		idList.add(id);
-		db.addID(id);
+	public static boolean removeID(IDNumber id) {
+		boolean isDone = db.delete(id);
+		if (isDone) idList.remove(id);
+		return isDone;
+	}
+	
+	public static void clearAll() {
+		idList.removeAll(idList);
+		db.deleteAll();
 	}
 	
 	/**
 	 * update text-file by using <code>idList</code>
 	 * O-notation = O(idList.length)
 	 */
-	public static void insertToFile(IDNumber id) {
+	public static boolean insertToFile(IDNumber id) {
 		try {
 			FileWriter writer = new FileWriter(textFile, true);
 			writer.write(id.saveFormat() + "\n");
 			writer.close();
+			return true;
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
 			//			textFile = createTextFile();
 		}
 	}
 	
-	public static void clearFile() {
-		textFile.delete();
-		//		createTextFile();
+	public static boolean isExist() {
+		return db.isExist();
 	}
 	
 	/**
 	 * open location of text-file automatic iff file exist
 	 */
 	public static void openFolder() {
-		try {
-			Desktop desktop = Desktop.getDesktop();
-			File folder = new File(dir.getPath() + "/folderList");
-			
-			int numFile = folder.listFiles(pathname -> !pathname.isHidden()).length;
-			
-			if (numFile == 0) {
-				JOptionPane.showMessageDialog(null, "File had been delete, \nProgram will backup current data to new file", "Error", JOptionPane.ERROR_MESSAGE);
-				//				textFile = createTextFile();
-				updateDatabase();
-			} else {
-				desktop.open(folder);
-			}
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't automatic open, please open by yourself At " + textFile.getPath(), "Error", JOptionPane.ERROR_MESSAGE);
+		if (db.isExist()) {
+			// redirect to file
+		} else {
+			JOptionPane.showMessageDialog(null, "File had been delete, \nProgram will backup current data to new file", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

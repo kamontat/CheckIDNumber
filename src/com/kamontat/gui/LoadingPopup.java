@@ -47,13 +47,19 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	public void setProgressLabel(String status) {
 		statusLabel.setText(status);
-		statusLabel.setForeground(Color.GREEN);
+		statusLabel.setForeground(new Color(61, 225, 81));
 	}
 	
 	public void showPage() {
-		setVisible(true);
-		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-		watch.start();
+		try {
+			setVisible(true);
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			Thread.sleep(1200);
+			
+			watch.start();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void hidePage(boolean isError) {
@@ -73,10 +79,8 @@ public class LoadingPopup extends JDialog implements Observer {
 	public void update(Observable o, Object arg) {
 		if (arg instanceof String) {
 			setProgressLabel((String) arg);
-		}
-		
-		if (arg instanceof Integer) {
-			setProgressValue((int) arg);
+		} else {
+			setProgressValue(Integer.parseInt(String.valueOf(arg)));
 		}
 	}
 }

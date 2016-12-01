@@ -13,6 +13,7 @@ import java.util.*;
  * @since 11/29/2016 AD - 9:39 PM
  */
 public class DatabaseModel extends Observable {
+	private final static String DATABASE_NAME = "jdbc:sqlite:database.sqlite";
 	private Connection connection;
 	private Statement statement;
 	private static DatabaseModel db = new DatabaseModel();
@@ -21,22 +22,16 @@ public class DatabaseModel extends Observable {
 	
 	private DatabaseModel() {
 		addObserver(LoadingPopup.getInstance());
+		
 		try {
 			assign();
-			// to check is table exist
-			String sql = "SELECT COUNT(id='1') FROM DATA";
-			ResultSet rs = statement.executeQuery(sql);
 		} catch (SQLException e) {
-			if (e.getErrorCode() == SQLCode.SQLITE_ERROR.code) {
-				createTable();
-			} else {
-				printSQLException(e);
-			}
+			printSQLException(e);
 		}
 	}
 	
 	private void assign() throws SQLException {
-		connection = DriverManager.getConnection("jdbc:sqlite:database");
+		connection = DriverManager.getConnection(DATABASE_NAME);
 		statement = connection.createStatement();
 	}
 	
@@ -60,7 +55,7 @@ public class DatabaseModel extends Observable {
 		String sql = "CREATE TABLE DATA (";
 		sql += "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
 		sql += "id_num TEXT NOT NULL, ";
-		sql += "create_at DATE NOT NULL);";
+		sql += "create_at TEXT NOT NULL);";
 		
 		String unique = "CREATE UNIQUE INDEX DATA_id_num_uindex ON DATA (id_num);";
 		try {
@@ -96,19 +91,22 @@ public class DatabaseModel extends Observable {
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
-		return -1;
+		return 0;
 	}
 	
-	public void addID(IDNumber number) {
+	public boolean addID(IDNumber number) {
 		String sql = "INSERT INTO DATA (id_num,create_at) ";
 		sql += String.format("VALUES ('%s', '%s');", number.getId(), number.getCreateAt_string());
 		
 		try {
 			statement.execute(sql);
+			done();
+			return true;
 		} catch (SQLException e) {
 			printSQLException(e);
+			done();
+			return false;
 		}
-		done();
 	}
 	
 	public ArrayList<IDNumber> getAll() {
@@ -143,19 +141,16 @@ public class DatabaseModel extends Observable {
 		return null;
 	}
 	
-	public void setAll(ArrayList<IDNumber> ids) {
-		// do something
-	}
-	
-	public void delete(IDNumber number) {
+	public boolean delete(IDNumber number) {
 		int id = getSqlID(number);
 		String sql = String.format("DELETE FROM DATA WHERE ID=%d;", id);
-		
 		try {
 			statement.executeUpdate(sql);
+			return true;
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
+		return false;
 	}
 	
 	public void deleteAll() {
@@ -169,13 +164,29 @@ public class DatabaseModel extends Observable {
 		}
 	}
 	
+	public boolean isExist() {
+		// to check is table exist
+		String sql = "SELECT COUNT(id='1') FROM DATA";
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			return true;
+		} catch (SQLException e) {
+			if (e.getErrorCode() != SQLCode.SQLITE_ERROR.code) {
+				printSQLException(e);
+			}
+			return false;
+		}
+	}
+	
 	private void printSQLException(SQLException e) {
+		if (!isExist()) createTable();
 		for (SQLCode code : SQLCode.values()) {
 			if (e.getErrorCode() == code.code) {
 				//				JOptionPane.showMessageDialog(null, e.getMessage(), code.message, JOptionPane.ERROR_MESSAGE);
 				System.err.println("SQLState: " + e.getSQLState());
 				System.err.println("Error Code: " + e.getErrorCode());
 				System.err.println("Message: " + e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}

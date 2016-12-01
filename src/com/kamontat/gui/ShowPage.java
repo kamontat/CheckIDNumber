@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.database.LocationModel;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
@@ -186,10 +187,8 @@ public class ShowPage extends JDialog {
 	}
 	
 	public void removeIDList(int index) {
-		idList.remove(index);
 		model.remove(list.getSelectedIndex());
-		
-		updateDatabase();
+		removeID(idList.get(index));
 		
 		disableSearch();
 		countLabel.setText(String.format("(%03d)", model.size()));
@@ -233,9 +232,8 @@ public class ShowPage extends JDialog {
 		clear.addActionListener(e -> {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			
-			idList.removeAll(idList);
 			model.removeAllElements();
-			clearFile();
+			DatabaseAPI.clearAll();
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			

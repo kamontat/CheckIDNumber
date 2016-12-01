@@ -65,10 +65,6 @@ public class MainPage extends JFrame {
 				actions.removeAll();
 				actions.add(about());
 				actions.addSeparator();
-				actions.add(uploadMenu());
-				actions.add(downloadMenu());
-				actions.add(toMenu());
-				actions.addSeparator();
 				actions.add(exportMenuXLS());
 				actions.add(exportMenuXLSX());
 				actions.addSeparator();
@@ -84,12 +80,12 @@ public class MainPage extends JFrame {
 			}
 		});
 		
-		JMenu status = new JMenu("File Status");
+		JMenu status = new JMenu("Database");
 		status.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				status.removeAll();
-				status.add(fileStatus());
+				status.add(status());
 				status.add(fileCount());
 				status.add(localCount());
 			}

@@ -24,9 +24,9 @@ public class LocationModel extends Observable {
 	 */
 	public void read() {
 		addObserver(LoadingPopup.getInstance());
+		LoadingPopup.getInstance().showPage();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			LoadingPopup.getInstance().showPage();
 			setChanged();
 			notifyObservers("Start loading Province and District");
 			
