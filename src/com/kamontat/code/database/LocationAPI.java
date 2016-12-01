@@ -2,7 +2,7 @@ package com.kamontat.code.database;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.object.Location;
-import com.kamontat.gui.LoadingPopup;
+import com.kamontat.gui.popup.LoadingPopup;
 
 import javax.swing.*;
 import java.io.InputStream;

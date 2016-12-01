@@ -27,7 +27,7 @@ TO read this file clearly you must know this thing:
 - TODO: 10/20/2016 AD 23:12 PM increase performance & speed when deal with very large id-number (beta.1)
 - TODO: 10/30/2016 AD 12:03 AM searching by status of idNumber or other key like address, province etc.
 - TODO: 10/30/2016 AD 11:38 AM edit menu in show page
-- TODO: 11/06/2016 AD 2:32 AM Loading Page FOR many ID (beta.1)
+- TODO: 11/06/2016 AD 2:32 AM Loading Page FOR many ID (beta.2)
 
 
 - FIXME: 11/06/2016 AD 2:35 AM fixed program crash when search many id in show page (now maximum 120000)->(target 1 million)

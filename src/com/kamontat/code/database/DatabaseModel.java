@@ -2,7 +2,7 @@ package com.kamontat.code.database;
 
 import com.kamontat.code.constant.SQLCode;
 import com.kamontat.code.object.IDNumber;
-import com.kamontat.gui.LoadingPopup;
+import com.kamontat.gui.popup.LoadingPopup;
 
 import java.sql.*;
 import java.util.*;

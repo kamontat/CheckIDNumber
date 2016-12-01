@@ -1,13 +1,13 @@
 package com.kamontat.code.menu;
 
 import com.kamontat.code.database.DatabaseAPI;
+import com.kamontat.code.file.ExcelFile;
 import com.kamontat.gui.EnterPage;
 import com.kamontat.gui.ShowPage;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static com.kamontat.code.file.ExcelFile.createExcelFile;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.config.Config.version;
 
@@ -20,6 +20,8 @@ import static com.kamontat.config.Config.version;
  * @since 10/29/2016 AD - 11:13 PM
  */
 public class MenuItem {
+	private static ExcelFile file = ExcelFile.getFile();
+	
 	public static JMenuItem addMenu(Window window) {
 		JMenuItem add = new JMenuItem("Add ID");
 		add.addActionListener(e -> {
@@ -55,13 +57,13 @@ public class MenuItem {
 	
 	public static JMenuItem exportMenuXLS() {
 		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
-		exportExcel.addActionListener(e -> createExcelFile(".xls")); /* export action */
+		exportExcel.addActionListener(e -> file.createExcelFile(".xls")); /* export action */
 		return exportExcel;
 	}
 	
 	public static JMenuItem exportMenuXLSX() {
 		JMenuItem exportExcel = new JMenuItem("Export (.xlsx)");
-		exportExcel.addActionListener(e -> createExcelFile(".xlsx")); /* export action */
+		exportExcel.addActionListener(e -> file.createExcelFile(".xlsx")); /* export action */
 		return exportExcel;
 	}
 	
