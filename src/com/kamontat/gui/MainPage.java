@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class MainPage extends JFrame {
 	private JLabel label1;
 	
 	public MainPage() {
+		super("Main Page");
 		setContentPane(contentPane);
 		
 		addFont();
@@ -65,9 +67,6 @@ public class MainPage extends JFrame {
 				actions.removeAll();
 				actions.add(about());
 				actions.addSeparator();
-				actions.add(exportMenuXLS());
-				actions.add(exportMenuXLSX());
-				actions.addSeparator();
 				actions.add(exitMenu());
 			}
 			
@@ -104,6 +103,34 @@ public class MainPage extends JFrame {
 		menu.add(status);
 		
 		setJMenuBar(menu);
+	}
+	
+	
+	private JMenuItem status() {
+		JMenuItem stat;
+		
+		if (DatabaseAPI.getDatabase(this).isExist()) {
+			int localSize = DatabaseAPI.getDatabase(this).getLocalSize();
+			int dbSize = DatabaseAPI.getDatabase(this).getDatabaseSize();
+			if (localSize > dbSize) {
+				stat = new JMenuItem("Save id into Database");
+			} else if (localSize < dbSize) {
+				stat = new JMenuItem("Save id into Local");
+			} else {
+				stat = new JMenuItem("GOOD");
+			}
+		} else {
+			stat = new JMenuItem("Lost");
+		}
+		return stat;
+	}
+	
+	private JMenuItem fileCount() {
+		return new JMenuItem(String.format("Database have: %,03d ID", DatabaseAPI.getDatabase(this).getDatabaseSize()));
+	}
+	
+	private JMenuItem localCount() {
+		return new JMenuItem(String.format("Local    have: %,03d ID", DatabaseAPI.getDatabase(this).getLocalSize()));
 	}
 	
 	static void exPack(Window frame) {

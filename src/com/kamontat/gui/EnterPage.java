@@ -67,7 +67,7 @@ public class EnterPage extends JDialog {
 	private void onOK() {
 		if (okBtn.isEnabled()) {
 			okBtn.setEnabled(false);
-			boolean done = DatabaseAPI.addID(number);
+			boolean done = DatabaseAPI.getDatabase(this).addID(number);
 			if (done) {
 				setMessage("Collect ID (Saved)", new Color(0, 122, 255));
 			} else {

@@ -1,17 +1,18 @@
 package com.kamontat.code.file;
 
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.popup.LoadingPopup;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.*;
 
 import static com.kamontat.code.database.DatabaseAPI.dir;
-import static com.kamontat.code.database.DatabaseAPI.getLocalSize;
 import static com.kamontat.code.database.DatabaseAPI.idList;
 
 /**
@@ -25,16 +26,20 @@ import static com.kamontat.code.database.DatabaseAPI.idList;
 public class ExcelFile extends Observable {
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
-	private LoadingPopup popup = new LoadingPopup();
+	
+	private LoadingPopup popup;
+	private Window parent;
 	
 	private static ExcelFile file;
 	
-	public static ExcelFile getFile() {
-		if (file == null) file = new ExcelFile();
+	public static ExcelFile getFile(Window parent) {
+		if (file == null) file = new ExcelFile(parent);
 		return file;
 	}
 	
-	private ExcelFile() {
+	private ExcelFile(Window parent) {
+		this.parent = parent;
+		popup = new LoadingPopup(this.parent);
 		addObserver(popup);
 	}
 	
@@ -45,7 +50,7 @@ public class ExcelFile extends Observable {
 	 * 		extension of file with `.` Example ".xlsx", ".xls"
 	 */
 	public void createExcelFile(String extension) {
-		popup.showPage(getLocalSize() + 1);
+		popup.showPage(DatabaseAPI.getDatabase(parent).getLocalSize() + 1);
 		
 		setChanged();
 		notifyObservers("Start writing excel file");

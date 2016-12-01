@@ -4,6 +4,7 @@ import com.kamontat.code.constant.SQLCode;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.popup.LoadingPopup;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.*;
 
@@ -17,12 +18,21 @@ public class DatabaseModel extends Observable {
 	private Connection connection;
 	private Statement statement;
 	
-	private static DatabaseModel db = new DatabaseModel();
-	private LoadingPopup popup = new LoadingPopup();
+	private static DatabaseModel db;
+	private LoadingPopup popup;
 	
 	public int progress;
 	
-	private DatabaseModel() {
+	public static DatabaseModel getDatabase(Window parent) {
+		if (db == null) {
+			db = new DatabaseModel(parent);
+		}
+		return db;
+	}
+	
+	private DatabaseModel(Window parent) {
+		popup = new LoadingPopup(parent);
+		
 		addObserver(popup);
 		try {
 			assign();
@@ -43,13 +53,6 @@ public class DatabaseModel extends Observable {
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
-	}
-	
-	public static DatabaseModel getDatabase() {
-		if (db == null) {
-			db = new DatabaseModel();
-		}
-		return db;
 	}
 	
 	private void createTable() {

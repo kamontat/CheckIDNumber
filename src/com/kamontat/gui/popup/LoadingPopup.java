@@ -17,8 +17,8 @@ public class LoadingPopup extends JDialog implements Observer {
 	private static LoadingPopup page;
 	private StopWatch watch = new StopWatch();
 	
-	public LoadingPopup() {
-		super((Frame) null, "Loading..");
+	public LoadingPopup(Window parent) {
+		super(parent, "Loading..");
 		
 		setContentPane(setMainPanel());
 		

@@ -18,7 +18,7 @@ public class LocationModel extends Observable {
 	public static TreeMap<String, String> provinces = new TreeMap<>();
 	public static TreeMap<String, String> districts = new TreeMap<>();
 	
-	private LoadingPopup popup = new LoadingPopup();
+	private LoadingPopup popup = new LoadingPopup(null);
 	private static LocationModel model;
 	
 	public static LocationModel getInstance() {

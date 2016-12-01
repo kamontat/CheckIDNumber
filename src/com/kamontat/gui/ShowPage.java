@@ -2,6 +2,7 @@ package com.kamontat.gui;
 
 import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.database.LocationModel;
+import com.kamontat.code.file.ExcelFile;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -16,8 +17,9 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.kamontat.code.database.DatabaseAPI.*;
-import static com.kamontat.code.menu.MenuItem.*;
+import static com.kamontat.code.database.DatabaseAPI.idList;
+import static com.kamontat.code.menu.MenuItem.backMenu;
+import static com.kamontat.code.menu.MenuItem.exitMenu;
 import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.gui.MainPage.exPack;
 
@@ -35,7 +37,7 @@ public class ShowPage extends JDialog {
 	private Frame parent;
 	
 	public ShowPage(Frame parent) {
-		super(parent, "Enter Page");
+		super(parent, "Show Page");
 		this.parent = parent;
 		setModal(true);
 		
@@ -120,7 +122,7 @@ public class ShowPage extends JDialog {
 		
 		itemList[j] = new JMenuItem("Remove");
 		itemList[j].addActionListener(e1 -> {
-			int index = search_index_local(list.getSelectedValue());
+			int index = DatabaseAPI.getDatabase(this).search_index_local(list.getSelectedValue());
 			removeIDList(index);
 		});
 		
@@ -193,7 +195,7 @@ public class ShowPage extends JDialog {
 	
 	public void removeIDList(int index) {
 		model.remove(list.getSelectedIndex());
-		removeID(idList.get(index));
+		DatabaseAPI.getDatabase(this).removeID(idList.get(index));
 		
 		disableSearch();
 		countLabel.setText(String.format("(%03d)", model.size()));
@@ -242,13 +244,25 @@ public class ShowPage extends JDialog {
 		return add;
 	}
 	
+	private JMenuItem exportMenuXLS() {
+		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
+		exportExcel.addActionListener(e -> ExcelFile.getFile(this).createExcelFile(".xls")); /* export action */
+		return exportExcel;
+	}
+	
+	private JMenuItem exportMenuXLSX() {
+		JMenuItem exportExcel = new JMenuItem("Export (.xlsx)");
+		exportExcel.addActionListener(e -> ExcelFile.getFile(this).createExcelFile(".xlsx")); /* export action */
+		return exportExcel;
+	}
+	
 	private JMenuItem clearMenu() {
 		JMenuItem clear = new JMenuItem("Clear History");
 		clear.addActionListener(e -> {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			
 			model.removeAllElements();
-			DatabaseAPI.clearAll();
+			DatabaseAPI.getDatabase(this).clearAll();
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			

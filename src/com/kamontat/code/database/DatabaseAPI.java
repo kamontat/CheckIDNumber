@@ -3,9 +3,8 @@ package com.kamontat.code.database;
 import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -25,22 +24,33 @@ public class DatabaseAPI {
 	/**
 	 * get database.db (using sqlite)
 	 */
-	private static DatabaseModel db = DatabaseModel.getDatabase();
-	public static File textFile = new File("");
+	private DatabaseModel db;
+	private static DatabaseAPI dbApi;
 	
 	/**
 	 * list all id in text file, update by method update_local
 	 */
 	public static ArrayList<IDNumber> idList = new ArrayList<>();
 	
+	private DatabaseAPI(Window parent) {
+		db = DatabaseModel.getDatabase(parent);
+	}
+	
+	public static DatabaseAPI getDatabase(Window parent) {
+		if (dbApi == null) dbApi = new DatabaseAPI(parent);
+		return dbApi;
+	}
+	
+	;
+	
 	/**
 	 * get all id-number from database and assign it into <code>idList</code>
 	 */
-	public static void update_local() {
+	public void update_local() {
 		idList = db.getAll();
 	}
 	
-	public static void update_database() {
+	public void update_database() {
 		idList = db.getAll();
 	}
 	
@@ -52,7 +62,7 @@ public class DatabaseAPI {
 	 * 		id that want to search
 	 * @return index of that id if it's exist, otherwise return -1
 	 */
-	public static int search_index_local(IDNumber id) {
+	public int search_index_local(IDNumber id) {
 		for (int i = 0; i < idList.size(); i++) {
 			if (idList.get(i).getId().equals(id.getId()) && idList.get(i).getStatus() == id.getStatus()) {
 				return i;
@@ -68,60 +78,43 @@ public class DatabaseAPI {
 	 * 		id that want to search
 	 * @return index of that id if it's exist, otherwise return -1
 	 */
-	public static int search_index_database(IDNumber id) {
+	public int search_index_database(IDNumber id) {
 		return db.getSqlID(id);
 	}
 	
-	public static int getLocalSize() {
+	public int getLocalSize() {
 		return idList.size();
 	}
 	
-	public static int getDatabaseSize() {
+	public int getDatabaseSize() {
 		return db.getSize();
 	}
 	
-	public static boolean addID(IDNumber id) {
+	public boolean addID(IDNumber id) {
 		boolean isDone = db.addID(id);
 		if (isDone) idList.add(id);
 		return isDone;
 	}
 	
-	public static boolean removeID(IDNumber id) {
+	public boolean removeID(IDNumber id) {
 		boolean isDone = db.delete(id);
 		if (isDone) idList.remove(id);
 		return isDone;
 	}
 	
-	public static void clearAll() {
+	public void clearAll() {
 		idList = new ArrayList<>();
 		db.deleteAll();
 	}
 	
-	/**
-	 * update text-file by using <code>idList</code>
-	 * O-notation = O(idList.length)
-	 */
-	public static boolean insertToFile(IDNumber id) {
-		try {
-			FileWriter writer = new FileWriter(textFile, true);
-			writer.write(id.saveFormat() + "\n");
-			writer.close();
-			return true;
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Can't save into File, \nplease try again", "Error", JOptionPane.ERROR_MESSAGE);
-			return false;
-			//			textFile = createTextFile();
-		}
-	}
-	
-	public static boolean isExist() {
+	public boolean isExist() {
 		return db.isExist();
 	}
 	
 	/**
 	 * open location of text-file automatic iff file exist
 	 */
-	public static void openFolder() {
+	public void openFolder() {
 		if (db.isExist()) {
 			// redirect to file
 		} else {
