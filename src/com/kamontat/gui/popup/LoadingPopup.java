@@ -18,7 +18,19 @@ public class LoadingPopup extends JDialog implements Observer {
 	private StopWatch watch = new StopWatch();
 	
 	public LoadingPopup() {
-		super();
+		super((Frame) null, "Loading..");
+		
+		setContentPane(setMainPanel());
+		
+		setSize(450, 100);
+		setLocation(getCenterLocation(getSize()));
+		
+		addFont();
+		
+		setAlwaysOnTop(true);
+	}
+	
+	private Panel setMainPanel() {
 		Panel container = new Panel(new BorderLayout());
 		
 		statusLabel = new JLabel("Status");
@@ -31,15 +43,7 @@ public class LoadingPopup extends JDialog implements Observer {
 		
 		container.add(progressBar, BorderLayout.NORTH);
 		container.add(statusLabel, BorderLayout.CENTER);
-		
-		setContentPane(container);
-		
-		setSize(450, 100);
-		setLocation(getCenterLocation(getSize()));
-		
-		addFont();
-		
-		setAlwaysOnTop(true);
+		return container;
 	}
 	
 	private void addFont() {
