@@ -3,6 +3,7 @@ package test;
 import com.kamontat.code.constant.Status;
 import com.kamontat.code.database.DatabaseModel;
 import com.kamontat.code.object.IDNumber;
+import com.kamontat.gui.LoadingPopup;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -11,14 +12,20 @@ import java.util.*;
  * @author kamontat
  * @since 17/8/59 - 21:12
  */
-public class assignID {
-	public static void main(String[] args) {
+public class assignID extends Observable {
+	public void assign() {
 		DatabaseModel db = DatabaseModel.getDatabase();
+		LoadingPopup popup = LoadingPopup.getInstance();
+		addObserver(popup);
+		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter: ");
 		int num = input.nextInt();
 		
 		Random random = new Random(System.nanoTime());
+		popup.showPage(num);
+		setChanged();
+		notifyObservers("Start assign temp id");
 		
 		for (int i = 0; i < num; i++) {
 			IDNumber number = new IDNumber(String.valueOf(Math.abs(random.nextLong())).substring(0, 12));
@@ -34,11 +41,15 @@ public class assignID {
 			number.setCreateAt(dataTime);
 			
 			db.addID(number);
+			
+			setChanged();
+			notifyObservers(i);
 		}
+		popup.hidePage(false);
 		System.out.println("Done.");
 	}
 	
-	private static int lastDigit(String id) {
+	private int lastDigit(String id) {
 		char[] splitID = id.toCharArray();
 		int total = 0;
 		
@@ -56,8 +67,13 @@ public class assignID {
 		return 0;
 	}
 	
-	private static int random(int start, int stop) {
+	private int random(int start, int stop) {
 		Random rand = new Random(System.nanoTime());
 		return (int) Math.round(Math.abs((start + (rand.nextInt(stop - start)))));
+	}
+	
+	public static void main(String[] args) {
+		assignID assign = new assignID();
+		assign.assign();
 	}
 }

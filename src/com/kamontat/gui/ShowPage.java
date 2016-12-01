@@ -1,7 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.database.DatabaseAPI;
-import com.kamontat.code.database.LocationModel;
+import com.kamontat.code.database.LocationAPI;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -92,13 +92,13 @@ public class ShowPage extends JDialog {
 	
 	private JMenuItem[] assignPopupList() {
 		int i, j = 0;
-		if (LocationModel.readable) i = 3;
+		if (LocationAPI.readable) i = 3;
 		else i = 2;
 		
 		JMenuItem[] itemList = new JMenuItem[i];
 		
 		
-		if (LocationModel.readable) {
+		if (LocationAPI.readable) {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
 				InformationPage page = new InformationPage(this, list.getSelectedValue());

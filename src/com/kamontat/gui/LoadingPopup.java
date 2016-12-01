@@ -42,7 +42,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	public void setProgressValue(int value) {
 		progressBar.setValue(value);
-		progressBar.setString(progressBar.getValue() + "%");
+		progressBar.setString("-" + progressBar.getValue() + "-");
 	}
 	
 	public void setProgressLabel(String status) {
@@ -50,10 +50,12 @@ public class LoadingPopup extends JDialog implements Observer {
 		statusLabel.setForeground(new Color(61, 225, 81));
 	}
 	
-	public void showPage() {
+	public void showPage(int s) {
 		try {
 			setVisible(true);
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			progressBar.setMaximum(s);
+			
 			Thread.sleep(1200);
 			
 			watch.start();

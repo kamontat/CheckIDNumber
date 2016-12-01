@@ -13,7 +13,7 @@ import java.util.*;
  * @version 1.0
  * @since 10/30/2016 AD - 1:47 AM
  */
-public class LocationModel extends Observable {
+public class LocationAPI extends Observable {
 	public static boolean readable = false;
 	public static TreeMap<String, String> provinces = new TreeMap<>();
 	public static TreeMap<String, String> districts = new TreeMap<>();
@@ -24,7 +24,7 @@ public class LocationModel extends Observable {
 	 */
 	public void read() {
 		addObserver(LoadingPopup.getInstance());
-		LoadingPopup.getInstance().showPage();
+		LoadingPopup.getInstance().showPage(2);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			setChanged();
@@ -33,12 +33,12 @@ public class LocationModel extends Observable {
 			InputStream streamProvince = Location.class.getResourceAsStream("/resources/json_location/provinces.json");
 			provinces = mapper.readValue(streamProvince, provinces.getClass());
 			
-			notifyObservers(50);
+			notifyObservers(1);
 			
 			InputStream streamDistrict = Location.class.getResourceAsStream("/resources/json_location/districts.json");
 			districts = mapper.readValue(streamDistrict, districts.getClass());
 			
-			notifyObservers(100);
+			notifyObservers(2);
 			readable = true;
 			LoadingPopup.getInstance().hidePage(false);
 		} catch (Exception e) {

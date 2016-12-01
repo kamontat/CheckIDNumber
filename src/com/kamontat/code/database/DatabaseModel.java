@@ -115,7 +115,7 @@ public class DatabaseModel extends Observable {
 		try {
 			int readID = 0, size = getSize();
 			
-			LoadingPopup.getInstance().showPage();
+			LoadingPopup.getInstance().showPage(size);
 			setChanged();
 			notifyObservers("Start Loading " + size + " IDs");
 			
@@ -124,11 +124,9 @@ public class DatabaseModel extends Observable {
 				String id = set.getString("id_num");
 				String createAt = set.getString("create_at");
 				list.add(new IDNumber(id, createAt));
-				// done
-				++readID;
 				
 				setChanged();
-				notifyObservers((readID * 100) / size);
+				notifyObservers(++readID);
 			}
 			set.close();
 			LoadingPopup.getInstance().hidePage(false);

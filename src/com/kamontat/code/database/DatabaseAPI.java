@@ -93,7 +93,7 @@ public class DatabaseAPI {
 	}
 	
 	public static void clearAll() {
-		idList.removeAll(idList);
+		idList = new ArrayList<>();
 		db.deleteAll();
 	}
 	
