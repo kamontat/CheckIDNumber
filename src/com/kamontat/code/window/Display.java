@@ -23,4 +23,13 @@ public class Display {
 	public static Point getCenterLocation(Dimension pageSize) {
 		return new Point((int) ((display.getWidth() / 2) - (pageSize.getWidth() / 2)), (int) ((display.getHeight() / 2) - (pageSize.getHeight() / 2)));
 	}
+	
+	public static Point getCenterPage(Window oldPage, Window newPage) {
+		Point currPoint = oldPage.getLocation();
+		
+		int newX = (currPoint.x + (oldPage.getWidth() / 2)) - (newPage.getWidth() / 2);
+		int newY = (currPoint.y + (oldPage.getHeight() / 2)) - (newPage.getHeight() / 2);
+		
+		return new Point(newX, newY);
+	}
 }

@@ -21,6 +21,7 @@ import static com.kamontat.code.database.DatabaseAPI.idList;
 import static com.kamontat.code.menu.MenuItem.backMenu;
 import static com.kamontat.code.menu.MenuItem.exitMenu;
 import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.code.window.Display.getCenterPage;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class ShowPage extends JDialog {
@@ -117,7 +118,7 @@ public class ShowPage extends JDialog {
 		itemList[j++].addActionListener(e1 -> {
 			dispose();
 			EnterPage page = new EnterPage(parent);
-			page.run(this.getLocation());
+			page.run();
 		});
 		
 		itemList[j] = new JMenuItem("Remove");
@@ -239,7 +240,7 @@ public class ShowPage extends JDialog {
 		add.addActionListener(e -> {
 			dispose();
 			EnterPage page = new EnterPage(parent);
-			page.run(getCenterLocation(page.getSize()));
+			page.run();
 		});
 		return add;
 	}
@@ -271,9 +272,9 @@ public class ShowPage extends JDialog {
 		return clear;
 	}
 	
-	public void run(Point point) {
+	public void run() {
 		pack();
-		setLocation(point);
+		setLocation(getCenterPage(parent, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

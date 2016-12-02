@@ -11,8 +11,9 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.menu.MenuItem.*;
-import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.code.menu.MenuItem.backMenu;
+import static com.kamontat.code.menu.MenuItem.exitMenu;
+import static com.kamontat.code.window.Display.getCenterPage;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
@@ -157,15 +158,15 @@ public class EnterPage extends JDialog {
 		add.addActionListener(e -> {
 			dispose();
 			ShowPage page = new ShowPage(parent);
-			page.run(getCenterLocation(page.getSize()));
+			page.run();
 		});
 		return add;
 	}
 	
 	
-	public void run(Point point) {
+	public void run() {
 		pack();
-		setLocation(point);
+		setLocation(getCenterPage(parent, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

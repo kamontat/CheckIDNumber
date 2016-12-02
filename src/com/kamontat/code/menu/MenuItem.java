@@ -29,7 +29,7 @@ public class MenuItem {
 	
 	public static JMenuItem about() {
 		String text = String.format("If you have any error, feel free to contact me by mail \"kamontat_c@hotmail.com\"\nThis current version is (%s)", version);
-		JMenuItem about = new JMenuItem("about");
+		JMenuItem about = new JMenuItem("About");
 		about.addActionListener(e -> JOptionPane.showMessageDialog(null, text, "About Me", JOptionPane.INFORMATION_MESSAGE));
 		return about;
 	}

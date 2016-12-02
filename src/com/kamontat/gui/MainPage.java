@@ -33,12 +33,12 @@ public class MainPage extends JFrame {
 		
 		enterBtn.addActionListener(e -> {
 			EnterPage page = new EnterPage(this);
-			page.run(getCenterLocation(page.getSize()));
+			page.run();
 		});
 		
 		showBtn.addActionListener(e -> {
 			ShowPage page = new ShowPage(this);
-			page.run(getCenterLocation(page.getSize()));
+			page.run();
 		});
 		
 		// call onCancel() on ESCAPE
@@ -60,7 +60,7 @@ public class MainPage extends JFrame {
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
-		JMenu actions = new JMenu("Action");
+		JMenu actions = new JMenu("More");
 		actions.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
@@ -85,7 +85,7 @@ public class MainPage extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				status.removeAll();
 				status.add(status());
-				status.add(fileCount());
+				status.add(dbCount());
 				status.add(localCount());
 			}
 			
@@ -125,7 +125,7 @@ public class MainPage extends JFrame {
 		return stat;
 	}
 	
-	private JMenuItem fileCount() {
+	private JMenuItem dbCount() {
 		return new JMenuItem(String.format("Database have: %,03d ID", DatabaseAPI.getDatabase(this).getDatabaseSize()));
 	}
 	
