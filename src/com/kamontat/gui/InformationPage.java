@@ -4,6 +4,7 @@ import com.kamontat.code.constant.Status;
 import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
+import com.kamontat.code.window.Display;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,11 +32,17 @@ public class InformationPage extends JDialog {
 	private JLabel createAtLabel;
 	private JButton deleteBtn;
 	
+	private ShowPage parent;
+	
 	public InformationPage(ShowPage showPage, IDNumber id) {
-		setContentPane(contentPane);
+		super(showPage, "Information Page");
 		setModal(true);
+		
+		parent = showPage;
+		
+		setContentPane(contentPane);
 		addFont();
-		setInformation(showPage, id);
+		setInformation(id);
 		
 		okBtn.addActionListener(e -> onOK());
 		
@@ -73,13 +80,13 @@ public class InformationPage extends JDialog {
 		deleteBtn.setFont(FontBook.getFontButton());
 	}
 	
-	private void setInformation(ShowPage showPage, IDNumber id) {
+	private void setInformation(IDNumber id) {
 		if (id.getStatus() != Status.OK) {
 			setStatus(id.getStatus().toString(), id.getStatus().getColor());
 			deleteBtn.setVisible(true);
 			deleteBtn.addActionListener(e -> {
 				int index = DatabaseAPI.getDatabase(null).search_index_local(id);
-				showPage.removeIDList(index);
+				parent.removeIDList(index);
 				dispose();
 			});
 			
@@ -111,9 +118,9 @@ public class InformationPage extends JDialog {
 		statusLabel.setForeground(color);
 	}
 	
-	public void run(Point point) {
+	public void run() {
 		pack();
-		setLocation(point);
+		setLocation(Display.getCenterPage(parent, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

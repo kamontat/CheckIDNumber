@@ -20,7 +20,6 @@ import java.util.function.Predicate;
 import static com.kamontat.code.database.DatabaseAPI.idList;
 import static com.kamontat.code.menu.MenuItem.backMenu;
 import static com.kamontat.code.menu.MenuItem.exitMenu;
-import static com.kamontat.code.window.Display.getCenterLocation;
 import static com.kamontat.code.window.Display.getCenterPage;
 import static com.kamontat.gui.MainPage.exPack;
 
@@ -110,7 +109,7 @@ public class ShowPage extends JDialog {
 			itemList[j] = new JMenuItem("Information");
 			itemList[j++].addActionListener(e1 -> {
 				InformationPage page = new InformationPage(this, list.getSelectedValue());
-				page.run(getCenterLocation(page.getSize()));
+				page.run();
 			});
 		}
 		
