@@ -1,6 +1,8 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.database.LocationModel;
+import com.kamontat.code.file.ExcelFile;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -15,9 +17,11 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.kamontat.code.database.Database.*;
-import static com.kamontat.code.menu.MenuItem.*;
+import static com.kamontat.code.database.DatabaseAPI.idList;
+import static com.kamontat.code.menu.MenuItem.backMenu;
+import static com.kamontat.code.menu.MenuItem.exitMenu;
 import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.code.window.Display.getCenterPage;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class ShowPage extends JDialog {
@@ -31,9 +35,14 @@ public class ShowPage extends JDialog {
 	
 	private DefaultListModel<IDNumber> model = new DefaultListModel<>();
 	
-	public ShowPage() {
-		setContentPane(contentPane);
+	private Frame parent;
+	
+	public ShowPage(Frame parent) {
+		super(parent, "Show Page");
+		this.parent = parent;
 		setModal(true);
+		
+		setContentPane(contentPane);
 		
 		assignList();
 		createMenuBar();
@@ -108,13 +117,13 @@ public class ShowPage extends JDialog {
 		itemList[j] = new JMenuItem("Add");
 		itemList[j++].addActionListener(e1 -> {
 			dispose();
-			EnterPage page = new EnterPage();
-			page.run(this.getLocation());
+			EnterPage page = new EnterPage(parent);
+			page.run();
 		});
 		
 		itemList[j] = new JMenuItem("Remove");
 		itemList[j].addActionListener(e1 -> {
-			int index = searchingIDList(list.getSelectedValue());
+			int index = DatabaseAPI.getDatabase(this).search_index_local(list.getSelectedValue());
 			removeIDList(index);
 		});
 		
@@ -175,8 +184,8 @@ public class ShowPage extends JDialog {
 	 * disable searching if id more than 1000
 	 */
 	private void disableSearch() {
-		// disable searching if id more than 120000
-		if (model.size() > 120000) {
+		// disable searching if id more than 500000
+		if (model.size() > 500000) {
 			searchingField.setEnabled(false);
 			searchingField.setToolTipText("Search can't use, if id more than 1000");
 		} else {
@@ -186,10 +195,8 @@ public class ShowPage extends JDialog {
 	}
 	
 	public void removeIDList(int index) {
-		idList.remove(index);
 		model.remove(list.getSelectedIndex());
-		
-		updateTextFile();
+		DatabaseAPI.getDatabase(this).removeID(idList.get(index));
 		
 		disableSearch();
 		countLabel.setText(String.format("(%03d)", model.size()));
@@ -215,7 +222,7 @@ public class ShowPage extends JDialog {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
 		
-		actions.add(addMenu(this));
+		actions.add(addMenu());
 		actions.add(clearMenu());
 		actions.addSeparator();
 		actions.add(exportMenuXLS());
@@ -228,14 +235,35 @@ public class ShowPage extends JDialog {
 		setJMenuBar(menu);
 	}
 	
+	private JMenuItem addMenu() {
+		JMenuItem add = new JMenuItem("Add ID");
+		add.addActionListener(e -> {
+			dispose();
+			EnterPage page = new EnterPage(parent);
+			page.run();
+		});
+		return add;
+	}
+	
+	private JMenuItem exportMenuXLS() {
+		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
+		exportExcel.addActionListener(e -> ExcelFile.getFile(this).createExcelFile(".xls")); /* export action */
+		return exportExcel;
+	}
+	
+	private JMenuItem exportMenuXLSX() {
+		JMenuItem exportExcel = new JMenuItem("Export (.xlsx)");
+		exportExcel.addActionListener(e -> ExcelFile.getFile(this).createExcelFile(".xlsx")); /* export action */
+		return exportExcel;
+	}
+	
 	private JMenuItem clearMenu() {
 		JMenuItem clear = new JMenuItem("Clear History");
 		clear.addActionListener(e -> {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			
-			idList.removeAll(idList);
 			model.removeAllElements();
-			clearFile();
+			DatabaseAPI.getDatabase(this).clearAll();
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			
@@ -244,9 +272,9 @@ public class ShowPage extends JDialog {
 		return clear;
 	}
 	
-	public void run(Point point) {
+	public void run() {
 		pack();
-		setLocation(point);
+		setLocation(getCenterPage(parent, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

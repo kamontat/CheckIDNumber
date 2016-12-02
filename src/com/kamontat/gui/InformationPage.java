@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.Status;
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -10,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import static com.kamontat.code.database.Database.searchingIDList;
 import static com.kamontat.gui.MainPage.exPack;
 
 public class InformationPage extends JDialog {
@@ -78,7 +78,7 @@ public class InformationPage extends JDialog {
 			setStatus(id.getStatus().toString(), id.getStatus().getColor());
 			deleteBtn.setVisible(true);
 			deleteBtn.addActionListener(e -> {
-				int index = searchingIDList(id);
+				int index = DatabaseAPI.getDatabase(null).search_index_local(id);
 				showPage.removeIDList(index);
 				dispose();
 			});
@@ -90,7 +90,7 @@ public class InformationPage extends JDialog {
 			districtLabel.setText(id.getLocation().getDistrict());
 			numBCLabel.setText(id.getIDBC());
 			orderLabel.setText(id.getIDOrder());
-			createAtLabel.setText("create_at " + id.getCreateAt().toLocalDate() + ", " + id.getCreateAt().toLocalTime());
+			createAtLabel.setText("create_at " + id.getCreateAt_string());
 			
 			Color color = Color.BLACK;
 			if (id.getLocation().getType() == com.kamontat.code.constant.Type.NO_DISTRICT) {

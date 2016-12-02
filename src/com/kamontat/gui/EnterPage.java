@@ -1,6 +1,7 @@
 package com.kamontat.gui;
 
 import com.kamontat.code.constant.Status;
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -10,8 +11,9 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static com.kamontat.code.database.Database.*;
-import static com.kamontat.code.menu.MenuItem.*;
+import static com.kamontat.code.menu.MenuItem.backMenu;
+import static com.kamontat.code.menu.MenuItem.exitMenu;
+import static com.kamontat.code.window.Display.getCenterPage;
 
 public class EnterPage extends JDialog {
 	private JPanel contentPane;
@@ -24,9 +26,13 @@ public class EnterPage extends JDialog {
 	
 	private IDNumber number;
 	
-	public EnterPage() {
-		setContentPane(contentPane);
+	private Frame parent;
+	
+	public EnterPage(Frame parent) {
+		super(parent, "Enter Page");
+		this.parent = parent;
 		setModal(true);
+		setContentPane(contentPane);
 		createMenuBar();
 		addFont();
 		
@@ -62,13 +68,14 @@ public class EnterPage extends JDialog {
 	private void onOK() {
 		if (okBtn.isEnabled()) {
 			okBtn.setEnabled(false);
-			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			idList.add(number);
-			insertToFile(number);
-			setMessage("Collect ID (Saved)", new Color(0, 122, 255));
+			boolean done = DatabaseAPI.getDatabase(this).addID(number);
+			if (done) {
+				setMessage("Collect ID (Saved)", new Color(0, 122, 255));
+			} else {
+				setMessage("Have some error", new Color(255, 0, 0));
+			}
 			textField.selectAll();
 			pack();
-			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 	
@@ -90,8 +97,6 @@ public class EnterPage extends JDialog {
 				okBtn.setEnabled(false);
 				setMessage(number.getStatus().toString(), number.getStatus().getColor());
 			} else {
-				// update last version list
-				assignIDList();
 				number.updateStatus();
 				
 				okBtn.setEnabled(true);
@@ -139,10 +144,7 @@ public class EnterPage extends JDialog {
 		JMenuBar menu = new JMenuBar();
 		JMenu actions = new JMenu("Action");
 		
-		actions.add(showMenu(this));
-		actions.addSeparator();
-		actions.add(uploadMenu());
-		actions.add(downloadMenu());
+		actions.add(showMenu());
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
@@ -151,9 +153,20 @@ public class EnterPage extends JDialog {
 		setJMenuBar(menu);
 	}
 	
-	public void run(Point point) {
+	private JMenuItem showMenu() {
+		JMenuItem add = new JMenuItem("Show all ID");
+		add.addActionListener(e -> {
+			dispose();
+			ShowPage page = new ShowPage(parent);
+			page.run();
+		});
+		return add;
+	}
+	
+	
+	public void run() {
 		pack();
-		setLocation(point);
+		setLocation(getCenterPage(parent, this));
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}

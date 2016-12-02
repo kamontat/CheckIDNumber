@@ -32,9 +32,9 @@ public class StopWatch {
 		
 		// convert to second
 		if (interval >= 1000) {
-			return String.format("(%.2fs)", interval / 1000.0);
+			return String.format("%.2fs", interval / 1000.0);
 		} else {
-			return String.format("(%dms)", interval);
+			return String.format("%dms", interval);
 		}
 	}
 }

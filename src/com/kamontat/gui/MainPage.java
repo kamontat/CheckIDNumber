@@ -1,5 +1,6 @@
 package com.kamontat.gui;
 
+import com.kamontat.code.database.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class MainPage extends JFrame {
 	private JLabel label1;
 	
 	public MainPage() {
+		super("Main Page");
 		setContentPane(contentPane);
 		
 		addFont();
@@ -30,13 +32,13 @@ public class MainPage extends JFrame {
 		createMenuBar();
 		
 		enterBtn.addActionListener(e -> {
-			EnterPage page = new EnterPage();
-			page.run(getCenterLocation(page.getSize()));
+			EnterPage page = new EnterPage(this);
+			page.run();
 		});
 		
 		showBtn.addActionListener(e -> {
-			ShowPage page = new ShowPage();
-			page.run(getCenterLocation(page.getSize()));
+			ShowPage page = new ShowPage(this);
+			page.run();
 		});
 		
 		// call onCancel() on ESCAPE
@@ -58,19 +60,12 @@ public class MainPage extends JFrame {
 	 */
 	private void createMenuBar() {
 		JMenuBar menu = new JMenuBar();
-		JMenu actions = new JMenu("Action");
+		JMenu actions = new JMenu("More");
 		actions.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				actions.removeAll();
 				actions.add(about());
-				actions.addSeparator();
-				actions.add(uploadMenu());
-				actions.add(downloadMenu());
-				actions.add(toMenu());
-				actions.addSeparator();
-				actions.add(exportMenuXLS());
-				actions.add(exportMenuXLSX());
 				actions.addSeparator();
 				actions.add(exitMenu());
 			}
@@ -84,13 +79,13 @@ public class MainPage extends JFrame {
 			}
 		});
 		
-		JMenu status = new JMenu("File Status");
+		JMenu status = new JMenu("Database");
 		status.addMenuListener(new MenuListener() {
 			@Override
 			public void menuSelected(MenuEvent e) {
 				status.removeAll();
-				status.add(fileStatus());
-				status.add(fileCount());
+				status.add(status());
+				status.add(dbCount());
 				status.add(localCount());
 			}
 			
@@ -108,6 +103,34 @@ public class MainPage extends JFrame {
 		menu.add(status);
 		
 		setJMenuBar(menu);
+	}
+	
+	
+	private JMenuItem status() {
+		JMenuItem stat;
+		
+		if (DatabaseAPI.getDatabase(this).isExist()) {
+			int localSize = DatabaseAPI.getDatabase(this).getLocalSize();
+			int dbSize = DatabaseAPI.getDatabase(this).getDatabaseSize();
+			if (localSize > dbSize) {
+				stat = new JMenuItem("Save id into Database");
+			} else if (localSize < dbSize) {
+				stat = new JMenuItem("Save id into Local");
+			} else {
+				stat = new JMenuItem("GOOD");
+			}
+		} else {
+			stat = new JMenuItem("Lost");
+		}
+		return stat;
+	}
+	
+	private JMenuItem dbCount() {
+		return new JMenuItem(String.format("Database have: %,03d ID", DatabaseAPI.getDatabase(this).getDatabaseSize()));
+	}
+	
+	private JMenuItem localCount() {
+		return new JMenuItem(String.format("Local    have: %,03d ID", DatabaseAPI.getDatabase(this).getLocalSize()));
 	}
 	
 	static void exPack(Window frame) {
