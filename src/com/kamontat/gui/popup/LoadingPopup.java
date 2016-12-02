@@ -14,7 +14,6 @@ public class LoadingPopup extends JDialog implements Observer {
 	private JProgressBar progressBar;
 	private JLabel statusLabel;
 	
-	private static LoadingPopup page;
 	private StopWatch watch = new StopWatch();
 	
 	public LoadingPopup(Window parent) {
@@ -28,6 +27,7 @@ public class LoadingPopup extends JDialog implements Observer {
 		addFont();
 		
 		setAlwaysOnTop(true);
+		setResizable(false);
 	}
 	
 	private Panel setMainPanel() {
@@ -43,6 +43,7 @@ public class LoadingPopup extends JDialog implements Observer {
 		
 		container.add(progressBar, BorderLayout.NORTH);
 		container.add(statusLabel, BorderLayout.CENTER);
+		
 		return container;
 	}
 	
@@ -52,7 +53,8 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	private void setProgressValue(int value) {
 		progressBar.setValue(value);
-		progressBar.setString("-" + progressBar.getValue() + "-");
+		String textFormat = String.format("%d - %d", progressBar.getValue(), progressBar.getMaximum());
+		progressBar.setString(textFormat);
 	}
 	
 	private void setProgressLabel(String status, Color color) {
@@ -91,6 +93,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		if (arg instanceof String) {
 			setProgressLabel((String) arg, new Color(0, 122, 255));
 		} else {

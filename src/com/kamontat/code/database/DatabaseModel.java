@@ -121,7 +121,7 @@ public class DatabaseModel extends Observable {
 			
 			popup.showPage(size);
 			setChanged();
-			notifyObservers("Start Loading " + size + " IDs");
+			notifyObservers("Start Loading new ID");
 			
 			ResultSet set = statement.executeQuery(sql);
 			while (set.next()) {
