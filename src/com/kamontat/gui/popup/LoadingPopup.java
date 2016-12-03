@@ -53,7 +53,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	private void setProgressValue(int value) {
 		progressBar.setValue(value);
-		String textFormat = String.format("%d/o%d", progressBar.getValue(), progressBar.getMaximum());
+		String textFormat = String.format("%d/%d", progressBar.getValue(), progressBar.getMaximum());
 		progressBar.setString(textFormat);
 	}
 	
@@ -63,7 +63,8 @@ public class LoadingPopup extends JDialog implements Observer {
 	}
 	
 	public void showPage(int progressSize) {
-		repaint();
+		setVisible(true);
+		
 		try {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			progressBar.setMaximum(progressSize);
@@ -72,7 +73,6 @@ public class LoadingPopup extends JDialog implements Observer {
 			
 			progressBar.setVisible(true);
 			statusLabel.setVisible(true);
-			setVisible(true);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -81,13 +81,13 @@ public class LoadingPopup extends JDialog implements Observer {
 	public void hidePage(boolean isError) {
 		watch.stop();
 		try {
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			if (!isError) setProgressLabel("Finish in " + watch, new Color(61, 225, 81));
 			else setProgressLabel("Have some Error", new Color(255, 12, 0));
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		dispose();
 	}
 	

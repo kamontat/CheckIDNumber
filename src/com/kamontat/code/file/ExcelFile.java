@@ -50,6 +50,7 @@ public class ExcelFile extends Observable {
 	 * 		extension of file with `.` Example ".xlsx", ".xls"
 	 */
 	public void createExcelFile(String extension) {
+		popup.setVisible(true);
 		popup.showPage(DatabaseAPI.getDatabase(parent).getLocalSize() + 1);
 		
 		setChanged();
