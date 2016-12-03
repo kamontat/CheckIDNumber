@@ -30,14 +30,7 @@ public class ExcelFile extends Observable {
 	private LoadingPopup popup;
 	private Window parent;
 	
-	private static ExcelFile file;
-	
-	public static ExcelFile getFile(Window parent) {
-		if (file == null) file = new ExcelFile(parent);
-		return file;
-	}
-	
-	private ExcelFile(Window parent) {
+	public ExcelFile(Window parent) {
 		this.parent = parent;
 		popup = new LoadingPopup(this.parent);
 		addObserver(popup);
@@ -93,5 +86,7 @@ public class ExcelFile extends Observable {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Cannot export.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+		
+		deleteObserver(popup);
 	}
 }

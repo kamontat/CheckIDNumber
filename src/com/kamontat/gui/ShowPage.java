@@ -224,8 +224,8 @@ public class ShowPage extends JDialog {
 		actions.add(addMenu());
 		actions.add(clearMenu());
 		actions.addSeparator();
-		actions.add(exportMenuXLS());
-		actions.add(exportMenuXLSX());
+		actions.add(exportMenu(".xls"));
+		actions.add(exportMenu(".xlsx"));
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
@@ -244,15 +244,9 @@ public class ShowPage extends JDialog {
 		return add;
 	}
 	
-	private JMenuItem exportMenuXLS() {
-		JMenuItem exportExcel = new JMenuItem("Export (.xls)");
-		exportExcel.addActionListener(e -> ExcelFile.getFile(this).createExcelFile(".xls")); /* export action */
-		return exportExcel;
-	}
-	
-	private JMenuItem exportMenuXLSX() {
-		JMenuItem exportExcel = new JMenuItem("Export (.xlsx)");
-		exportExcel.addActionListener(e -> ExcelFile.getFile(this).createExcelFile(".xlsx")); /* export action */
+	private JMenuItem exportMenu(String extension) {
+		JMenuItem exportExcel = new JMenuItem("Export (" + extension + ")");
+		exportExcel.addActionListener(e -> new ExcelFile(this).createExcelFile(extension)); /* export action */
 		return exportExcel;
 	}
 	
