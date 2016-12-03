@@ -58,12 +58,14 @@ public class ExcelFile extends Observable {
 		int row = 0, column = 0;
 		for (IDNumber id : idList) {
 			sheet.createRow(row).createCell(column).setCellValue(id.getId());
+			sheet.autoSizeColumn(column);
+			
 			setChanged();
 			notifyObservers(row);
-			row++;
-			if (row > 30000) {
-				column++;
-				row = 0;
+			column++;
+			if (column > 10000) {
+				row++;
+				column = 0;
 			}
 		}
 		
