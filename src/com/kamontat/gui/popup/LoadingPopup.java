@@ -53,7 +53,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	private void setProgressValue(int value) {
 		progressBar.setValue(value);
-		String textFormat = String.format("%d - %d", progressBar.getValue(), progressBar.getMaximum());
+		String textFormat = String.format("%d/o%d", progressBar.getValue(), progressBar.getMaximum());
 		progressBar.setString(textFormat);
 	}
 	
