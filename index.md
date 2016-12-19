@@ -18,9 +18,7 @@ This program can use in any computer OS (window, MacOS, Linux) with `Java 8` in 
 ### Authors and Contributors
 All program develop by Kamontat Chantrachirathumrong (Net)
 - [Github](https://github.com/kamontat)
-- [Facebook](https://www.facebook.com/kamontatc)
-- [Twitter](https://twitter.com/kamontat1)
 
 ### Support or Contact
 Having trouble with Pages or Application?
-Check out our [Repository](https://github.com/kamontat/CheckIDNumber) or Mail to me at `kamontat_c@hotmail.com` and we’ll help you sort it out.
+Check out our [Repository](https://github.com/kamontat/CheckIDNumber) or Mail to me at `kamontat_c@hotmail.com` and I’ll help you sort it out.
