@@ -64,8 +64,8 @@ public class MainPage extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				actions.removeAll();
 				actions.add(about());
-				actions.addSeparator();
-				actions.add(testMenu(contentPane));
+//				actions.addSeparator();
+//				actions.add(testMenu(contentPane));
 				actions.addSeparator();
 				actions.add(exitMenu());
 			}
