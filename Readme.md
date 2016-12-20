@@ -9,7 +9,7 @@
 ## Open
 1. download *.jar file and try to click on it <br>
      - If it show error `Java Exception ...` you have to download JRE in your OS version
-     - In other error, bug or problem you have to contact developer by mail: kamontat_c@hotmail.com
+     - In other error, bug or problem you have [contact me](mailto:kamontat_c@hotmail.com?subject=Error/Bug/Problem)
 
 ## More Information
 Go to this [page](https://kamontat.github.io/CheckIDNumber/)
