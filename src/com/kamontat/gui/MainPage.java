@@ -65,6 +65,8 @@ public class MainPage extends JFrame {
 				actions.removeAll();
 				actions.add(about());
 				actions.addSeparator();
+				actions.add(testMenu(contentPane));
+				actions.addSeparator();
 				actions.add(exitMenu());
 			}
 			

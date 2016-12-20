@@ -1,5 +1,7 @@
 package com.kamontat.code.menu;
 
+import com.kamontat.code.file.FileChooser;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +16,6 @@ import static com.kamontat.config.Config.version;
  * @since 10/29/2016 AD - 11:13 PM
  */
 public class MenuItem {
-	
 	public static JMenuItem backMenu(Window page) {
 		JMenuItem exit = new JMenuItem("Back");
 		exit.addActionListener(e -> page.dispose()); /* back action */
@@ -32,5 +33,15 @@ public class MenuItem {
 		JMenuItem about = new JMenuItem("About");
 		about.addActionListener(e -> JOptionPane.showMessageDialog(null, text, "About Me", JOptionPane.INFORMATION_MESSAGE));
 		return about;
+	}
+	
+	public static JMenuItem testMenu(Component c) {
+		JMenuItem test = new JMenuItem("test File Chooser");
+		test.addActionListener(e -> {
+			FileChooser fc = new FileChooser();
+			fc.open(c);
+		});
+		
+		return test;
 	}
 }

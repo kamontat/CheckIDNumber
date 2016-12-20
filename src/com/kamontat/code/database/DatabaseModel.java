@@ -14,7 +14,7 @@ import java.util.*;
  * @since 11/29/2016 AD - 9:39 PM
  */
 public class DatabaseModel extends Observable {
-	private final static String DATABASE_NAME = "jdbc:sqlite:database.sqlite";
+	private final static String DATABASE_NAME = "jdbc:sqlite::resource:database.sqlite";
 	private Connection connection;
 	private Statement statement;
 	
@@ -56,7 +56,7 @@ public class DatabaseModel extends Observable {
 	}
 	
 	private void createTable() {
-		String sql = "CREATE TABLE DATA (";
+		String sql = "CREATE TABLE DATA(";
 		sql += "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ";
 		sql += "id_num TEXT NOT NULL, ";
 		sql += "create_at TEXT NOT NULL);";
@@ -179,11 +179,12 @@ public class DatabaseModel extends Observable {
 				printSQLException(e);
 			}
 			return false;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 	
 	private void printSQLException(SQLException e) {
-		if (!isExist()) createTable();
 		for (SQLCode code : SQLCode.values()) {
 			if (e.getErrorCode() == code.code) {
 				//				JOptionPane.showMessageDialog(null, e.getMessage(), code.message, JOptionPane.ERROR_MESSAGE);
@@ -193,6 +194,7 @@ public class DatabaseModel extends Observable {
 				e.printStackTrace();
 			}
 		}
+		if (!isExist()) createTable();
 	}
 	
 	public void done() {
