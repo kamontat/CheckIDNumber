@@ -82,11 +82,14 @@ public class ExcelFile extends Observable {
 			setChanged();
 			notifyObservers(row);
 			popup.hidePage(false);
-			
+			popup.setVisible(false);
 			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + extension + "\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Cannot export.", "Error", JOptionPane.ERROR_MESSAGE);
+			
+			popup.hidePage(true);
+			popup.setVisible(false);
 		}
 		
 		deleteObserver(popup);
