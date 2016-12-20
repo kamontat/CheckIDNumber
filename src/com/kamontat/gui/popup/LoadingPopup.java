@@ -4,11 +4,10 @@ import com.kamontat.code.font.FontBook;
 import com.kamontat.code.watch.StopWatch;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.util.*;
 
-import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.code.window.Display.getCenterPage;
 
 public class LoadingPopup extends JDialog implements Observer {
 	private JProgressBar progressBar;
@@ -22,7 +21,7 @@ public class LoadingPopup extends JDialog implements Observer {
 		setContentPane(setMainPanel());
 		
 		setSize(450, 100);
-		setLocation(getCenterLocation(getSize()));
+		setLocation(getCenterPage(parent, this));
 		
 		addFont();
 		
@@ -53,8 +52,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	private void setProgressValue(int value) {
 		progressBar.setValue(value);
-		String textFormat = String.format("%d/%d", progressBar.getValue(), progressBar.getMaximum());
-		progressBar.setString(textFormat);
+		progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
 	}
 	
 	private void setProgressLabel(String status, Color color) {
@@ -64,18 +62,9 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	public void showPage(int progressSize) {
 		setVisible(true);
-		
-		try {
-			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			progressBar.setMaximum(progressSize);
-			Thread.sleep(1000);
-			watch.start();
-			
-			progressBar.setVisible(true);
-			statusLabel.setVisible(true);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+		progressBar.setMaximum(progressSize);
+		watch.start();
 	}
 	
 	public void hidePage(boolean isError) {
@@ -84,7 +73,7 @@ public class LoadingPopup extends JDialog implements Observer {
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			if (!isError) setProgressLabel("Finish in " + watch, new Color(61, 225, 81));
 			else setProgressLabel("Have some Error", new Color(255, 12, 0));
-			Thread.sleep(1500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -93,7 +82,6 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		if (arg instanceof String) {
 			setProgressLabel((String) arg, new Color(0, 122, 255));
 		} else {

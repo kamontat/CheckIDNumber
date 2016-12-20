@@ -10,23 +10,27 @@ TO read this file clearly you must know this thing:
 - FEATURE (Major): kamontat 10/21/2016 AD Enter ID-Number and auto check correction (v2)
 - FEATURE (Major): kamontat 10/21/2016 AD Show all ID-Number that save in program
 - FEATURE (Major): kamontat 10/21/2016 AD searching bar in show page (v3)
-- FEATURE (Major): kamontat 10/21/2016 AD Save ID-Number using sql Because performance will perfect (v2)
-- FEATURE (Major): kamontat 10/21/2016 AD Export id-number data to "xls" or "xlsx" (v2)-final
+- FEATURE (Major): kamontat 12/20/2016 AD New way to load and store data is SQLite (v2)
+- FEATURE (Major): kamontat 10/21/2016 AD Export id-number data to "xls" or "xlsx" (v2.1)
 - FEATURE (Major): kamontat 10/21/2016 AD shortcut menu in bar menu
 - FEATURE (Major): kamontat 10/21/2016 AD clear all history
-- FEATURE (Major): kamontat 11/6/2016 AD Status of Database (v2)
+
 
 - FEATURE (Minor): kamontat 10/21/2016 AD error or warning message when enter id-number (v3)
-- FEATURE (Minor): kamontat 10/19/2016 AD create_time in information page (v1)-final
+- FEATURE (Minor): kamontat 10/19/2016 AD create_time at information page
 - FEATURE (Minor): kamontat 10/30/2016 AD delete button in information page iff id have some error
 
 
-- TODO: 10/20/2016 AD 23:12 PM increase performance & speed when deal with very large id-number (v2)
+- TODO: 10/20/2016 AD 23:12 PM increase performance & speed when deal with very large id-number (v1)
 - TODO: 10/30/2016 AD 12:03 AM searching by status of idNumber or other key like address, province etc.
 - TODO: 10/30/2016 AD 11:38 AM edit menu in show page
 - TODO: 11/06/2016 AD 2:32 AM Loading Page FOR many ID (beta.3)
-- TODO: 12/2/2016 AD 11:54 AM shortcut key to action
 
 
-- FIXME: 11/06/2016 AD 2:35 AM fixed program crash when search many id in show page (now maximum 500000)->(target 1 million)
-- FIXME: 11/06/2016 AD 2:39 AM loading page don't show in every time
+- FIXME: 11/06/2016 AD 2:35 AM fixed program crash when search many id in show page (now maximum 600K)->(target 1 Million)
+- FIXME: 11/06/2016 AD 2:39 AM loading page don't show in every page except while first run program
+
+- Deprecated: kamontat 10/21/2016 AD Save ID-Number using text-file Because easy to manage (unsupported and deleted)
+- Deprecated: kamontat 11/6/2016 AD Status of text-file if it isn't exist (use sql instead txt file)
+- Deprecated: kamontat 10/21/2016 AD file status when file got deleted by accidentally (sql is in jar so never be deleted)
+- Deprecated: kamontat 10/19/2016 AD Reopen program button, or refresh loading file (unsupported and deleted)

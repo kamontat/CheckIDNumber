@@ -32,13 +32,11 @@ public class MainPage extends JFrame {
 		createMenuBar();
 		
 		enterBtn.addActionListener(e -> {
-			EnterPage page = new EnterPage(this);
-			page.run();
+			new EnterPage(this).run();
 		});
 		
 		showBtn.addActionListener(e -> {
-			ShowPage page = new ShowPage(this);
-			page.run();
+			new ShowPage(this).run();
 		});
 		
 		// call onCancel() on ESCAPE
@@ -66,6 +64,8 @@ public class MainPage extends JFrame {
 			public void menuSelected(MenuEvent e) {
 				actions.removeAll();
 				actions.add(about());
+//				actions.addSeparator();
+//				actions.add(testMenu(contentPane));
 				actions.addSeparator();
 				actions.add(exitMenu());
 			}

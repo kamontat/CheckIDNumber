@@ -2,12 +2,13 @@
 
 # IntelliJ project files
 .idea
-*.iml
 out
 lib
 src/META-INF
 folderList/
+*.iml
 *.xls
 *.xlsx
+*.sqlite
 
 application/

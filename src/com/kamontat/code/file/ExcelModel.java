@@ -23,16 +23,17 @@ import static com.kamontat.code.database.DatabaseAPI.idList;
  * @version 1.0
  * @since 17/8/59 - 21:49
  */
-public class ExcelFile extends Observable {
+public class ExcelModel extends Observable {
+	
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
 	
 	private LoadingPopup popup;
 	private Window parent;
 	
-	public ExcelFile(Window parent) {
+	public ExcelModel(Window parent) {
 		this.parent = parent;
-		popup = new LoadingPopup(this.parent);
+		popup = new LoadingPopup(null);
 		addObserver(popup);
 	}
 	
@@ -87,9 +88,7 @@ public class ExcelFile extends Observable {
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Cannot export.", "Error", JOptionPane.ERROR_MESSAGE);
-			
 			popup.hidePage(true);
-			popup.setVisible(false);
 		}
 		
 		deleteObserver(popup);
