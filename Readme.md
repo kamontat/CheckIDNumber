@@ -10,6 +10,12 @@
 1. download *.jar file and try to click on it <br>
      - If it show error `Java Exception ...` you have to download JRE in your OS version
      - In other error, bug or problem you have [contact me](mailto:kamontat_c@hotmail.com?subject=Error/Bug/Problem)
+     
+     
+## To download environment to run java (JRE)
+- You have to go download in this [link](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- Find link download file call **JRE** like on picture below
+![picture](https://github.com/kamontat/CheckIDNumber/releases/download/v2.1.3/picture.png)
 
 ## More Information
 Go to this [page](https://kamontat.github.io/CheckIDNumber/)
