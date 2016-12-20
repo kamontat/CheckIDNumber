@@ -4,11 +4,10 @@ import com.kamontat.code.font.FontBook;
 import com.kamontat.code.watch.StopWatch;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.util.*;
 
-import static com.kamontat.code.window.Display.getCenterLocation;
+import static com.kamontat.code.window.Display.getCenterPage;
 
 public class LoadingPopup extends JDialog implements Observer {
 	private JProgressBar progressBar;
@@ -23,7 +22,7 @@ public class LoadingPopup extends JDialog implements Observer {
 		setContentPane(setMainPanel());
 		
 		setSize(450, 100);
-		setLocation(getCenterLocation(getSize()));
+		setLocation(getCenterPage(parent, this));
 		
 		addFont();
 		
@@ -52,7 +51,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	
 	private void setProgressValue(int value) {
 		progressBar.setValue(value);
-		progressBar.setString("-" + progressBar.getValue() + "-");
+		progressBar.setString(progressBar.getValue() + "/" + progressBar.getMaximum());
 	}
 	
 	private void setProgressLabel(String status, Color color) {
@@ -61,7 +60,7 @@ public class LoadingPopup extends JDialog implements Observer {
 	}
 	
 	public void showPage(int progressSize) {
-		repaint();
+		
 		try {
 			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			progressBar.setMaximum(progressSize);

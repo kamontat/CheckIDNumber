@@ -17,7 +17,7 @@ public class assignID extends Observable {
 		DatabaseModel db = DatabaseModel.getDatabase(null);
 		LoadingPopup popup = new LoadingPopup(null);
 		addObserver(popup);
-		
+		Arrays.sort(new int[]{0, 1});
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter: ");
 		int num = input.nextInt();

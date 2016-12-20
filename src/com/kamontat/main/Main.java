@@ -18,6 +18,5 @@ public class Main {
 		
 		MainPage page = new MainPage();
 		page.run(getCenterLocation(page.getSize()));
-		
 	}
 }

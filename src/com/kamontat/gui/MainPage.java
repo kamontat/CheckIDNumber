@@ -32,13 +32,11 @@ public class MainPage extends JFrame {
 		createMenuBar();
 		
 		enterBtn.addActionListener(e -> {
-			EnterPage page = new EnterPage(this);
-			page.run();
+			new EnterPage(this).run();
 		});
 		
 		showBtn.addActionListener(e -> {
-			ShowPage page = new ShowPage(this);
-			page.run();
+			new ShowPage(this).run();
 		});
 		
 		// call onCancel() on ESCAPE

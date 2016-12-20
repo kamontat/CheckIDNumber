@@ -133,14 +133,16 @@ public class DatabaseModel extends Observable {
 				notifyObservers(++readID);
 			}
 			set.close();
+			
 			popup.hidePage(false);
 			return list;
 		} catch (SQLException e) {
 			notifyObservers(SQLCode.which(e.getErrorCode()));
 			printSQLException(e);
+			
+			popup.hidePage(true);
+			return null;
 		}
-		popup.hidePage(true);
-		return null;
 	}
 	
 	public boolean delete(IDNumber number) {

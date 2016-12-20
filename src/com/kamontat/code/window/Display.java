@@ -25,6 +25,10 @@ public class Display {
 	}
 	
 	public static Point getCenterPage(Window oldPage, Window newPage) {
+		if (oldPage == null) {
+			return getCenterLocation(newPage.getSize());
+		}
+		
 		Point currPoint = oldPage.getLocation();
 		
 		int newX = (currPoint.x + (oldPage.getWidth() / 2)) - (newPage.getWidth() / 2);
