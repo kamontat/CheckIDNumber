@@ -29,9 +29,10 @@ public class MenuItem {
 	}
 	
 	public static JMenuItem about() {
-		String text = String.format("If you have any error, feel free to contact me by mail \"kamontat_c@hotmail.com\"\nThis current version is (%s)", version);
+		String content = "This program is for collection thailand id-number\n";
+		String text = String.format("and if you have any error, feel free to contact me by mail \"kamontat_c@hotmail.com\"\nCurrent version is %s", version);
 		JMenuItem about = new JMenuItem("About");
-		about.addActionListener(e -> JOptionPane.showMessageDialog(null, text, "About Me", JOptionPane.INFORMATION_MESSAGE));
+		about.addActionListener(e -> JOptionPane.showMessageDialog(null, content + text, "About Me", JOptionPane.INFORMATION_MESSAGE));
 		return about;
 	}
 	
