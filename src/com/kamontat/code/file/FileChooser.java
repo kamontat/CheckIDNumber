@@ -1,9 +1,11 @@
 package com.kamontat.code.file;
 
+import com.kamontat.code.constant.FileExtension;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * @author kamontat
@@ -27,28 +29,36 @@ public class FileChooser {
 	
 	private void addFilter() {
 		fileChooser.setAcceptAllFileFilterUsed(false);
-		fileChooser.addChoosableFileFilter(new ExcelFileFilter(fileChooser));
+		
+		fileChooser.addChoosableFileFilter(new FileExtensionFilter(fileChooser, FileExtension.TEXT));
+		fileChooser.addChoosableFileFilter(new FileExtensionFilter(fileChooser, FileExtension.EXCEL));
+		fileChooser.addChoosableFileFilter(new FileExtensionFilter(fileChooser, FileExtension.EXCEL_NEW));
 	}
 	
-	public File open(Component c) {
-		int returnVal = fileChooser.showOpenDialog(c);
+	private File getSelectedFile(Component c) {
+		int returnVal = fileChooser.showDialog(c, "Open");
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			return fileChooser.getSelectedFile();
 		}
 		return null;
 	}
 	
+	public File open(Component c) {
+		File f = getSelectedFile(c);
+		return FileExtension.isValid(f) ? f: null;
+	}
+	
 	public File save(Component c) {
-		int returnVal = fileChooser.showSaveDialog(c);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fileChooser.getSelectedFile();
-			try {
-				file.createNewFile();
-				return file;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		File f = getSelectedFile(c);
+		if (!FileExtension.isHaveExt(f))
+			f = new File(f.getAbsolutePath() + "." + ((FileNameExtensionFilter) fileChooser.getFileFilter()).getExtensions()[0]);
+		else if (!FileExtension.isValid(f)) return null;
+		
+		try {
+			if (f.createNewFile()) return f;
+			else return null;
+		} catch (Exception ignored) {
+			return null;
 		}
-		return null;
 	}
 }
