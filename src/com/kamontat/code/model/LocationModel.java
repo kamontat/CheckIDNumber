@@ -1,4 +1,4 @@
-package com.kamontat.code.database;
+package com.kamontat.code.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamontat.code.object.Location;

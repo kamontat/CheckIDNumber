@@ -1,4 +1,4 @@
-package com.kamontat.code.database;
+package com.kamontat.code.model;
 
 import com.kamontat.code.object.IDNumber;
 
@@ -22,7 +22,7 @@ public class DatabaseAPI {
 	public static File dir = Paths.get("").toAbsolutePath().toFile();
 	
 	/**
-	 * get database.db (using sqlite)
+	 * get model.db (using sqlite)
 	 */
 	private DatabaseModel db;
 	private static DatabaseAPI dbApi;
@@ -44,7 +44,7 @@ public class DatabaseAPI {
 	;
 	
 	/**
-	 * get all id-number from database and assign it into <code>idList</code>
+	 * get all id-number from model and assign it into <code>idList</code>
 	 */
 	public void update_local() {
 		idList = db.getAll();
@@ -72,7 +72,7 @@ public class DatabaseAPI {
 	}
 	
 	/**
-	 * search <code>IDNumber</code> by id from <code>database</code> and return index<br>
+	 * search <code>IDNumber</code> by id from <code>model</code> and return index<br>
 	 *
 	 * @param id
 	 * 		id that want to search

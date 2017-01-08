@@ -1,7 +1,7 @@
 package test;
 
 import com.kamontat.code.constant.Status;
-import com.kamontat.code.database.DatabaseModel;
+import com.kamontat.code.model.DatabaseModel;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.popup.LoadingPopup;
 

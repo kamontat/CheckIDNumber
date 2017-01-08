@@ -1,6 +1,6 @@
 package com.kamontat.gui;
 
-import com.kamontat.code.database.DatabaseAPI;
+import com.kamontat.code.model.DatabaseAPI;
 import com.kamontat.code.font.FontBook;
 
 import javax.swing.*;

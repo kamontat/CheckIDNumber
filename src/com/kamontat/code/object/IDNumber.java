@@ -2,15 +2,12 @@ package com.kamontat.code.object;
 
 import com.kamontat.code.constant.Status;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 import static com.kamontat.code.constant.Status.*;
-import static com.kamontat.code.database.DatabaseAPI.idList;
+import static com.kamontat.code.model.DatabaseAPI.idList;
 import static com.kamontat.config.Config.canDuplicate;
 
 /**

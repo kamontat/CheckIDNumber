@@ -1,7 +1,7 @@
 package com.kamontat.main;
 
-import com.kamontat.code.database.DatabaseAPI;
-import com.kamontat.code.database.LocationModel;
+import com.kamontat.code.model.DatabaseAPI;
+import com.kamontat.code.model.LocationModel;
 import com.kamontat.gui.MainPage;
 
 import static com.kamontat.code.window.Display.getCenterLocation;

@@ -1,8 +1,9 @@
 package com.kamontat.gui;
 
-import com.kamontat.code.database.DatabaseAPI;
-import com.kamontat.code.database.LocationModel;
-import com.kamontat.code.file.ExcelModel;
+import com.kamontat.code.constant.FileExtension;
+import com.kamontat.code.model.DatabaseAPI;
+import com.kamontat.code.model.LocationModel;
+import com.kamontat.code.model.ExcelModel;
 import com.kamontat.code.font.FontBook;
 import com.kamontat.code.object.IDNumber;
 
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.kamontat.code.database.DatabaseAPI.idList;
+import static com.kamontat.code.model.DatabaseAPI.idList;
 import static com.kamontat.code.menu.MenuItem.backMenu;
 import static com.kamontat.code.menu.MenuItem.exitMenu;
 import static com.kamontat.code.window.Display.getCenterPage;
@@ -224,8 +225,8 @@ public class ShowPage extends JDialog {
 		actions.add(addMenu());
 		actions.add(clearMenu());
 		actions.addSeparator();
-		actions.add(exportMenu("xls"));
-		actions.add(exportMenu("xlsx"));
+		actions.add(exportMenu(FileExtension.EXCEL));
+		actions.add(exportMenu(FileExtension.EXCEL_NEW));
 		actions.addSeparator();
 		actions.add(backMenu(this));
 		actions.add(exitMenu());
@@ -244,9 +245,9 @@ public class ShowPage extends JDialog {
 		return add;
 	}
 	
-	private JMenuItem exportMenu(String extension) {
-		JMenuItem exportExcel = new JMenuItem("Export (" + extension + ")");
-		exportExcel.addActionListener(e -> new ExcelModel(this).createExcelFile(extension)); /* export action */
+	private JMenuItem exportMenu(FileExtension t) {
+		JMenuItem exportExcel = new JMenuItem("Export (" + t.extension + ")");
+		exportExcel.addActionListener(e -> new ExcelModel(this).createExcelFile(t)); /* export action */
 		return exportExcel;
 	}
 	

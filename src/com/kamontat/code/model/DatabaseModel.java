@@ -1,4 +1,4 @@
-package com.kamontat.code.database;
+package com.kamontat.code.model;
 
 import com.kamontat.code.constant.SQLCode;
 import com.kamontat.code.object.IDNumber;
@@ -14,7 +14,7 @@ import java.util.*;
  * @since 11/29/2016 AD - 9:39 PM
  */
 public class DatabaseModel extends Observable {
-	private final static String DATABASE_NAME = "jdbc:sqlite::resource:database.sqlite";
+	private final static String DATABASE_NAME = "jdbc:sqlite::resource:model.sqlite";
 	private Connection connection;
 	private Statement statement;
 	

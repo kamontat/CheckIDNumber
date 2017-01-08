@@ -1,6 +1,6 @@
-package com.kamontat.code.file;
+package com.kamontat.code.model;
 
-import com.kamontat.code.database.DatabaseAPI;
+import com.kamontat.code.constant.FileExtension;
 import com.kamontat.code.object.IDNumber;
 import com.kamontat.gui.popup.LoadingPopup;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.*;
 
-import static com.kamontat.code.database.DatabaseAPI.dir;
-import static com.kamontat.code.database.DatabaseAPI.idList;
+import static com.kamontat.code.model.DatabaseAPI.dir;
+import static com.kamontat.code.model.DatabaseAPI.idList;
 
 /**
  * This class use to create new excel file in <code>folderList</code> location <br>
@@ -40,17 +40,19 @@ public class ExcelModel extends Observable {
 	/**
 	 * create excel file by <code>idList</code>
 	 *
-	 * @param extension
-	 * 		extension of file with `.` Example ".xlsx", ".xls"
+	 * @param t
+	 * 		type of file extension with `.` Example ".xlsx", ".xls"
 	 */
-	public void createExcelFile(String extension) {
+	public void createExcelFile(FileExtension t) {
+		if (t == FileExtension.TEXT) return;
+		
 		popup.setVisible(true);
 		popup.showPage(DatabaseAPI.getDatabase(parent).getLocalSize() + 1);
 		
 		setChanged();
 		notifyObservers("Start writing excel file");
 		
-		File excelFile = new File(path + name + extension);
+		File excelFile = new File(path + name + t.extension);
 		
 		//Blank workbook
 		XSSFWorkbook workbook = new XSSFWorkbook();
@@ -73,7 +75,7 @@ public class ExcelModel extends Observable {
 		try {
 			int i = 1;
 			while (!excelFile.createNewFile()) {
-				excelFile = new File(path + name + "(" + (i++) + ")" + extension);
+				excelFile = new File(path + name + "(" + (i++) + ")" + t.extension);
 			}
 			
 			FileOutputStream out = new FileOutputStream(excelFile);
@@ -84,7 +86,7 @@ public class ExcelModel extends Observable {
 			notifyObservers(row);
 			popup.hidePage(false);
 			popup.setVisible(false);
-			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + extension + "\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "create file in \"" + (path + name + (--i == 0 ? "": ("(" + (i) + ")")) + t.extension + "\"") + "\n" + "total ID is " + idList.size() + " id.", "Message", JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Cannot export.", "Error", JOptionPane.ERROR_MESSAGE);
