@@ -6,8 +6,8 @@ package com.kamontat.code.constant;
  * @since 11/29/2016 AD - 10:42 PM
 */
 public enum SQLCode {
-	SQLITE_OK(0, "Successful result"),
-	SQLITE_ERROR(1, "SQL error or missing model"),
+	SQLITE_FILE_NOT_FOUND(0, "File SQLite not found"),
+	SQLITE_ERROR(1, "SQL error or missing database"),
 	SQLITE_INTERNAL(2, "Internal logic error in SQLite"),
 	SQLITE_PERM(3, "Access permission denied"),
 	SQLITE_ABORT(4, "Callback routine requested an abort"),

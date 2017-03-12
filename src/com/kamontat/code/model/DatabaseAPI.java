@@ -4,8 +4,6 @@ import com.kamontat.code.object.IDNumber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -16,10 +14,6 @@ import java.util.*;
  * @since 17/8/59 - 23:52
  */
 public class DatabaseAPI {
-	/**
-	 * get current dir
-	 */
-	public static File dir = Paths.get("").toAbsolutePath().toFile();
 	
 	/**
 	 * get model.db (using sqlite)
@@ -91,7 +85,7 @@ public class DatabaseAPI {
 	}
 	
 	public boolean addID(IDNumber id) {
-		boolean isDone = db.addID(id);
+		boolean isDone = db.add(id);
 		if (isDone) idList.add(id);
 		return isDone;
 	}

@@ -1,5 +1,7 @@
 package com.kamontat.code.watch;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * clock object that can run timer of the program
  * <p>
@@ -11,6 +13,34 @@ package com.kamontat.code.watch;
 public class StopWatch {
 	private long startTime;
 	private long stopTime;
+	
+	/**
+	 * this method will give you current time in other unit (nanosecond, microsecond, millisecond, second, minutes) <br>
+	 * if you enter param more than it's example The Default is <b>millisecond</b>
+	 *
+	 * @param timeUnit
+	 * @return
+	 */
+	public static long getCurrentTime(TimeUnit timeUnit) {
+		switch (timeUnit) {
+			case NANOSECONDS:
+				return System.nanoTime();
+			case MICROSECONDS:
+				return getCurrentTime(TimeUnit.NANOSECONDS) / 1000;
+			case MILLISECONDS:
+				return System.currentTimeMillis();
+			case SECONDS:
+				return getCurrentTime(TimeUnit.MILLISECONDS) / 1000;
+			case MINUTES:
+				return getCurrentTime(TimeUnit.SECONDS) / 60;
+			case HOURS:
+				return getCurrentTime(TimeUnit.MINUTES) / 60;
+			case DAYS:
+				return getCurrentTime(TimeUnit.HOURS) / 24;
+			default:
+				return getCurrentTime(TimeUnit.SECONDS);
+		}
+	}
 	
 	public void start() {
 		startTime = System.currentTimeMillis();

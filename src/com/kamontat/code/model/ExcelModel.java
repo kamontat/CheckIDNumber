@@ -10,9 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Paths;
 import java.util.*;
 
-import static com.kamontat.code.model.DatabaseAPI.dir;
 import static com.kamontat.code.model.DatabaseAPI.idList;
 
 /**
@@ -24,6 +24,10 @@ import static com.kamontat.code.model.DatabaseAPI.idList;
  * @since 17/8/59 - 21:49
  */
 public class ExcelModel extends Observable {
+	/**
+	 * get current dir
+	 */
+	private static File dir = Paths.get("").toAbsolutePath().toFile();
 	
 	private static String name = "output";
 	private static String path = dir.getPath() + "/folderList/";
