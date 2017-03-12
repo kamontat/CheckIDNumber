@@ -12,3 +12,4 @@ folderList/
 *.sqlite
 
 application/
+logfile
