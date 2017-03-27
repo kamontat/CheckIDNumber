@@ -15,6 +15,17 @@ so you can clone this git repository by `git clone --depth=<NUMBER> https://gith
      - If it show error `Java Exception ...` you have to download JRE in your OS version
      - In other error, bug or problem you have [contact me](mailto:kamontat_c@hotmail.com?subject=Error/Bug/Problem)
      
+# History
+|Version    |Description|
+|:---------:|:----------|
+|**1.0**    | checking length and duplication of id-number |
+|**2.0**    | information of each id-number |
+|**2.1**    | loading screen when data is large |
+|**2.1.1**  | One-Click-Run |
+|**2.1.3**  | improve speed and enhancement |
+|**2.2.0**  | not longer maintain |
+|**3.0**    | increase id storage to 500k or more |
+     
 ## To download environment to run java (JRE)
 - You have to go download in this [link](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - Find link download file call **JRE** like on picture below
